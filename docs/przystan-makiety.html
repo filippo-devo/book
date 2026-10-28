@@ -1,0 +1,1115 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Przystań — makiety UI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: { navy:'#0B2545', ocean:'#1B6CA8', sea:'#2EC4B6', seadk:'#0E8C80', sand:'#F4E9D8', foam:'#F7FBFC', coral:'#FF6B5B' },
+    fontFamily: { sans: ['"Plus Jakarta Sans"','system-ui','sans-serif'] }
+  } }
+}
+</script>
+<style>
+:root{--navy:#0B2545;--ocean:#1B6CA8;--sea:#2EC4B6;--sand:#F4E9D8;--foam:#F7FBFC;--coral:#FF6B5B}
+*{-webkit-font-smoothing:antialiased}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--navy);background:#E6EEF2;
+  background-image:radial-gradient(1200px 600px at 10% -10%,rgba(46,196,182,.18),transparent 60%),radial-gradient(1000px 700px at 100% 0%,rgba(27,108,168,.14),transparent 60%)}
+.font-display{font-family:'Fraunces',Georgia,serif;font-weight:600;letter-spacing:-.02em;font-variation-settings:"opsz" 96}
+em{font-style:italic;font-weight:500}
+svg.lucide{stroke-width:1.9}
+
+/* board */
+.board{display:grid;grid-template-columns:repeat(auto-fill,414px);gap:72px 56px;justify-content:center}
+.shot{display:flex;flex-direction:column;gap:18px;align-items:center}
+.cap{width:414px;display:grid;grid-template-columns:auto 1fr;column-gap:12px;align-items:baseline;padding:0 6px}
+.cap-num{font-family:'Fraunces',serif;font-size:28px;font-weight:600;color:var(--ocean);grid-row:span 2;line-height:1}
+.cap-name{font-size:17px;font-weight:800;letter-spacing:-.01em}
+.cap-note{font-size:12.5px;color:rgba(11,37,69,.55);font-weight:500}
+
+/* device */
+.phone{width:390px;height:844px;border-radius:56px;position:relative;overflow:hidden;flex-shrink:0;
+  box-shadow:0 0 0 11px #0E1C2C,0 0 0 12.5px #34485F,0 50px 90px -30px rgba(11,37,69,.55),0 30px 60px -40px rgba(11,37,69,.6)}
+.island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:124px;height:36px;border-radius:20px;background:#000;z-index:60}
+.statusbar{position:absolute;top:0;left:0;right:0;height:54px;padding:0 26px 0 32px;display:flex;align-items:center;justify-content:space-between;z-index:55}
+.screen{position:absolute;inset:0;overflow:hidden}
+.home-ind{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:9px;background:#0B2545;z-index:61}
+
+/* tab bar */
+.tabbar{position:absolute;left:0;right:0;bottom:0;height:94px;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:blur(20px);
+  border-radius:28px 28px 0 0;box-shadow:0 -12px 34px -14px rgba(11,37,69,.18),0 -1px 0 rgba(11,37,69,.04);
+  display:grid;grid-template-columns:repeat(5,1fr);padding:9px 6px 0}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;font-weight:700;color:#8C9BAD;letter-spacing:-.005em}
+.tab .ti{width:52px;height:32px;border-radius:999px;display:grid;place-items:center}
+.tab.is-active{color:var(--ocean)}
+.tab.is-active .ti{background:rgba(27,108,168,.1)}
+.tab-center{color:var(--navy)}
+.tab-center .fab{width:62px;height:62px;margin-top:-31px;margin-bottom:2px;border-radius:24px;display:grid;place-items:center;color:#fff;
+  background:linear-gradient(140deg,#1B6CA8 0%,#1E8FB8 50%,#2EC4B6 100%);
+  box-shadow:0 0 0 6px #fff,0 16px 26px -8px rgba(27,108,168,.65);transform:rotate(0deg)}
+.tab-center.is-active{color:var(--ocean)}
+.tab-center.is-active .fab{box-shadow:0 0 0 6px #fff,0 0 0 8px rgba(46,196,182,.35),0 16px 26px -8px rgba(27,108,168,.65)}
+
+/* surfaces */
+.hdr{background:linear-gradient(150deg,#174F86 0%,#1B6CA8 35%,#1F8EB6 70%,#2EC4B6 115%);overflow:hidden}
+.ai-bg{background:radial-gradient(120% 60% at 50% 42%,#1B6CA8 0%,#123A69 45%,#0B2545 75%,#071A33 100%)}
+.card{background:#fff;border-radius:22px;box-shadow:0 1px 2px rgba(11,37,69,.04),0 14px 34px -18px rgba(11,37,69,.22)}
+.shadow-card{box-shadow:0 1px 2px rgba(11,37,69,.04),0 14px 34px -18px rgba(11,37,69,.22)}
+.shadow-soft{box-shadow:0 12px 30px -12px rgba(11,37,69,.28)}
+.h2{font-size:18.5px;font-weight:800;letter-spacing:-.02em;color:var(--navy)}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(11,37,69,.42)}
+.eyebrow-light{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:rgba(255,255,255,.8)}
+.avatar{display:grid;place-items:center;font-weight:800;letter-spacing:-.02em}
+
+/* controls */
+.glass-btn{width:42px;height:42px;border-radius:999px;display:grid;place-items:center;color:#fff;background:rgba(255,255,255,.16);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.28);backdrop-filter:blur(12px)}
+.white-btn{width:44px;height:44px;border-radius:999px;display:grid;place-items:center;color:var(--navy);background:#fff;box-shadow:0 10px 24px -12px rgba(11,37,69,.35),0 0 0 1px rgba(11,37,69,.04)}
+.btn-coral{height:50px;padding:0 24px;border-radius:999px;background:linear-gradient(180deg,#FF7A6B,#FF6B5B 60%,#F45E4E);color:#fff;font-weight:800;font-size:15px;letter-spacing:-.01em;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 14px 26px -10px rgba(255,107,91,.75),inset 0 1px 0 rgba(255,255,255,.25)}
+.btn-soft{height:40px;padding:0 12px;border-radius:999px;background:rgba(27,108,168,.07);color:var(--ocean);font-weight:700;font-size:13px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.chip{height:38px;padding:0 14px;border-radius:999px;background:#fff;color:var(--navy);font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;flex-shrink:0;
+  box-shadow:inset 0 0 0 1px rgba(11,37,69,.09)}
+.chip.is-active{background:var(--navy);color:#fff;box-shadow:0 8px 18px -8px rgba(11,37,69,.6)}
+.chip-glass{height:38px;padding:0 14px;border-radius:999px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.9);font-size:12.5px;font-weight:700;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.search{height:52px;border-radius:18px;background:#fff;display:flex;align-items:center;gap:10px;padding:0 16px;box-shadow:0 12px 28px -14px rgba(11,37,69,.3),inset 0 0 0 1px rgba(11,37,69,.05)}
+.loc-pill{display:inline-flex;align-items:center;gap:5px;height:34px;padding:0 12px;border-radius:999px;background:#fff;font-size:12.5px;font-weight:700;box-shadow:inset 0 0 0 1px rgba(11,37,69,.08)}
+.seg{display:flex;padding:4px;border-radius:999px;background:#EAF0F3}
+.seg-i{flex:1;height:38px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:13.5px;font-weight:700;color:rgba(11,37,69,.5)}
+.seg-i.is-on{background:#fff;color:var(--navy);box-shadow:0 6px 14px -8px rgba(11,37,69,.35)}
+.mini-filter{display:inline-flex;align-items:center;gap:5px;height:30px;padding:0 11px;border-radius:999px;background:var(--sand);color:var(--navy)}
+.tag-soft{display:inline-flex;align-items:center;gap:5px;height:26px;padding:0 10px;border-radius:999px;background:rgba(27,108,168,.08);color:var(--ocean);font-size:11.5px;font-weight:800}
+.tag-soft svg{width:13px;height:13px}
+.tag-float{position:absolute;z-index:2;top:10px;left:10px;display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:800;color:var(--navy);background:rgba(255,255,255,.92);border-radius:999px;padding:3px 8px}
+.badge-top{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:800;color:var(--navy);background:#F4E9D8;border-radius:999px;padding:5px 10px}
+.badge-new{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:800;color:#fff;background:rgba(11,37,69,.55);backdrop-filter:blur(8px);border-radius:999px;padding:5px 10px}
+.rank-chip{font-size:11px;font-weight:800;color:var(--navy);background:#F4E9D8;border-radius:8px;padding:2px 7px}
+.dot-pg{width:6px;height:6px;border-radius:9px;background:rgba(255,255,255,.55)}
+.dot-pg.is-on{width:16px;background:#fff}
+.slot-sm{height:30px;padding:0 10px;border-radius:10px;font-size:12.5px;font-weight:800;color:var(--navy);background:#fff;box-shadow:inset 0 0 0 1px rgba(11,37,69,.1);display:inline-flex;align-items:center}
+.slot-sm.is-on{background:rgba(46,196,182,.14);color:#0E8C80;box-shadow:inset 0 0 0 1.5px rgba(46,196,182,.6)}
+.slot-mini{height:26px;padding:0 9px;border-radius:9px;font-size:12px;font-weight:800;color:var(--navy);background:#EEF3F6;display:inline-flex;align-items:center}
+.slot-mini.is-on{background:var(--coral);color:#fff}
+.slot{height:44px;border-radius:14px;background:#fff;display:grid;place-items:center;font-size:14px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1px rgba(11,37,69,.09)}
+.slot.is-off{color:rgba(11,37,69,.25);text-decoration:line-through;background:transparent;box-shadow:inset 0 0 0 1px rgba(11,37,69,.06)}
+.slot.is-sel{background:var(--ocean);color:#fff;box-shadow:0 10px 20px -8px rgba(27,108,168,.7)}
+.cal-d{position:relative;height:33px;display:grid;place-items:center;font-size:14px;font-weight:700;color:var(--navy);border-radius:12px}
+.cal-d.is-off{color:rgba(11,37,69,.22)}
+.cal-d.is-sel{background:linear-gradient(150deg,#1B6CA8,#2EC4B6);color:#fff;box-shadow:0 10px 18px -8px rgba(27,108,168,.7);margin:0 4px}
+.cal-dot{position:absolute;bottom:3px;width:4px;height:4px;border-radius:9px}
+.price-tile{border-radius:18px;background:#fff;padding:12px;box-shadow:inset 0 0 0 1px rgba(11,37,69,.07)}
+.price-tile.is-hot{background:var(--navy);box-shadow:0 14px 26px -12px rgba(11,37,69,.6)}
+.pt-l{font-size:10.5px;font-weight:800;color:rgba(11,37,69,.45);text-transform:uppercase;letter-spacing:.06em}
+.pt-v{font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--navy);margin-top:4px;line-height:1}
+.pt-u{font-size:11px;color:rgba(11,37,69,.45);font-weight:600;margin-top:2px}
+.is-hot .pt-l,.is-hot .pt-u{color:rgba(255,255,255,.6)} .is-hot .pt-v{color:#fff}
+.tabs{display:flex;gap:20px;border-bottom:1px solid rgba(11,37,69,.08);font-size:14px;font-weight:700;color:rgba(11,37,69,.45)}
+.tabs span{padding-bottom:10px;position:relative}
+.tabs b{font-size:11px;color:rgba(11,37,69,.35)}
+.tabs .is-on{color:var(--navy)}
+.tabs .is-on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;border-radius:3px;background:var(--ocean)}
+.fav-ring{width:60px;height:60px;border-radius:999px;padding:3px;background:linear-gradient(140deg,#1B6CA8,#2EC4B6);display:grid}
+.fav-ring>*{width:100%!important;height:100%!important;border:2.5px solid #F7FBFC;border-radius:999px!important}
+.float-pill{position:absolute;left:50%;transform:translateX(-50%);bottom:112px;z-index:30;height:44px;padding:0 18px;border-radius:999px;background:var(--navy);color:#fff;
+  display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:800;box-shadow:0 14px 28px -10px rgba(11,37,69,.6)}
+.cta-bar{position:absolute;left:12px;right:12px;bottom:104px;z-index:30;background:#fff;border-radius:26px;padding:10px 10px 10px 18px;display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 20px 44px -14px rgba(11,37,69,.35),0 0 0 1px rgba(11,37,69,.04)}
+
+/* AI */
+.ai-cta{display:flex;align-items:center;gap:14px;padding:14px 14px 14px 14px;border-radius:30px;background:linear-gradient(135deg,rgba(255,255,255,.22),rgba(255,255,255,.08));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.3),0 20px 40px -20px rgba(11,37,69,.6);backdrop-filter:blur(14px)}
+.ai-tag{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:800;color:#0B2545;background:#BFF5EE;border-radius:999px;padding:2px 7px}
+.orb{border-radius:999px;background:radial-gradient(circle at 32% 28%,#F0FFFC 0%,#9FF0E5 14%,#2EC4B6 36%,#1B6CA8 70%,#0E3966 100%);
+  box-shadow:0 0 0 6px rgba(255,255,255,.12),0 14px 30px -8px rgba(11,37,69,.6),inset 0 -6px 14px rgba(11,37,69,.35)}
+.orb-xl{border-radius:999px;background:radial-gradient(circle at 34% 28%,#FFFFFF 0%,#BFF7EF 10%,#2EC4B6 34%,#1B6CA8 66%,#0B2545 100%);
+  box-shadow:0 0 60px 10px rgba(46,196,182,.45),0 0 120px 30px rgba(27,108,168,.35),inset 0 -14px 30px rgba(11,37,69,.5),inset 8px 8px 30px rgba(255,255,255,.25)}
+.orb-xl::before{content:"";position:absolute;inset:-34px;border-radius:999px;z-index:-1;filter:blur(18px);
+  background:conic-gradient(from 40deg,rgba(46,196,182,0),rgba(46,196,182,.55),rgba(27,108,168,0) 40%,rgba(255,107,91,.28) 60%,rgba(46,196,182,0) 75%,rgba(191,247,239,.4) 90%,rgba(46,196,182,0))}
+.orb-xl::after{content:"";position:absolute;left:18%;top:12%;width:42%;height:26%;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.75),rgba(255,255,255,0));transform:rotate(-24deg);filter:blur(1px)}
+.live-dot{width:8px;height:8px;border-radius:9px;background:var(--coral);box-shadow:0 0 0 4px rgba(255,107,91,.25)}
+.caret{display:inline-block;width:2.5px;height:22px;background:var(--sea);margin-left:3px;vertical-align:-3px;border-radius:2px}
+
+/* map pins */
+.pin{position:absolute;transform:translate(-50%,-100%);z-index:5}
+.pin-b{display:inline-flex;align-items:center;gap:5px;height:32px;padding:0 11px;border-radius:999px;background:#fff;color:var(--navy);font-size:13px;font-weight:800;white-space:nowrap;
+  box-shadow:0 10px 20px -8px rgba(11,37,69,.45),0 0 0 1px rgba(11,37,69,.05);position:relative}
+.pin-b svg{width:14px;height:14px;color:var(--ocean)}
+.pin-b::after{content:"";position:absolute;left:50%;bottom:-5px;width:10px;height:10px;background:inherit;transform:translateX(-50%) rotate(45deg);border-radius:2px}
+.pin.is-sel{z-index:6}
+.pin.is-sel .pin-b{height:40px;padding:0 15px;font-size:15px;background:var(--coral);color:#fff;box-shadow:0 14px 26px -8px rgba(255,107,91,.8),0 0 0 4px rgba(255,255,255,.9)}
+.pin.is-sel .pin-b svg{color:#fff;width:16px;height:16px}
+
+/* ticket */
+.ticket{background:#fff;border-radius:26px;box-shadow:0 26px 50px -22px rgba(11,37,69,.45);position:relative}
+.ticket-cut{position:relative;height:1px;margin:0 22px;background-image:linear-gradient(90deg,rgba(11,37,69,.18) 50%,transparent 50%);background-size:10px 1px}
+.ticket-cut::before,.ticket-cut::after{content:"";position:absolute;top:-12px;width:24px;height:24px;border-radius:99px;background:#F7FBFC}
+.ticket-cut::before{left:-34px} .ticket-cut::after{right:-34px}
+.verified-strip{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:20px;color:#fff;background:linear-gradient(135deg,#0E8C80,#2EC4B6);box-shadow:0 16px 30px -14px rgba(14,140,128,.7)}
+
+/* podium */
+.podium-col{width:100%;border-radius:18px 18px 0 0;background:linear-gradient(180deg,rgba(255,255,255,.28),rgba(255,255,255,.06));box-shadow:inset 0 1px 0 rgba(255,255,255,.4);display:flex;justify-content:center;padding-top:6px}
+
+/* intro */
+.swatch{display:flex;flex-direction:column;gap:8px}
+.swatch i{display:block;width:100%;height:64px;border-radius:18px;box-shadow:inset 0 0 0 1px rgba(11,37,69,.06)}
+.swatch b{font-size:13px;font-weight:800} .swatch span{font-size:11.5px;color:rgba(11,37,69,.55);font-weight:600;font-family:ui-monospace,monospace}
+
+.ph{position:relative;overflow:hidden;background-size:cover;background-position:center}
+.ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,0) 38%,rgba(11,37,69,.28));pointer-events:none}
+.ph-clay{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 240%22 preserveAspectRatio=%22xMidYMid slice%22%3E%3Cg fill=%22none%22 stroke=%22%23fff%22 stroke-opacity=%22.85%22 stroke-width=%223%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M40 250 L360 250 L282 28 L118 28 Z%22/%3E%3Cpath d=%22M78 250 L146 28 M322 250 L254 28%22/%3E%3Cpath d=%22M96 182 L304 182 M127 82 L273 82 M200 182 L200 82%22/%3E%3C/g%3E%3Cpath d=%22M66 122 L334 122%22 stroke=%22%230B2545%22 stroke-opacity=%22.55%22 stroke-width=%225%22/%3E%3Cpath d=%22M66 118 L334 118%22 stroke=%22%23fff%22 stroke-opacity=%22.9%22 stroke-width=%222%22/%3E%3C/svg%3E"),radial-gradient(120% 90% at 15% 0%,rgba(255,255,255,.28),transparent 55%),linear-gradient(165deg,#E59166,#CC6640 55%,#A94E30)}
+.ph-hard{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 240%22 preserveAspectRatio=%22xMidYMid slice%22%3E%3Cg fill=%22none%22 stroke=%22%23fff%22 stroke-opacity=%22.85%22 stroke-width=%223%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M40 250 L360 250 L282 28 L118 28 Z%22/%3E%3Cpath d=%22M78 250 L146 28 M322 250 L254 28%22/%3E%3Cpath d=%22M96 182 L304 182 M127 82 L273 82 M200 182 L200 82%22/%3E%3C/g%3E%3Cpath d=%22M66 122 L334 122%22 stroke=%22%230B2545%22 stroke-opacity=%22.55%22 stroke-width=%225%22/%3E%3Cpath d=%22M66 118 L334 118%22 stroke=%22%23fff%22 stroke-opacity=%22.9%22 stroke-width=%222%22/%3E%3C/svg%3E"),radial-gradient(120% 90% at 15% 0%,rgba(255,255,255,.28),transparent 55%),linear-gradient(165deg,#4C9BD8,#1B6CA8 55%,#124F82)}
+.ph-pool{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 240%22 preserveAspectRatio=%22xMidYMid slice%22%3E%3Cg stroke=%22%23fff%22 stroke-width=%224%22 stroke-dasharray=%2210 7%22 stroke-opacity=%22.75%22%3E%3Cpath d=%22M80 0V240M160 0V240M240 0V240M320 0V240%22/%3E%3C/g%3E%3Cg stroke=%22%23FF6B5B%22 stroke-width=%224%22 stroke-dasharray=%223 14%22 stroke-opacity=%22.8%22%3E%3Cpath d=%22M80 5V240M160 5V240M240 5V240M320 5V240%22/%3E%3C/g%3E%3Cg fill=%22none%22 stroke=%22%23fff%22 stroke-opacity=%22.22%22 stroke-width=%222%22%3E%3Cpath d=%22M0 40 C 40 25, 70 60, 120 42 S 200 20, 260 48 S 350 30, 400 44%22/%3E%3Cpath d=%22M0 120 C 50 100, 90 140, 140 118 S 230 96, 290 126 S 360 110, 400 122%22/%3E%3Cpath d=%22M0 190 C 40 176, 80 210, 130 192 S 220 170, 280 198 S 360 180, 400 190%22/%3E%3C/g%3E%3Cpath d=%22M120 0V240%22 stroke=%22%230B2545%22 stroke-opacity=%22.18%22 stroke-width=%2210%22/%3E%3Cpath d=%22M200 0V240M280 0V240%22 stroke=%22%230B2545%22 stroke-opacity=%22.12%22 stroke-width=%2210%22/%3E%3C/svg%3E"),radial-gradient(90% 70% at 25% 15%,rgba(255,255,255,.35),transparent 60%),linear-gradient(180deg,#6ADCE6,#2EB5C8 50%,#1A86B2)}
+.ph-squash{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 240%22 preserveAspectRatio=%22xMidYMid slice%22%3E%3Crect width=%22400%22 height=%2278%22 fill=%22%23F7F1E7%22/%3E%3Cpath d=%22M0 70 H400%22 stroke=%22%23D2483B%22 stroke-width=%224%22/%3E%3Cpath d=%22M0 36 H400%22 stroke=%22%23D2483B%22 stroke-width=%223%22 stroke-opacity=%22.8%22/%3E%3Cg stroke=%22%23D2483B%22 stroke-width=%223.5%22 fill=%22none%22%3E%3Cpath d=%22M0 165 H400 M200 165 V240 M90 165 V215 H0 M310 165 V215 H400%22/%3E%3C/g%3E%3C/svg%3E"),repeating-linear-gradient(90deg,#E8C597 0 30px,#DDB585 30px 32px,#E4BF8F 32px 62px,#D9AF7E 62px 64px)}
+.ph-turf{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 240%22 preserveAspectRatio=%22xMidYMid slice%22%3E%3Cg fill=%22none%22 stroke=%22%23fff%22 stroke-opacity=%22.85%22 stroke-width=%223%22%3E%3Crect x=%2220%22 y=%2220%22 width=%22360%22 height=%22200%22/%3E%3Cpath d=%22M200 20 V220%22/%3E%3Ccircle cx=%22200%22 cy=%22120%22 r=%2238%22/%3E%3Crect x=%2220%22 y=%2270%22 width=%2252%22 height=%22100%22/%3E%3Crect x=%22328%22 y=%2270%22 width=%2252%22 height=%22100%22/%3E%3C/g%3E%3Ccircle cx=%22200%22 cy=%22120%22 r=%224%22 fill=%22%23fff%22/%3E%3C/svg%3E"),repeating-linear-gradient(90deg,#46A971 0 44px,#3B9B64 44px 88px)}
+.ph-pilates{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 240%22 preserveAspectRatio=%22xMidYMid slice%22%3E%3Ccircle cx=%22300%22 cy=%2270%22 r=%2290%22 fill=%22%23fff%22 fill-opacity=%22.28%22/%3E%3Crect x=%2240%22 y=%22150%22 width=%22320%22 height=%2218%22 rx=%229%22 fill=%22%23fff%22 fill-opacity=%22.7%22/%3E%3Crect x=%2270%22 y=%22168%22 width=%2210%22 height=%2240%22 rx=%225%22 fill=%22%23fff%22 fill-opacity=%22.55%22/%3E%3Crect x=%22320%22 y=%22168%22 width=%2210%22 height=%2240%22 rx=%225%22 fill=%22%23fff%22 fill-opacity=%22.55%22/%3E%3Crect x=%22110%22 y=%22132%22 width=%22110%22 height=%2218%22 rx=%229%22 fill=%22%230B2545%22 fill-opacity=%22.18%22/%3E%3Cpath d=%22M300 150 V100%22 stroke=%22%23fff%22 stroke-opacity=%22.7%22 stroke-width=%226%22 stroke-linecap=%22round%22/%3E%3C/svg%3E"),linear-gradient(160deg,#F8E6D2,#F0C9AC 55%,#E9A88D)}
+.ph-studio{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 240%22 preserveAspectRatio=%22xMidYMid slice%22%3E%3Cg fill=%22%23fff%22 fill-opacity=%22.9%22%3E%3Crect x=%22110%22 y=%22114%22 width=%22180%22 height=%2210%22 rx=%225%22/%3E%3Crect x=%2292%22 y=%2288%22 width=%2220%22 height=%2262%22 rx=%226%22/%3E%3Crect x=%22288%22 y=%2288%22 width=%2220%22 height=%2262%22 rx=%226%22/%3E%3Crect x=%2272%22 y=%22100%22 width=%2216%22 height=%2238%22 rx=%225%22/%3E%3Crect x=%22312%22 y=%22100%22 width=%2216%22 height=%2238%22 rx=%225%22/%3E%3C/g%3E%3Ccircle cx=%22330%22 cy=%2240%22 r=%2270%22 fill=%22%232EC4B6%22 fill-opacity=%22.25%22/%3E%3C/svg%3E"),radial-gradient(100% 80% at 80% 0%,rgba(46,196,182,.35),transparent 60%),linear-gradient(160deg,#16406E,#0B2545)}
+</style>
+</head>
+<body>
+
+<header class="max-w-[1400px] mx-auto px-8 pt-16 pb-14">
+  <div class="flex flex-wrap items-end justify-between gap-10">
+    <div class="max-w-[640px]">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl grid place-items-center text-white" style="background:linear-gradient(140deg,#1B6CA8,#2EC4B6);box-shadow:0 14px 26px -10px rgba(27,108,168,.7)"><i data-lucide="anchor" class="w-6 h-6"></i></div>
+        <span class="text-[13px] font-extrabold tracking-[.18em] uppercase text-ocean">Przystań · UI Kit v1</span>
+      </div>
+      <h1 class="font-display text-[56px] leading-[1.02] text-navy mt-5">Rezerwuj sport<br>jak <em class="text-ocean">wiatr w żagle</em>.</h1>
+      <p class="text-[16px] leading-relaxed text-navy/65 mt-4 max-w-[540px]">Statyczne makiety aplikacji mobilnej do rezerwacji obiektów sportowych i specjalistów w Trójmieście — z rankingami, zweryfikowanymi opiniami i asystentem głosowym My AI. 13 ekranów · iPhone 390×844.</p>
+    </div>
+    <div class="grid grid-cols-6 gap-3 w-[560px]">
+      <div class="swatch"><i style="background:#0B2545"></i><b>Granat</b><span>#0B2545</span></div>
+      <div class="swatch"><i style="background:#1B6CA8"></i><b>Ocean</b><span>#1B6CA8</span></div>
+      <div class="swatch"><i style="background:#2EC4B6"></i><b>Morska</b><span>#2EC4B6</span></div>
+      <div class="swatch"><i style="background:#F4E9D8"></i><b>Piasek</b><span>#F4E9D8</span></div>
+      <div class="swatch"><i style="background:#F7FBFC"></i><b>Piana</b><span>#F7FBFC</span></div>
+      <div class="swatch"><i style="background:#FF6B5B"></i><b>Koral</b><span>#FF6B5B</span></div>
+      <div class="col-span-6 mt-3 flex items-center gap-6 rounded-2xl bg-white/70 px-5 py-4 shadow-card">
+        <div><p class="font-display text-[34px] leading-none text-navy">Aa</p><p class="text-[11px] font-bold text-navy/45 mt-1">Fraunces · nagłówki</p></div>
+        <div class="w-px h-10 bg-navy/10"></div>
+        <div><p class="text-[30px] leading-none font-extrabold text-navy tracking-tight">Aa</p><p class="text-[11px] font-bold text-navy/45 mt-1">Plus Jakarta Sans · UI</p></div>
+        <div class="ml-auto flex items-center gap-2"><span class="btn-coral !h-10 !px-5 !text-[13px]">Zarezerwuj</span><span class="h-10 px-4 rounded-full bg-sea/15 text-seadk text-[12px] font-extrabold flex items-center gap-1.5"><svg width="13" height="13" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg> 4.97</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="board px-8 pb-28">
+
+<figure class="shot">
+  <figcaption class="cap"><span class="cap-num">01</span><span class="cap-name">Mój klub</span><span class="cap-note">Start · My AI · najbliższa rezerwacja</span></figcaption>
+  <div class="phone" style="background:#F7FBFC">
+    <div class="island"></div>
+    <div class="statusbar text-white"><span class="text-[16px] font-semibold tracking-tight pl-2">9:41</span><span class="flex items-center gap-[6px]"><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.1-1.2A10.2 10.2 0 0 0 8 .6 10.2 10.2 0 0 0 .9 3.4L2 4.6a8.6 8.6 0 0 1 6-2.4Zm0 3.3c1.4 0 2.7.5 3.7 1.4l1.1-1.2A7 7 0 0 0 8 3.9a7 7 0 0 0-4.8 1.8l1.1 1.2c1-.9 2.3-1.4 3.7-1.4Zm0 3.3c-.6 0-1.1.2-1.5.6L8 11l1.5-1.6c-.4-.4-.9-.6-1.5-.6Z"/></svg><svg width="27" height="13" viewBox="0 0 27 13" fill="currentColor"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" fill-opacity=".45"/></svg></span></div>
+    <div class="screen">
+<div class="relative hdr pb-12">
+  <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 390 240" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#fff" stroke-opacity="0.14" stroke-width="1.2"><path d="M-20 40 C 60 14, 130 66, 210 40 S 360 14, 420 40" /><path d="M-20 78 C 60 52, 130 104, 210 78 S 360 52, 420 78" /><path d="M-20 116 C 60 90, 130 142, 210 116 S 360 90, 420 116" /><path d="M-20 154 C 60 128, 130 180, 210 154 S 360 128, 420 154" /><path d="M-20 192 C 60 166, 130 218, 210 192 S 360 166, 420 192" /></svg><div class="absolute -top-16 -right-20 w-64 h-64 rounded-full" style="background:radial-gradient(circle,rgba(255,255,255,.22),transparent 65%)"></div><div class="absolute top-24 -left-24 w-56 h-56 rounded-full" style="background:radial-gradient(circle,rgba(46,196,182,.45),transparent 65%)"></div>
+  <div class="relative px-5 pt-[62px]">
+    <div class="flex items-start justify-between">
+      <div>
+        <p class="eyebrow-light"><i data-lucide="cloud-sun" class="w-3.5 h-3.5"></i> Śr, 28 października · Gdynia 11°</p>
+        <h1 class="font-display text-[32px] leading-[1.08] text-white mt-2">Cześć, Kasia</h1>
+      </div>
+      <div class="flex items-center gap-2.5 pt-1">
+        <div class="glass-btn relative"><i data-lucide="bell" class="w-[18px] h-[18px]"></i><span class="absolute top-[9px] right-[10px] w-2 h-2 rounded-full bg-coral ring-2 ring-[#1D7AAE]"></span></div>
+        <div class="avatar shrink-0 ring-2 ring-white/70" style="width:42px;height:42px;border-radius:9999px;background:linear-gradient(135deg,#FF6B5B,#FFB48F);color:#fff;font-size:15px">KN</div>
+      </div>
+    </div>
+    <div class="ai-cta mt-5">
+      <div class="relative shrink-0">
+        <div class="absolute -inset-2 rounded-full" style="background:radial-gradient(circle,rgba(255,255,255,.35),transparent 70%)"></div>
+        <div class="orb relative w-[66px] h-[66px] grid place-items-center"><i data-lucide="mic" class="w-7 h-7 text-white"></i></div>
+      </div>
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2"><span class="text-white text-[20px] font-extrabold tracking-tight">My AI</span><span class="ai-tag"><i data-lucide="sparkles" class="w-3 h-3"></i> głosowo</span></div>
+        <p class="text-white/80 text-[13px] leading-snug mt-0.5">„Znajdź kort w Orłowie<br>na jutro po 18:00”</p>
+      </div>
+      <div class="w-10 h-10 rounded-full bg-white grid place-items-center text-ocean shadow-lg shrink-0"><i data-lucide="arrow-up-right" class="w-[18px] h-[18px]"></i></div>
+    </div>
+  </div>
+  <svg class="absolute left-0 right-0 bottom-[-1px] w-full" height="34" viewBox="0 0 390 34" preserveAspectRatio="none"><path d="M0 19 C 70 2, 140 2, 205 15 S 330 32, 390 12 V 34 H 0 Z" fill="#F7FBFC"/></svg>
+</div>
+
+<div class="px-5 relative -mt-2">
+  <div class="flex items-end justify-between mb-3 "><h2 class="h2">Najbliższa rezerwacja</h2><span class="text-[13px] font-bold text-ocean">Wszystkie</span></div>
+  <div class="card p-3">
+    <div class="flex gap-3.5">
+      <div class="ph ph-clay w-[92px] h-[92px] rounded-[18px] shrink-0">
+        <span class="absolute left-2 bottom-2 z-10 text-[10px] font-extrabold text-navy bg-white/90 rounded-full px-2 py-0.5">ZA 2 DNI</span>
+      </div>
+      <div class="flex-1 min-w-0 pt-0.5">
+        <div class="flex items-center gap-1.5 text-[10.5px] font-extrabold text-seadk tracking-[.08em] uppercase"><span class="w-1.5 h-1.5 rounded-full bg-sea"></span>Potwierdzona</div>
+        <h3 class="text-[16px] font-extrabold text-navy mt-1 leading-tight tracking-tight">Arena Tenis Redłowo</h3>
+        <p class="text-[12.5px] text-navy/55 mt-0.5">Kort ziemny nr 3 · hala · 90 min</p>
+        <div class="flex items-center gap-3 mt-2 text-[12.5px] font-bold text-navy">
+          <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3.5 h-3.5 text-ocean"></i> Pt, 30.10</span>
+          <span class="flex items-center gap-1"><i data-lucide="clock-3" class="w-3.5 h-3.5 text-ocean"></i> 18:00</span>
+        </div>
+      </div>
+    </div>
+    <div class="flex gap-2 mt-3">
+      <div class="btn-soft flex-1"><i data-lucide="navigation" class="w-4 h-4"></i> Nawiguj</div>
+      <div class="btn-soft flex-1"><i data-lucide="user-plus" class="w-4 h-4"></i> Zaproś</div>
+      <div class="btn-soft w-11 px-0"><i data-lucide="ellipsis" class="w-4 h-4"></i></div>
+    </div>
+  </div>
+
+  <div class="flex items-end justify-between mb-3 mt-6"><h2 class="h2">Ulubione</h2><span class="text-[13px] font-bold text-ocean">Edytuj</span></div>
+  <div class="flex justify-between">
+    <div class="flex flex-col items-center gap-1.5 w-[62px]"><div class="fav-ring"><div class="ph ph-squash w-full h-full rounded-full"></div></div><span class="text-[11px] font-semibold text-navy/75 text-center leading-tight">Squash<br>Point</span></div>
+    <div class="flex flex-col items-center gap-1.5 w-[62px]"><div class="fav-ring"><div class="avatar shrink-0 " style="width:52px;height:52px;border-radius:9999px;background:linear-gradient(135deg,#1B6CA8,#2EC4B6);color:#fff;font-size:18px">MK</div></div><span class="text-[11px] font-semibold text-navy/75 text-center leading-tight">Michał<br>Kowalczyk</span></div>
+    <div class="flex flex-col items-center gap-1.5 w-[62px]"><div class="fav-ring"><div class="ph ph-pool w-full h-full rounded-full"></div></div><span class="text-[11px] font-semibold text-navy/75 text-center leading-tight">Pływalnia<br>Orłowo</span></div>
+    <div class="flex flex-col items-center gap-1.5 w-[62px]"><div class="fav-ring"><div class="avatar shrink-0 " style="width:52px;height:52px;border-radius:9999px;background:linear-gradient(135deg,#FF6B5B,#FFB48F);color:#fff;font-size:18px">AW</div></div><span class="text-[11px] font-semibold text-navy/75 text-center leading-tight">Anna<br>Wiśniewska</span></div>
+    <div class="flex flex-col items-center gap-1.5 w-[62px]"><div class="fav-ring"><div class="w-full h-full rounded-full grid place-items-center bg-sand text-navy"><i data-lucide="plus" class="w-5 h-5"></i></div></div><span class="text-[11px] font-semibold text-navy/75 text-center leading-tight">Dodaj</span></div>
+  </div>
+
+  <div class="flex items-end justify-between mb-3 mt-6"><h2 class="h2">Polecane w okolicy</h2><span class="text-[13px] font-bold text-ocean">Mapa</span></div>
+  <div class="flex gap-3">
+    <div class="card w-[232px] shrink-0 overflow-hidden">
+      <div class="ph ph-pool h-[96px]"><span class="tag-float"><svg width="11" height="11" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg> 4.8</span></div>
+      <div class="p-3"><p class="font-extrabold text-navy text-[14px]">Morska Pływalnia Orłowo</p><p class="text-[12px] text-navy/50">Basen 25 m · 1,4 km · od 22 zł</p></div>
+    </div>
+    <div class="card w-[232px] shrink-0 overflow-hidden">
+      <div class="ph ph-pilates h-[96px]"><span class="tag-float"><svg width="11" height="11" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg> 4.9</span></div>
+      <div class="p-3"><p class="font-extrabold text-navy text-[14px]">Studio Bryza Pilates</p><p class="text-[12px] text-navy/50">Reformer · Sopot · od 75 zł</p></div>
+    </div>
+  </div>
+</div>
+</div>
+    
+    <nav class="tabbar"><div class="tab is-active"><div class="ti"><i data-lucide="anchor" class="w-[22px] h-[22px]"></i></div><span>Mój klub</span></div><div class="tab"><div class="ti"><i data-lucide="search" class="w-[22px] h-[22px]"></i></div><span>Znajdź</span></div><div class="tab tab-center"><div class="fab"><i data-lucide="concierge-bell" class="w-[26px] h-[26px]"></i></div><span>Hospitality</span></div><div class="tab"><div class="ti"><i data-lucide="calendar-check-2" class="w-[22px] h-[22px]"></i></div><span>Rezerwacje</span></div><div class="tab"><div class="ti"><i data-lucide="circle-user-round" class="w-[22px] h-[22px]"></i></div><span>Konto</span></div></nav><div class="home-ind"></div>
+  </div>
+</figure>
+<figure class="shot">
+  <figcaption class="cap"><span class="cap-num">02</span><span class="cap-name">My AI</span><span class="cap-note">Asystent głosowy · stan „słucham”</span></figcaption>
+  <div class="phone" style="background:#0B2545">
+    <div class="island"></div>
+    <div class="statusbar text-white"><span class="text-[16px] font-semibold tracking-tight pl-2">9:41</span><span class="flex items-center gap-[6px]"><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.1-1.2A10.2 10.2 0 0 0 8 .6 10.2 10.2 0 0 0 .9 3.4L2 4.6a8.6 8.6 0 0 1 6-2.4Zm0 3.3c1.4 0 2.7.5 3.7 1.4l1.1-1.2A7 7 0 0 0 8 3.9a7 7 0 0 0-4.8 1.8l1.1 1.2c1-.9 2.3-1.4 3.7-1.4Zm0 3.3c-.6 0-1.1.2-1.5.6L8 11l1.5-1.6c-.4-.4-.9-.6-1.5-.6Z"/></svg><svg width="27" height="13" viewBox="0 0 27 13" fill="currentColor"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" fill-opacity=".45"/></svg></span></div>
+    <div class="screen">
+<div class="absolute inset-0 ai-bg"></div>
+<svg class="absolute inset-x-0 top-[330px] w-full opacity-60" height="160" viewBox="0 0 390 160" fill="none" stroke-width="1.2">
+  <path d="M-10 80 C 60 20, 120 140, 195 80 S 330 20, 400 80" stroke="#2EC4B6" stroke-opacity=".35"/>
+  <path d="M-10 90 C 70 40, 130 150, 195 90 S 320 30, 400 95" stroke="#1B6CA8" stroke-opacity=".5"/>
+  <path d="M-10 70 C 50 120, 140 10, 195 70 S 340 130, 400 65" stroke="#fff" stroke-opacity=".12"/>
+</svg>
+<div class="relative px-5 pt-[60px]">
+  <div class="flex items-center justify-between">
+    <div class="glass-btn "><i data-lucide="x" class="w-[18px] h-[18px]"></i></div>
+    <div class="text-center">
+      <p class="text-white font-extrabold text-[16px] flex items-center gap-1.5 justify-center"><i data-lucide="sparkles" class="w-4 h-4 text-sea"></i> My AI</p>
+      <p class="text-white/50 text-[11px] font-semibold">Asystent rezerwacji</p>
+    </div>
+    <div class="glass-btn "><i data-lucide="history" class="w-[18px] h-[18px]"></i></div>
+  </div>
+
+  <div class="mt-6">
+    <p class="text-[10.5px] font-extrabold tracking-[.16em] text-sea uppercase flex items-center gap-2"><span class="live-dot"></span>Transkrypcja na żywo</p>
+    <p class="text-white text-[22px] leading-[1.32] font-semibold mt-2.5 tracking-tight">Znajdź kort tenisowy w Gdyni na jutro po 18:00, <span class="text-white/40">najlepiej kryty, blisko Orłowa</span><span class="caret"></span></p>
+  </div>
+
+  <div class="relative h-[196px] grid place-items-center mt-1">
+    <div class="absolute w-[196px] h-[196px] rounded-full border border-white/[.07]"></div>
+    <div class="absolute w-[160px] h-[160px] rounded-full border border-sea/20"></div>
+    <div class="orb-xl relative w-[118px] h-[118px]"></div>
+    <div class="absolute left-0 top-1/2 -translate-y-1/2"><div class="glass-btn "><i data-lucide="keyboard" class="w-[18px] h-[18px]"></i></div></div>
+    <div class="absolute right-0 top-1/2 -translate-y-1/2"><div class="glass-btn !bg-coral/90 !ring-0"><i data-lucide="square" class="w-3.5 h-3.5 fill-white"></i></div></div>
+  </div>
+  <div class="-mt-2 flex flex-col items-center gap-2">
+    <div class="flex items-center justify-center" style="gap:3px;height:26px"><span style="width:3px;height:4px;background:#2EC4B6;opacity:0.45" class="rounded-full"></span><span style="width:3px;height:4px;background:#2EC4B6;opacity:0.54" class="rounded-full"></span><span style="width:3px;height:4px;background:#2EC4B6;opacity:0.61" class="rounded-full"></span><span style="width:3px;height:6px;background:#2EC4B6;opacity:0.67" class="rounded-full"></span><span style="width:3px;height:7px;background:#2EC4B6;opacity:0.72" class="rounded-full"></span><span style="width:3px;height:12px;background:#2EC4B6;opacity:0.77" class="rounded-full"></span><span style="width:3px;height:15px;background:#2EC4B6;opacity:0.82" class="rounded-full"></span><span style="width:3px;height:13px;background:#2EC4B6;opacity:0.86" class="rounded-full"></span><span style="width:3px;height:19px;background:#2EC4B6;opacity:0.89" class="rounded-full"></span><span style="width:3px;height:11px;background:#2EC4B6;opacity:0.92" class="rounded-full"></span><span style="width:3px;height:11px;background:#2EC4B6;opacity:0.95" class="rounded-full"></span><span style="width:3px;height:15px;background:#2EC4B6;opacity:0.97" class="rounded-full"></span><span style="width:3px;height:18px;background:#2EC4B6;opacity:0.98" class="rounded-full"></span><span style="width:3px;height:25px;background:#2EC4B6;opacity:0.99" class="rounded-full"></span><span style="width:3px;height:12px;background:#2EC4B6;opacity:1.00" class="rounded-full"></span><span style="width:3px;height:22px;background:#2EC4B6;opacity:1.00" class="rounded-full"></span><span style="width:3px;height:14px;background:#2EC4B6;opacity:0.99" class="rounded-full"></span><span style="width:3px;height:13px;background:#2EC4B6;opacity:0.98" class="rounded-full"></span><span style="width:3px;height:18px;background:#2EC4B6;opacity:0.97" class="rounded-full"></span><span style="width:3px;height:14px;background:#2EC4B6;opacity:0.95" class="rounded-full"></span><span style="width:3px;height:22px;background:#2EC4B6;opacity:0.92" class="rounded-full"></span><span style="width:3px;height:12px;background:#2EC4B6;opacity:0.89" class="rounded-full"></span><span style="width:3px;height:14px;background:#2EC4B6;opacity:0.86" class="rounded-full"></span><span style="width:3px;height:9px;background:#2EC4B6;opacity:0.82" class="rounded-full"></span><span style="width:3px;height:8px;background:#2EC4B6;opacity:0.77" class="rounded-full"></span><span style="width:3px;height:11px;background:#2EC4B6;opacity:0.72" class="rounded-full"></span><span style="width:3px;height:5px;background:#2EC4B6;opacity:0.67" class="rounded-full"></span><span style="width:3px;height:7px;background:#2EC4B6;opacity:0.61" class="rounded-full"></span><span style="width:3px;height:4px;background:#2EC4B6;opacity:0.54" class="rounded-full"></span><span style="width:3px;height:4px;background:#2EC4B6;opacity:0.45" class="rounded-full"></span></div>
+    <p class="text-white/85 text-[14px] font-bold tracking-tight">Słucham…</p>
+  </div>
+
+  <div class="mt-4 flex items-center justify-between">
+    <p class="text-white text-[13.5px] font-bold">Mam 3 wolne korty kryte · jutro</p>
+    <span class="text-sea text-[12.5px] font-bold">Pokaż na mapie</span>
+  </div>
+  <div class="flex gap-3 mt-3 -mr-5">
+    <div class="w-[262px] shrink-0 rounded-[22px] bg-white p-3 shadow-[0_18px_40px_-16px_rgba(0,0,0,.5)]">
+      <div class="flex gap-3">
+        <div class="ph ph-clay w-[58px] h-[58px] rounded-[14px] shrink-0"></div>
+        <div class="min-w-0 flex-1">
+          <p class="font-extrabold text-navy text-[14px] leading-tight truncate">Arena Tenis Redłowo</p>
+          <p class="text-[11.5px] text-navy/55 mt-0.5">Kryty · ziemny · 1,2 km</p>
+          <div class="mt-1"><span class="inline-flex items-center gap-1 text-[12px] font-bold text-navy"><svg width="12" height="12" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg>4.9</span></div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between mt-3">
+        <div class="flex gap-1.5"><span class="slot-mini is-on">18:00</span><span class="slot-mini">19:30</span></div>
+        <span class="text-[13px] font-extrabold text-navy">90 zł</span>
+      </div>
+    </div>
+    <div class="w-[262px] shrink-0 rounded-[22px] bg-white p-3 shadow-[0_18px_40px_-16px_rgba(0,0,0,.5)]">
+      <div class="flex gap-3">
+        <div class="ph ph-hard w-[58px] h-[58px] rounded-[14px] shrink-0"></div>
+        <div class="min-w-0 flex-1">
+          <p class="font-extrabold text-navy text-[14px] leading-tight truncate">Kort Kamienna Góra</p>
+          <p class="text-[11.5px] text-navy/55 mt-0.5">Kryty · twardy · 2,8 km</p>
+          <div class="mt-1"><span class="inline-flex items-center gap-1 text-[12px] font-bold text-navy"><svg width="12" height="12" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg>4.7</span></div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between mt-3">
+        <div class="flex gap-1.5"><span class="slot-mini is-on">18:30</span><span class="slot-mini">20:00</span></div>
+        <span class="text-[13px] font-extrabold text-navy">75 zł</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="text-white/45 text-[11px] font-extrabold tracking-[.14em] uppercase mt-5">Spróbuj powiedzieć</p>
+  <div class="flex gap-2 mt-2.5 -mr-5 overflow-hidden">
+    <span class="chip-glass">„Fizjo w Sopocie dziś”</span>
+    <span class="chip-glass">„Orlik na sobotę, 12 osób”</span>
+    <span class="chip-glass">„Najlepszy trener pływania”</span>
+  </div>
+</div>
+</div>
+    
+    <nav class="tabbar"><div class="tab is-active"><div class="ti"><i data-lucide="anchor" class="w-[22px] h-[22px]"></i></div><span>Mój klub</span></div><div class="tab"><div class="ti"><i data-lucide="search" class="w-[22px] h-[22px]"></i></div><span>Znajdź</span></div><div class="tab tab-center"><div class="fab"><i data-lucide="concierge-bell" class="w-[26px] h-[26px]"></i></div><span>Hospitality</span></div><div class="tab"><div class="ti"><i data-lucide="calendar-check-2" class="w-[22px] h-[22px]"></i></div><span>Rezerwacje</span></div><div class="tab"><div class="ti"><i data-lucide="circle-user-round" class="w-[22px] h-[22px]"></i></div><span>Konto</span></div></nav><div class="home-ind"></div>
+  </div>
+</figure>
+<figure class="shot">
+  <figcaption class="cap"><span class="cap-num">03</span><span class="cap-name">Znajdź — lista</span><span class="cap-note">Chipy sportów · wyszukiwarka · karty</span></figcaption>
+  <div class="phone" style="background:#F7FBFC">
+    <div class="island"></div>
+    <div class="statusbar text-navy"><span class="text-[16px] font-semibold tracking-tight pl-2">9:41</span><span class="flex items-center gap-[6px]"><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.1-1.2A10.2 10.2 0 0 0 8 .6 10.2 10.2 0 0 0 .9 3.4L2 4.6a8.6 8.6 0 0 1 6-2.4Zm0 3.3c1.4 0 2.7.5 3.7 1.4l1.1-1.2A7 7 0 0 0 8 3.9a7 7 0 0 0-4.8 1.8l1.1 1.2c1-.9 2.3-1.4 3.7-1.4Zm0 3.3c-.6 0-1.1.2-1.5.6L8 11l1.5-1.6c-.4-.4-.9-.6-1.5-.6Z"/></svg><svg width="27" height="13" viewBox="0 0 27 13" fill="currentColor"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" fill-opacity=".45"/></svg></span></div>
+    <div class="screen">
+<div class="px-5 pt-[60px]">
+  <div class="flex items-center justify-between">
+    <h1 class="font-display text-[32px] text-navy leading-none">Znajdź</h1>
+    <span class="loc-pill"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-coral"></i> Gdynia, Redłowo <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-navy/40"></i></span>
+  </div>
+  <div class="flex gap-2.5 mt-4">
+    <div class="search flex-1"><i data-lucide="search" class="w-[18px] h-[18px] text-navy/40"></i><span class="text-navy/40 text-[14px] font-medium">Sport, obiekt lub dzielnica</span></div>
+    <div class="w-[52px] h-[52px] rounded-[18px] bg-navy text-white grid place-items-center shadow-soft"><i data-lucide="sliders-horizontal" class="w-5 h-5"></i></div>
+  </div>
+  <div class="seg mt-4"><span class="seg-i is-on"><i data-lucide="map-pinned" class="w-4 h-4"></i> Miejsca</span><span class="seg-i"><i data-lucide="user-round-check" class="w-4 h-4"></i> Specjaliści</span></div>
+</div>
+<div class="flex gap-2 mt-4 px-5 overflow-hidden">
+  <span class="chip"><i data-lucide="layout-grid" class="w-4 h-4"></i>Wszystkie</span><span class="chip is-active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[16px] h-[16px]"><circle cx="12" cy="12" r="9.3"/><path d="M5.4 5.4a9.3 9.3 0 0 1 0 13.2M18.6 5.4a9.3 9.3 0 0 0 0 13.2"/></svg>Tenis</span><span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[16px] h-[16px]"><circle cx="10" cy="9" r="6.3"/><path d="M14.5 13.5L20 19"/><circle cx="8.5" cy="7.5" r=".6" fill="currentColor"/><circle cx="11.5" cy="7.5" r=".6" fill="currentColor"/><circle cx="10" cy="10.5" r=".6" fill="currentColor"/></svg>Padel</span><span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[16px] h-[16px]"><ellipse cx="9.5" cy="8.5" rx="4.6" ry="6.4" transform="rotate(-40 9.5 8.5)"/><path d="M13 12.6l7 7"/><circle cx="19" cy="5" r="1.6"/></svg>Squash</span><span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[16px] h-[16px]"><circle cx="12" cy="12" r="9.3"/><path d="M12 8l3.6 2.6-1.4 4.2H9.8l-1.4-4.2z"/><path d="M12 8V2.8M15.6 10.6l4.8-1.4M14.2 14.8l2.9 3.9M9.8 14.8l-2.9 3.9M8.4 10.6L3.6 9.2"/></svg>Orlik</span><span class="chip"><i data-lucide="waves" class="w-4 h-4"></i>Basen</span>
+</div>
+<div class="px-5">
+  <div class="flex items-center gap-2 mt-3 text-[12.5px] font-semibold text-navy/70">
+    <span class="mini-filter"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> Jutro, 18–21</span>
+    <span class="mini-filter"><i data-lucide="locate" class="w-3.5 h-3.5"></i> do 3 km</span>
+    <span class="mini-filter"><i data-lucide="warehouse" class="w-3.5 h-3.5"></i> Kryte</span>
+  </div>
+  <div class="flex items-center justify-between mt-4 mb-3">
+    <p class="text-[13px] text-navy/55 font-semibold"><span class="text-navy font-extrabold">14 kortów</span> z wolnym terminem</p>
+    <span class="text-[13px] font-bold text-navy flex items-center gap-1">Polecane <i data-lucide="arrow-down-up" class="w-3.5 h-3.5"></i></span>
+  </div>
+
+  <div class="card overflow-hidden">
+    <div class="ph ph-clay h-[148px]">
+      <span class="absolute z-10 top-3 left-3 badge-top"><i data-lucide="trophy" class="w-3.5 h-3.5"></i> #2 w Trójmieście</span>
+      <div class="absolute z-10 top-3 right-3 w-9 h-9 rounded-full bg-white/90 grid place-items-center text-coral"><i data-lucide="heart" class="w-[18px] h-[18px] fill-coral"></i></div>
+      <div class="absolute z-10 bottom-3 right-3 flex gap-1"><span class="dot-pg is-on"></span><span class="dot-pg"></span><span class="dot-pg"></span><span class="dot-pg"></span></div>
+    </div>
+    <div class="p-4 pt-3.5">
+      <div class="flex items-start justify-between gap-2">
+        <div>
+          <h3 class="text-[17px] font-extrabold text-navy tracking-tight leading-tight">Arena Tenis Redłowo</h3>
+          <p class="text-[12.5px] text-navy/55 mt-0.5">Tenis · padel · ul. Legionów 130 · 1,2 km</p>
+        </div>
+        <span class="inline-flex items-center gap-1 text-[13px] font-bold text-navy"><svg width="14" height="14" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg>4.9<span class="font-medium text-navy/45">(312)</span></span>
+      </div>
+      <div class="flex items-center justify-between mt-3">
+        <div class="flex gap-1.5"><span class="slot-sm is-on">18:00</span><span class="slot-sm">19:30</span><span class="slot-sm">20:00</span><span class="slot-sm !bg-transparent !ring-0 text-navy/45">+4</span></div>
+        <p class="text-[12px] text-navy/50">od <span class="text-[16px] font-extrabold text-navy">80 zł</span>/h</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card overflow-hidden mt-3">
+    <div class="ph ph-hard h-[120px]"><span class="absolute z-10 top-3 left-3 badge-new"><i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Nowość</span></div>
+    <div class="p-4"><h3 class="text-[17px] font-extrabold text-navy">Padel Bałtyk Gdynia</h3></div>
+  </div>
+</div>
+</div>
+    <div class="float-pill"><i data-lucide="map" class="w-4 h-4"></i> Mapa</div>
+    <nav class="tabbar"><div class="tab"><div class="ti"><i data-lucide="anchor" class="w-[22px] h-[22px]"></i></div><span>Mój klub</span></div><div class="tab is-active"><div class="ti"><i data-lucide="search" class="w-[22px] h-[22px]"></i></div><span>Znajdź</span></div><div class="tab tab-center"><div class="fab"><i data-lucide="concierge-bell" class="w-[26px] h-[26px]"></i></div><span>Hospitality</span></div><div class="tab"><div class="ti"><i data-lucide="calendar-check-2" class="w-[22px] h-[22px]"></i></div><span>Rezerwacje</span></div><div class="tab"><div class="ti"><i data-lucide="circle-user-round" class="w-[22px] h-[22px]"></i></div><span>Konto</span></div></nav><div class="home-ind"></div>
+  </div>
+</figure>
+<figure class="shot">
+  <figcaption class="cap"><span class="cap-num">04</span><span class="cap-name">Znajdź — mapa</span><span class="cap-note">Pinezki z ceną · karta obiektu</span></figcaption>
+  <div class="phone" style="background:#F1EEE7">
+    <div class="island"></div>
+    <div class="statusbar text-navy"><span class="text-[16px] font-semibold tracking-tight pl-2">9:41</span><span class="flex items-center gap-[6px]"><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.1-1.2A10.2 10.2 0 0 0 8 .6 10.2 10.2 0 0 0 .9 3.4L2 4.6a8.6 8.6 0 0 1 6-2.4Zm0 3.3c1.4 0 2.7.5 3.7 1.4l1.1-1.2A7 7 0 0 0 8 3.9a7 7 0 0 0-4.8 1.8l1.1 1.2c1-.9 2.3-1.4 3.7-1.4Zm0 3.3c-.6 0-1.1.2-1.5.6L8 11l1.5-1.6c-.4-.4-.9-.6-1.5-.6Z"/></svg><svg width="27" height="13" viewBox="0 0 27 13" fill="currentColor"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" fill-opacity=".45"/></svg></span></div>
+    <div class="screen">
+
+<svg class="absolute inset-0" width="390" height="844" viewBox="0 0 390 844">
+  <defs>
+    <linearGradient id="sea" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#CBEAF1"/><stop offset="1" stop-color="#9ED4E4"/></linearGradient>
+    <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse" patternTransform="rotate(8)"><path d="M34 0H0V34" fill="none" stroke="#fff" stroke-width="2.2"/></pattern>
+  </defs>
+  <rect width="390" height="844" fill="#F1EEE7"/>
+  <rect width="390" height="844" fill="url(#grid)" opacity=".9"/>
+  <path d="M0 110 C 70 96, 118 160, 96 236 C 76 312, 26 330, 0 318 Z" fill="#D9EBDA"/>
+  <path d="M0 500 C 74 480, 124 548, 104 630 C 86 694, 34 716, 0 704 Z" fill="#D9EBDA"/>
+  <path d="M232 268 C 262 254, 292 280, 288 318 C 284 352, 246 360, 232 336 C 222 316, 220 280, 232 268 Z" fill="#D2E7D3"/>
+  <path d="M272 0 C 262 120, 302 180, 294 262 C 288 330, 330 362, 320 432 C 308 520, 264 560, 272 640 C 278 720, 242 780, 238 844" fill="none" stroke="#EADCC3" stroke-width="12"/>
+  <path d="M272 0 C 262 120, 302 180, 294 262 C 288 330, 330 362, 320 432 C 308 520, 264 560, 272 640 C 278 720, 242 780, 238 844 L 390 844 L 390 0 Z" fill="url(#sea)"/>
+  <path d="M318 418 L 360 410" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+  <path d="M244 770 L 300 780" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+  <g fill="none" stroke="#fff" stroke-linecap="round">
+    <path d="M0 196 L 280 232" stroke-width="7"/>
+    <path d="M0 418 L 305 400" stroke-width="7"/>
+    <path d="M30 612 L 268 628" stroke-width="7"/>
+    <path d="M60 0 C 70 300, 40 560, 70 844" stroke-width="6"/>
+  </g>
+  <path d="M152 0 C 162 150, 204 262, 198 384 C 192 502, 158 602, 168 844" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round"/>
+  <path d="M152 0 C 162 150, 204 262, 198 384 C 192 502, 158 602, 168 844" fill="none" stroke="#FCE3B8" stroke-width="9" stroke-linecap="round"/>
+  <path d="M118 0 C 128 300, 138 500, 120 844" fill="none" stroke="#C3CAD3" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <g font-family="Plus Jakarta Sans" font-weight="700" font-size="9.5" letter-spacing="2" fill="#0B2545" fill-opacity=".38">
+    <text x="176" y="182">KAMIENNA GÓRA</text><text x="20" y="300">REDŁOWO</text>
+    <text x="210" y="470">ORŁOWO</text><text x="18" y="520">MAŁY KACK</text><text x="186" y="742">SOPOT</text>
+  </g>
+  <text x="300" y="250" font-family="Plus Jakarta Sans" font-weight="600" font-size="9" fill="#0B2545" fill-opacity=".38">Kępa Redłowska</text>
+  <text font-family="Fraunces" font-style="italic" font-size="17" fill="#3E8FB0" fill-opacity=".75" transform="translate(372 330) rotate(-80)">Zatoka Gdańska</text>
+  <text x="196" y="372" transform="rotate(-82 196 372)" font-family="Plus Jakarta Sans" font-weight="700" font-size="8" fill="#9A7B4A" fill-opacity=".7" letter-spacing="1">AL. ZWYCIĘSTWA</text>
+</svg>
+<div class="pin" style="left:214px;top:222px"><span class="pin-b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[16px] h-[16px]"><circle cx="12" cy="12" r="9.3"/><path d="M5.4 5.4a9.3 9.3 0 0 1 0 13.2M18.6 5.4a9.3 9.3 0 0 0 0 13.2"/></svg>120 zł</span></div>
+<div class="pin" style="left:92px;top:360px"><span class="pin-b"><i data-lucide="waves" class="w-3.5 h-3.5"></i>22 zł</span></div>
+<div class="pin" style="left:160px;top:330px"><span class="pin-b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[16px] h-[16px]"><ellipse cx="9.5" cy="8.5" rx="4.6" ry="6.4" transform="rotate(-40 9.5 8.5)"/><path d="M13 12.6l7 7"/><circle cx="19" cy="5" r="1.6"/></svg>60 zł</span></div>
+<div class="pin is-sel" style="left:244px;top:520px"><span class="pin-b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[16px] h-[16px]"><circle cx="12" cy="12" r="9.3"/><path d="M5.4 5.4a9.3 9.3 0 0 1 0 13.2M18.6 5.4a9.3 9.3 0 0 0 0 13.2"/></svg>90 zł</span></div>
+<div class="pin" style="left:74px;top:468px"><span class="pin-b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[16px] h-[16px]"><circle cx="12" cy="12" r="9.3"/><path d="M12 8l3.6 2.6-1.4 4.2H9.8l-1.4-4.2z"/><path d="M12 8V2.8M15.6 10.6l4.8-1.4M14.2 14.8l2.9 3.9M9.8 14.8l-2.9 3.9M8.4 10.6L3.6 9.2"/></svg>150 zł</span></div>
+<div class="pin" style="left:214px;top:410px"><span class="pin-b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[16px] h-[16px]"><circle cx="10" cy="9" r="6.3"/><path d="M14.5 13.5L20 19"/><circle cx="8.5" cy="7.5" r=".6" fill="currentColor"/><circle cx="11.5" cy="7.5" r=".6" fill="currentColor"/><circle cx="10" cy="10.5" r=".6" fill="currentColor"/></svg>140 zł</span></div>
+<div class="absolute -translate-x-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-ocean text-white grid place-items-center text-[13px] font-extrabold ring-4 ring-white shadow-soft" style="left:64px;top:214px">+6</div>
+<div class="absolute" style="left:150px;top:500px">
+  <div class="absolute -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-ocean/15"></div>
+  <div class="absolute -translate-x-1/2 -translate-y-1/2 w-[18px] h-[18px] rounded-full bg-ocean ring-[3px] ring-white shadow-lg"></div>
+</div>
+
+<div class="absolute inset-x-0 top-0 h-[150px]" style="background:linear-gradient(180deg,rgba(247,251,252,.95),rgba(247,251,252,.6) 60%,transparent)"></div>
+<div class="relative px-4 pt-[58px]">
+  <div class="flex gap-2.5">
+    <div class="white-btn !w-[50px] !h-[50px]"><i data-lucide="chevron-left" class="w-5 h-5"></i></div>
+    <div class="flex-1 h-[50px] rounded-full bg-white shadow-soft flex items-center px-4 gap-3">
+      <i data-lucide="search" class="w-[18px] h-[18px] text-ocean"></i>
+      <div class="leading-tight"><p class="text-[13.5px] font-extrabold text-navy">Tenis w Gdyni</p><p class="text-[11px] text-navy/50 font-semibold">Jutro · 18:00–21:00 · 2 os.</p></div>
+      <div class="ml-auto w-8 h-8 rounded-full ring-1 ring-navy/10 grid place-items-center text-navy"><i data-lucide="sliders-horizontal" class="w-4 h-4"></i></div>
+    </div>
+  </div>
+  <div class="flex gap-2 mt-3 overflow-hidden">
+    <span class="chip is-active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[16px] h-[16px]"><circle cx="12" cy="12" r="9.3"/><path d="M5.4 5.4a9.3 9.3 0 0 1 0 13.2M18.6 5.4a9.3 9.3 0 0 0 0 13.2"/></svg>Tenis</span><span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[16px] h-[16px]"><circle cx="10" cy="9" r="6.3"/><path d="M14.5 13.5L20 19"/><circle cx="8.5" cy="7.5" r=".6" fill="currentColor"/><circle cx="11.5" cy="7.5" r=".6" fill="currentColor"/><circle cx="10" cy="10.5" r=".6" fill="currentColor"/></svg>Padel</span><span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[16px] h-[16px]"><ellipse cx="9.5" cy="8.5" rx="4.6" ry="6.4" transform="rotate(-40 9.5 8.5)"/><path d="M13 12.6l7 7"/><circle cx="19" cy="5" r="1.6"/></svg>Squash</span><span class="chip"><i data-lucide="waves" class="w-4 h-4"></i>Basen</span><span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[16px] h-[16px]"><circle cx="12" cy="12" r="9.3"/><path d="M12 8l3.6 2.6-1.4 4.2H9.8l-1.4-4.2z"/><path d="M12 8V2.8M15.6 10.6l4.8-1.4M14.2 14.8l2.9 3.9M9.8 14.8l-2.9 3.9M8.4 10.6L3.6 9.2"/></svg>Orlik</span>
+  </div>
+</div>
+<div class="absolute right-4 top-[330px] flex flex-col gap-2.5">
+  <div class="white-btn "><i data-lucide="layers" class="w-[18px] h-[18px]"></i></div>
+  <div class="white-btn !text-ocean"><i data-lucide="locate-fixed" class="w-[18px] h-[18px]"></i></div>
+</div>
+</div>
+    
+<div class="absolute left-4 right-4 bottom-[106px] z-30">
+  <div class="flex justify-between items-end mb-2.5">
+    <span class="text-[12px] font-bold text-navy bg-white/90 rounded-full px-3 py-1.5 shadow-soft">14 kortów na tym obszarze</span>
+    <span class="float-pill !static !translate-x-0"><i data-lucide="list" class="w-4 h-4"></i> Lista</span>
+  </div>
+  <div class="card p-3 flex gap-3.5 !rounded-[26px] shadow-[0_24px_50px_-18px_rgba(11,37,69,.45)]">
+    <div class="ph ph-clay w-[104px] h-[112px] rounded-[18px] shrink-0">
+      <div class="absolute z-10 top-2 right-2 w-7 h-7 rounded-full bg-white/90 grid place-items-center text-coral"><i data-lucide="heart" class="w-3.5 h-3.5 fill-coral"></i></div>
+    </div>
+    <div class="flex-1 min-w-0 py-0.5 flex flex-col">
+      <div class="flex items-center justify-between"><span class="text-[10.5px] font-extrabold text-seadk tracking-[.08em] uppercase">Kryty · ziemny</span><span class="inline-flex items-center gap-1 text-[12px] font-bold text-navy"><svg width="12" height="12" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg>4.9</span></div>
+      <h3 class="text-[16px] font-extrabold text-navy tracking-tight leading-tight mt-1">Arena Tenis Redłowo</h3>
+      <p class="text-[12px] text-navy/50 mt-0.5">1,2 km · 312 zweryfikowanych opinii</p>
+      <div class="flex items-center justify-between mt-auto">
+        <p class="text-[12px] text-navy/50"><span class="text-[16px] font-extrabold text-navy">90 zł</span> / h</p>
+        <span class="btn-coral !h-9 !px-4 !text-[13px]">Zarezerwuj</span>
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-center gap-1.5 mt-2.5"><span class="dot-pg is-on !bg-navy"></span><span class="dot-pg !bg-navy/20"></span><span class="dot-pg !bg-navy/20"></span></div>
+</div>
+    <nav class="tabbar"><div class="tab"><div class="ti"><i data-lucide="anchor" class="w-[22px] h-[22px]"></i></div><span>Mój klub</span></div><div class="tab is-active"><div class="ti"><i data-lucide="search" class="w-[22px] h-[22px]"></i></div><span>Znajdź</span></div><div class="tab tab-center"><div class="fab"><i data-lucide="concierge-bell" class="w-[26px] h-[26px]"></i></div><span>Hospitality</span></div><div class="tab"><div class="ti"><i data-lucide="calendar-check-2" class="w-[22px] h-[22px]"></i></div><span>Rezerwacje</span></div><div class="tab"><div class="ti"><i data-lucide="circle-user-round" class="w-[22px] h-[22px]"></i></div><span>Konto</span></div></nav><div class="home-ind"></div>
+  </div>
+</figure>
+<figure class="shot">
+  <figcaption class="cap"><span class="cap-num">05</span><span class="cap-name">Profil obiektu</span><span class="cap-note">Galeria · udogodnienia · cennik · opinie</span></figcaption>
+  <div class="phone" style="background:#F7FBFC">
+    <div class="island"></div>
+    <div class="statusbar text-white"><span class="text-[16px] font-semibold tracking-tight pl-2">9:41</span><span class="flex items-center gap-[6px]"><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.1-1.2A10.2 10.2 0 0 0 8 .6 10.2 10.2 0 0 0 .9 3.4L2 4.6a8.6 8.6 0 0 1 6-2.4Zm0 3.3c1.4 0 2.7.5 3.7 1.4l1.1-1.2A7 7 0 0 0 8 3.9a7 7 0 0 0-4.8 1.8l1.1 1.2c1-.9 2.3-1.4 3.7-1.4Zm0 3.3c-.6 0-1.1.2-1.5.6L8 11l1.5-1.6c-.4-.4-.9-.6-1.5-.6Z"/></svg><svg width="27" height="13" viewBox="0 0 27 13" fill="currentColor"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" fill-opacity=".45"/></svg></span></div>
+    <div class="screen">
+<div class="ph ph-clay h-[222px]">
+  <div class="absolute z-10 inset-x-0 top-[56px] px-4 flex justify-between">
+    <div class="glass-btn !bg-white/85 !text-navy"><i data-lucide="chevron-left" class="w-[18px] h-[18px]"></i></div>
+    <div class="flex gap-2"><div class="glass-btn !bg-white/85 !text-navy"><i data-lucide="share" class="w-[18px] h-[18px]"></i></div><div class="glass-btn !bg-white/85 !text-coral"><i data-lucide="heart" class="w-[18px] h-[18px]"></i></div></div>
+  </div>
+  <div class="absolute z-10 left-4 bottom-10 flex gap-1.5">
+    <div class="ph ph-hard w-10 h-10 rounded-xl ring-2 ring-white"></div>
+    <div class="ph ph-studio w-10 h-10 rounded-xl ring-2 ring-white/60 opacity-90"></div>
+    <div class="w-10 h-10 rounded-xl bg-navy/55 backdrop-blur text-white text-[12px] font-extrabold grid place-items-center ring-2 ring-white/60">+9</div>
+  </div>
+  <span class="absolute z-10 right-4 bottom-11 text-[11.5px] font-bold text-white bg-navy/55 backdrop-blur rounded-full px-2.5 py-1 flex items-center gap-1"><i data-lucide="image" class="w-3.5 h-3.5"></i> 1 / 12</span>
+</div>
+<div class="relative -mt-7 rounded-t-[30px] bg-foam px-5 pt-5">
+  <div class="flex items-center gap-2"><span class="tag-soft"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[16px] h-[16px]"><circle cx="12" cy="12" r="9.3"/><path d="M5.4 5.4a9.3 9.3 0 0 1 0 13.2M18.6 5.4a9.3 9.3 0 0 0 0 13.2"/></svg> Tenis</span><span class="tag-soft"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[16px] h-[16px]"><circle cx="10" cy="9" r="6.3"/><path d="M14.5 13.5L20 19"/><circle cx="8.5" cy="7.5" r=".6" fill="currentColor"/><circle cx="11.5" cy="7.5" r=".6" fill="currentColor"/><circle cx="10" cy="10.5" r=".6" fill="currentColor"/></svg> Padel</span><span class="badge-top !py-1"><i data-lucide="trophy" class="w-3.5 h-3.5"></i> #2 w Trójmieście</span></div>
+  <h1 class="font-display text-[27px] leading-tight text-navy mt-2.5">Arena Tenis Redłowo</h1>
+  <p class="text-[12.5px] text-navy/55 flex items-center gap-1 mt-0.5"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> ul. Legionów 130, Gdynia · 1,2 km · do 22:00</p>
+
+  <div class="card mt-3.5 p-3.5 flex gap-4 items-center">
+    <div class="text-center pr-4 border-r border-navy/[.07]">
+      <p class="font-display text-[32px] leading-none text-navy">4.9</p>
+      <div class="flex gap-0.5 mt-1.5 justify-center"><svg width="10" height="10" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg><svg width="10" height="10" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg><svg width="10" height="10" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg><svg width="10" height="10" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg><svg width="10" height="10" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg></div>
+      <p class="text-[10.5px] font-semibold text-navy/45 mt-1">312 opinii</p>
+    </div>
+    <div class="flex-1 min-w-0">
+      <p class="text-[13px] leading-snug text-navy/80 font-medium">„Najlepsza mączka w Trójmieście, korty równe nawet po deszczu.”</p>
+      <div class="flex items-center gap-2 mt-2"><div class="avatar shrink-0 " style="width:22px;height:22px;border-radius:9999px;background:linear-gradient(135deg,#5E8FC9,#B8D6F2);color:#fff;font-size:11px">PS</div><span class="text-[11.5px] font-bold text-navy">Piotr S.</span><span class="text-[11px] font-bold text-seadk flex items-center gap-1"><i data-lucide="badge-check" class="w-3.5 h-3.5"></i> zweryfikowana</span></div>
+    </div>
+  </div>
+
+  <div class="flex items-end justify-between mb-3 mt-4 !mb-2.5"><h2 class="h2">Udogodnienia</h2><span class="text-[13px] font-bold text-ocean">Wszystkie 12</span></div>
+  <div class="flex justify-between">
+    <div class="flex flex-col items-center gap-1.5"><div class="w-[50px] h-[50px] rounded-[16px] bg-sand grid place-items-center text-navy"><i data-lucide="square-parking" class="w-[22px] h-[22px]"></i></div><span class="text-[11px] font-semibold text-navy/70">Parking</span></div><div class="flex flex-col items-center gap-1.5"><div class="w-[50px] h-[50px] rounded-[16px] bg-sand grid place-items-center text-navy"><i data-lucide="shower-head" class="w-[22px] h-[22px]"></i></div><span class="text-[11px] font-semibold text-navy/70">Prysznice</span></div><div class="flex flex-col items-center gap-1.5"><div class="w-[50px] h-[50px] rounded-[16px] bg-sand grid place-items-center text-navy"><i data-lucide="shirt" class="w-[22px] h-[22px]"></i></div><span class="text-[11px] font-semibold text-navy/70">Szatnie</span></div><div class="flex flex-col items-center gap-1.5"><div class="w-[50px] h-[50px] rounded-[16px] bg-sand grid place-items-center text-navy"><i data-lucide="coffee" class="w-[22px] h-[22px]"></i></div><span class="text-[11px] font-semibold text-navy/70">Kawiarnia</span></div><div class="flex flex-col items-center gap-1.5"><div class="w-[50px] h-[50px] rounded-[16px] bg-sand grid place-items-center text-navy"><i data-lucide="lamp-ceiling" class="w-[22px] h-[22px]"></i></div><span class="text-[11px] font-semibold text-navy/70">Hala LED</span></div>
+  </div>
+
+  <div class="flex items-end justify-between mb-3 mt-4 !mb-2.5"><h2 class="h2">Cennik</h2><span class="text-[13px] font-bold text-ocean">Pakiety</span></div>
+  <div class="grid grid-cols-3 gap-2">
+    <div class="price-tile"><p class="pt-l">Pn–Pt 7–16</p><p class="pt-v">80 zł</p><p class="pt-u">kort / h</p></div>
+    <div class="price-tile is-hot"><p class="pt-l">Pn–Pt 16–22</p><p class="pt-v">110 zł</p><p class="pt-u">kort / h</p></div>
+    <div class="price-tile"><p class="pt-l">Weekend</p><p class="pt-v">100 zł</p><p class="pt-u">kort / h</p></div>
+  </div>
+</div>
+</div>
+    <div class="cta-bar"><div><p class="text-[11.5px] text-navy/50 font-semibold">Wolne jutro od 18:00</p><p class="text-[13px] text-navy/60">od <span class="text-[19px] font-extrabold text-navy">80 zł</span> / h</p></div><div class="btn-coral">Zarezerwuj</div></div>
+    <nav class="tabbar"><div class="tab"><div class="ti"><i data-lucide="anchor" class="w-[22px] h-[22px]"></i></div><span>Mój klub</span></div><div class="tab is-active"><div class="ti"><i data-lucide="search" class="w-[22px] h-[22px]"></i></div><span>Znajdź</span></div><div class="tab tab-center"><div class="fab"><i data-lucide="concierge-bell" class="w-[26px] h-[26px]"></i></div><span>Hospitality</span></div><div class="tab"><div class="ti"><i data-lucide="calendar-check-2" class="w-[22px] h-[22px]"></i></div><span>Rezerwacje</span></div><div class="tab"><div class="ti"><i data-lucide="circle-user-round" class="w-[22px] h-[22px]"></i></div><span>Konto</span></div></nav><div class="home-ind"></div>
+  </div>
+</figure>
+<figure class="shot">
+  <figcaption class="cap"><span class="cap-num">06</span><span class="cap-name">Hospitality</span><span class="cap-note">Kategorie specjalistów + lista</span></figcaption>
+  <div class="phone" style="background:#F7FBFC">
+    <div class="island"></div>
+    <div class="statusbar text-white"><span class="text-[16px] font-semibold tracking-tight pl-2">9:41</span><span class="flex items-center gap-[6px]"><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.1-1.2A10.2 10.2 0 0 0 8 .6 10.2 10.2 0 0 0 .9 3.4L2 4.6a8.6 8.6 0 0 1 6-2.4Zm0 3.3c1.4 0 2.7.5 3.7 1.4l1.1-1.2A7 7 0 0 0 8 3.9a7 7 0 0 0-4.8 1.8l1.1 1.2c1-.9 2.3-1.4 3.7-1.4Zm0 3.3c-.6 0-1.1.2-1.5.6L8 11l1.5-1.6c-.4-.4-.9-.6-1.5-.6Z"/></svg><svg width="27" height="13" viewBox="0 0 27 13" fill="currentColor"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" fill-opacity=".45"/></svg></span></div>
+    <div class="screen">
+<div class="relative hdr pb-[58px]">
+  <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 390 240" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#fff" stroke-opacity="0.14" stroke-width="1.2"><path d="M-20 40 C 60 14, 130 66, 210 40 S 360 14, 420 40" /><path d="M-20 78 C 60 52, 130 104, 210 78 S 360 52, 420 78" /><path d="M-20 116 C 60 90, 130 142, 210 116 S 360 90, 420 116" /><path d="M-20 154 C 60 128, 130 180, 210 154 S 360 128, 420 154" /><path d="M-20 192 C 60 166, 130 218, 210 192 S 360 166, 420 192" /></svg><div class="absolute -top-16 -right-20 w-64 h-64 rounded-full" style="background:radial-gradient(circle,rgba(255,255,255,.22),transparent 65%)"></div><div class="absolute top-24 -left-24 w-56 h-56 rounded-full" style="background:radial-gradient(circle,rgba(46,196,182,.45),transparent 65%)"></div>
+  <div class="relative px-5 pt-[62px]">
+    <div class="flex items-center justify-between">
+      <span class="eyebrow-light"><i data-lucide="concierge-bell" class="w-3.5 h-3.5"></i> Hospitality</span>
+      <div class="glass-btn "><i data-lucide="bookmark" class="w-[18px] h-[18px]"></i></div>
+    </div>
+    <h1 class="font-display text-[28px] leading-[1.12] text-white mt-1">Specjaliści, którzy<br>dbają o <em class="text-[#BFF5EE]">Twoją formę</em></h1>
+    <div class="search mt-4 !bg-white"><i data-lucide="search" class="w-[18px] h-[18px] text-navy/40"></i><span class="text-navy/40 text-[14px] font-medium">Trener, fizjo, dietetyk…</span><span class="ml-auto text-ocean"><i data-lucide="mic" class="w-[18px] h-[18px]"></i></span></div>
+  </div>
+  <svg class="absolute left-0 right-0 bottom-[-1px] w-full" height="34" viewBox="0 0 390 34" preserveAspectRatio="none"><path d="M0 19 C 70 2, 140 2, 205 15 S 330 32, 390 12 V 34 H 0 Z" fill="#F7FBFC"/></svg>
+</div>
+<div class="px-5 -mt-5 relative">
+  <div class="grid grid-cols-4 gap-2.5">
+    <div class="rounded-[22px] p-3 pb-3.5 flex flex-col gap-3 shadow-card" style="background:#E3EFF8">
+      <div class="w-10 h-10 rounded-[14px] bg-white/80 grid place-items-center" style="color:#1B6CA8"><i data-lucide="dumbbell" class="w-5 h-5"></i></div>
+      <div><p class="text-[12.5px] font-extrabold text-navy leading-tight">Trenerzy</p><p class="text-[11px] font-semibold text-navy/45 mt-0.5">128</p></div>
+    </div>
+    <div class="rounded-[22px] p-3 pb-3.5 flex flex-col gap-3 shadow-card" style="background:#DDF4F1">
+      <div class="w-10 h-10 rounded-[14px] bg-white/80 grid place-items-center" style="color:#11998C"><i data-lucide="hand-heart" class="w-5 h-5"></i></div>
+      <div><p class="text-[12.5px] font-extrabold text-navy leading-tight">Fizjo</p><p class="text-[11px] font-semibold text-navy/45 mt-0.5">64</p></div>
+    </div>
+    <div class="rounded-[22px] p-3 pb-3.5 flex flex-col gap-3 shadow-card" style="background:#F4E9D8">
+      <div class="w-10 h-10 rounded-[14px] bg-white/80 grid place-items-center" style="color:#9A6A2C"><i data-lucide="salad" class="w-5 h-5"></i></div>
+      <div><p class="text-[12.5px] font-extrabold text-navy leading-tight">Dietetycy</p><p class="text-[11px] font-semibold text-navy/45 mt-0.5">37</p></div>
+    </div>
+    <div class="rounded-[22px] p-3 pb-3.5 flex flex-col gap-3 shadow-card" style="background:#FFE6E2">
+      <div class="w-10 h-10 rounded-[14px] bg-white/80 grid place-items-center" style="color:#E5503F"><i data-lucide="stethoscope" class="w-5 h-5"></i></div>
+      <div><p class="text-[12.5px] font-extrabold text-navy leading-tight">Lekarze</p><p class="text-[11px] font-semibold text-navy/45 mt-0.5">22</p></div>
+    </div>
+  </div>
+
+  <div class="mt-4 rounded-[22px] bg-navy p-3.5 pr-4 flex items-center gap-3 relative overflow-hidden">
+    <div class="absolute -right-6 -top-10 w-36 h-36 rounded-full" style="background:radial-gradient(circle,rgba(46,196,182,.4),transparent 70%)"></div>
+    <div class="w-11 h-11 rounded-2xl bg-white/10 grid place-items-center text-[#F4E9D8]"><i data-lucide="trophy" class="w-[22px] h-[22px]"></i></div>
+    <div class="flex-1 relative"><p class="text-white text-[14px] font-extrabold">Ranking października</p><p class="text-white/55 text-[11.5px]">Top trenerzy w Gdyni · 1 240 wizyt</p></div>
+    <div class="flex -space-x-2.5 relative"><div class="avatar shrink-0 ring-2 ring-navy" style="width:30px;height:30px;border-radius:9999px;background:linear-gradient(135deg,#1B6CA8,#2EC4B6);color:#fff;font-size:11px">MK</div><div class="avatar shrink-0 ring-2 ring-navy" style="width:30px;height:30px;border-radius:9999px;background:linear-gradient(135deg,#FF6B5B,#FFB48F);color:#fff;font-size:11px">JM</div><div class="avatar shrink-0 ring-2 ring-navy" style="width:30px;height:30px;border-radius:9999px;background:linear-gradient(135deg,#2EC4B6,#A6EDE3);color:#0B2545;font-size:11px">KD</div></div>
+  </div>
+
+  <div class="flex items-end justify-between mt-6 mb-3"><h2 class="h2">Polecani w pobliżu</h2><span class="text-[13px] font-bold text-ocean flex items-center gap-1"><i data-lucide="sliders-horizontal" class="w-3.5 h-3.5"></i> Filtry</span></div>
+  <div class="flex gap-2 mb-3 overflow-hidden">
+    <span class="chip is-active !h-8">Dostępni dziś</span><span class="chip !h-8">Gdynia</span><span class="chip !h-8">do 200 zł</span><span class="chip !h-8">Online</span>
+  </div>
+  <div class="flex flex-col gap-3">
+    <div class="card p-3.5">
+      <div class="flex gap-3">
+        <div class="relative"><div class="avatar shrink-0 " style="width:58px;height:58px;border-radius:20px;background:linear-gradient(135deg,#1B6CA8,#2EC4B6);color:#fff;font-size:20px">MK</div><span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-white grid place-items-center"><span class="text-sea inline-flex"><i data-lucide="badge-check" class="w-[15px] h-[15px]"></i></span></span></div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between gap-2"><p class="text-[15px] font-extrabold text-navy tracking-tight truncate">Michał Kowalczyk</p><span class="rank-chip">#1</span></div>
+          <p class="text-[12px] text-navy/55 truncate">Trener personalny · motoryka</p>
+          <div class="flex items-center gap-2 mt-1"><span class="inline-flex items-center gap-1 text-[12px] font-bold text-navy"><svg width="12" height="12" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg>4.97<span class="font-medium text-navy/45">(214)</span></span><span class="text-navy/25">·</span><span class="text-[12px] text-navy/55 font-medium">Śródmieście</span></div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between mt-3 pt-3 border-t border-dashed border-navy/10">
+        <span class="text-[12px] font-bold text-seadk flex items-center gap-1.5 bg-sea/10 rounded-full px-2.5 py-1"><i data-lucide="zap" class="w-3.5 h-3.5"></i> Dziś 17:30</span>
+        <p class="text-[12px] text-navy/50">od <span class="text-[15px] font-extrabold text-navy">180 zł</span></p>
+      </div>
+    </div>
+    <div class="card p-3.5">
+      <div class="flex gap-3">
+        <div class="relative"><div class="avatar shrink-0 " style="width:58px;height:58px;border-radius:20px;background:linear-gradient(135deg,#FF6B5B,#FFB48F);color:#fff;font-size:20px">AW</div><span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-white grid place-items-center"><span class="text-sea inline-flex"><i data-lucide="badge-check" class="w-[15px] h-[15px]"></i></span></span></div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between gap-2"><p class="text-[15px] font-extrabold text-navy tracking-tight truncate">mgr Anna Wiśniewska</p></div>
+          <p class="text-[12px] text-navy/55 truncate">Fizjoterapeutka · urazy sportowe</p>
+          <div class="flex items-center gap-2 mt-1"><span class="inline-flex items-center gap-1 text-[12px] font-bold text-navy"><svg width="12" height="12" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg>4.95<span class="font-medium text-navy/45">(188)</span></span><span class="text-navy/25">·</span><span class="text-[12px] text-navy/55 font-medium">Sopot</span></div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between mt-3 pt-3 border-t border-dashed border-navy/10">
+        <span class="text-[12px] font-bold text-seadk flex items-center gap-1.5 bg-sea/10 rounded-full px-2.5 py-1"><i data-lucide="zap" class="w-3.5 h-3.5"></i> Jutro 9:00</span>
+        <p class="text-[12px] text-navy/50">od <span class="text-[15px] font-extrabold text-navy">200 zł</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+    
+    <nav class="tabbar"><div class="tab"><div class="ti"><i data-lucide="anchor" class="w-[22px] h-[22px]"></i></div><span>Mój klub</span></div><div class="tab"><div class="ti"><i data-lucide="search" class="w-[22px] h-[22px]"></i></div><span>Znajdź</span></div><div class="tab tab-center is-active"><div class="fab"><i data-lucide="concierge-bell" class="w-[26px] h-[26px]"></i></div><span>Hospitality</span></div><div class="tab"><div class="ti"><i data-lucide="calendar-check-2" class="w-[22px] h-[22px]"></i></div><span>Rezerwacje</span></div><div class="tab"><div class="ti"><i data-lucide="circle-user-round" class="w-[22px] h-[22px]"></i></div><span>Konto</span></div></nav><div class="home-ind"></div>
+  </div>
+</figure>
+<figure class="shot">
+  <figcaption class="cap"><span class="cap-num">07</span><span class="cap-name">Profil specjalisty</span><span class="cap-note">Ranking · usługi · ceny</span></figcaption>
+  <div class="phone" style="background:#F7FBFC">
+    <div class="island"></div>
+    <div class="statusbar text-white"><span class="text-[16px] font-semibold tracking-tight pl-2">9:41</span><span class="flex items-center gap-[6px]"><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.1-1.2A10.2 10.2 0 0 0 8 .6 10.2 10.2 0 0 0 .9 3.4L2 4.6a8.6 8.6 0 0 1 6-2.4Zm0 3.3c1.4 0 2.7.5 3.7 1.4l1.1-1.2A7 7 0 0 0 8 3.9a7 7 0 0 0-4.8 1.8l1.1 1.2c1-.9 2.3-1.4 3.7-1.4Zm0 3.3c-.6 0-1.1.2-1.5.6L8 11l1.5-1.6c-.4-.4-.9-.6-1.5-.6Z"/></svg><svg width="27" height="13" viewBox="0 0 27 13" fill="currentColor"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" fill-opacity=".45"/></svg></span></div>
+    <div class="screen">
+<div class="relative hdr h-[178px]">
+  <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 390 240" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#fff" stroke-opacity="0.14" stroke-width="1.2"><path d="M-20 40 C 60 14, 130 66, 210 40 S 360 14, 420 40" /><path d="M-20 78 C 60 52, 130 104, 210 78 S 360 52, 420 78" /><path d="M-20 116 C 60 90, 130 142, 210 116 S 360 90, 420 116" /><path d="M-20 154 C 60 128, 130 180, 210 154 S 360 128, 420 154" /><path d="M-20 192 C 60 166, 130 218, 210 192 S 360 166, 420 192" /></svg><div class="absolute -top-16 -right-20 w-64 h-64 rounded-full" style="background:radial-gradient(circle,rgba(255,255,255,.22),transparent 65%)"></div><div class="absolute top-24 -left-24 w-56 h-56 rounded-full" style="background:radial-gradient(circle,rgba(46,196,182,.45),transparent 65%)"></div>
+  <div class="relative z-10 px-4 pt-[56px] flex justify-between">
+    <div class="glass-btn "><i data-lucide="chevron-left" class="w-[18px] h-[18px]"></i></div>
+    <div class="flex gap-2"><div class="glass-btn "><i data-lucide="share" class="w-[18px] h-[18px]"></i></div><div class="glass-btn "><i data-lucide="heart" class="w-[18px] h-[18px]"></i></div></div>
+  </div>
+  <svg class="absolute left-0 right-0 bottom-[-1px] w-full" height="40" viewBox="0 0 390 40" preserveAspectRatio="none"><path d="M0 22 C 70 2, 140 2, 205 18 S 330 38, 390 14 V 40 H 0 Z" fill="#F7FBFC"/></svg>
+</div>
+<div class="px-5 relative -mt-[58px]">
+  <div class="flex items-end gap-3.5">
+    <div class="relative"><div class="avatar shrink-0 ring-[5px] ring-foam shadow-soft !text-[32px]" style="width:96px;height:96px;border-radius:30px;background:linear-gradient(135deg,#1B6CA8,#2EC4B6);color:#fff;font-size:34px">MK</div>
+      <span class="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-foam grid place-items-center"><span class="text-sea inline-flex"><i data-lucide="badge-check" class="w-[22px] h-[22px]"></i></span></span></div>
+    <div class="pb-1.5 flex-1 min-w-0">
+      <span class="text-[10.5px] font-extrabold tracking-[.1em] uppercase text-seadk">Dostępny dziś</span>
+      <h1 class="font-display text-[25px] leading-[1.08] text-navy">Michał Kowalczyk</h1>
+    </div>
+  </div>
+  <p class="text-[13px] text-navy/60 mt-2">Trener personalny · przygotowanie motoryczne</p>
+  <p class="text-[12.5px] text-navy/50 flex items-center gap-1 mt-0.5"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Fit Harbour, ul. Świętojańska 32, Gdynia</p>
+
+  <div class="mt-4 rounded-[24px] bg-sand p-4 flex items-center gap-4 relative overflow-hidden">
+    <div class="flex items-center">
+      <svg width="32" height="58" viewBox="10 10 50 80"><g fill="#1B6CA8"><ellipse cx="37.3" cy="81.5" rx="4.2" ry="9.5" transform="rotate(140 37.3 81.5)"/><ellipse cx="27.7" cy="75.7" rx="4.2" ry="9.5" transform="rotate(159 27.7 75.7)"/><ellipse cx="20.6" cy="67.0" rx="4.2" ry="9.5" transform="rotate(178 20.6 67.0)"/><ellipse cx="16.6" cy="56.5" rx="4.2" ry="9.5" transform="rotate(197 16.6 56.5)"/><ellipse cx="16.3" cy="45.3" rx="4.2" ry="9.5" transform="rotate(216 16.3 45.3)"/><ellipse cx="19.7" cy="34.6" rx="4.2" ry="9.5" transform="rotate(235 19.7 34.6)"/><ellipse cx="26.4" cy="25.5" rx="4.2" ry="9.5" transform="rotate(254 26.4 25.5)"/></g><path d="M 44.1 83.5 A 34 34 0 0 1 31.0 21.8" fill="none" stroke="#1B6CA8" stroke-width="2.4" stroke-linecap="round"/></svg>
+      <div class="text-center -mx-0.5"><p class="font-display text-[36px] leading-none text-navy">#1</p></div>
+      <svg width="32" height="58" viewBox="10 10 50 80" style="transform:scaleX(-1)"><g fill="#1B6CA8"><ellipse cx="37.3" cy="81.5" rx="4.2" ry="9.5" transform="rotate(140 37.3 81.5)"/><ellipse cx="27.7" cy="75.7" rx="4.2" ry="9.5" transform="rotate(159 27.7 75.7)"/><ellipse cx="20.6" cy="67.0" rx="4.2" ry="9.5" transform="rotate(178 20.6 67.0)"/><ellipse cx="16.6" cy="56.5" rx="4.2" ry="9.5" transform="rotate(197 16.6 56.5)"/><ellipse cx="16.3" cy="45.3" rx="4.2" ry="9.5" transform="rotate(216 16.3 45.3)"/><ellipse cx="19.7" cy="34.6" rx="4.2" ry="9.5" transform="rotate(235 19.7 34.6)"/><ellipse cx="26.4" cy="25.5" rx="4.2" ry="9.5" transform="rotate(254 26.4 25.5)"/></g><path d="M 44.1 83.5 A 34 34 0 0 1 31.0 21.8" fill="none" stroke="#1B6CA8" stroke-width="2.4" stroke-linecap="round"/></svg>
+    </div>
+    <div class="flex-1">
+      <p class="text-[14.5px] font-extrabold text-navy leading-tight">Trener personalny w&nbsp;Gdyni</p>
+      <p class="text-[11.5px] text-navy/55 mt-0.5 leading-snug">Ranking październik 2026 · Top 1% na Pomorzu</p>
+    </div>
+  </div>
+  <div class="grid grid-cols-3 mt-3 card py-3">
+    <div class="text-center"><p class="text-[17px] font-extrabold text-navy flex items-center justify-center gap-1"><svg width="15" height="15" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg>4.97</p><p class="text-[11px] text-navy/45 font-semibold">ocena</p></div>
+    <div class="text-center border-x border-navy/[.07]"><p class="text-[17px] font-extrabold text-navy">214</p><p class="text-[11px] text-navy/45 font-semibold">zweryf. opinii</p></div>
+    <div class="text-center"><p class="text-[17px] font-extrabold text-navy">9 lat</p><p class="text-[11px] text-navy/45 font-semibold">doświadczenia</p></div>
+  </div>
+
+  <div class="tabs mt-4"><span class="is-on">Usługi</span><span>Opinie <b>214</b></span><span>O mnie</span><span>Galeria</span></div>
+  <div class="flex flex-col gap-2.5 mt-3">
+    <div class="card p-3.5 flex items-center gap-3 ring-2 ring-ocean/70">
+      <div class="flex-1 min-w-0"><p class="text-[14.5px] font-extrabold text-navy tracking-tight">Trening personalny</p><p class="text-[12px] text-navy/50 mt-0.5">60 min · siłownia lub plener</p></div>
+      <p class="text-[15px] font-extrabold text-navy">180 zł</p><div class="w-9 h-9 rounded-full bg-ocean text-white grid place-items-center shadow-[0_8px_16px_-6px_rgba(27,108,168,.6)]"><i data-lucide="check" class="w-4 h-4"></i></div>
+    </div>
+    <div class="card p-3.5 flex items-center gap-3">
+      <div class="flex-1 min-w-0"><p class="text-[14.5px] font-extrabold text-navy tracking-tight">Analiza ruchu + plan</p><p class="text-[12px] text-navy/50 mt-0.5">90 min · test FMS, wideo</p></div>
+      <p class="text-[15px] font-extrabold text-navy">250 zł</p><div class="w-9 h-9 rounded-full ring-1 ring-navy/12 text-navy grid place-items-center"><i data-lucide="plus" class="w-4 h-4"></i></div>
+    </div>
+    <div class="card p-3.5 flex items-center gap-3">
+      <div class="flex-1 min-w-0"><p class="text-[14.5px] font-extrabold text-navy tracking-tight">Pakiet 10 treningów</p><p class="text-[12px] text-navy/50 mt-0.5">ważny 3 miesiące · −11%</p></div>
+      <p class="text-[15px] font-extrabold text-navy">1 600 zł</p><div class="w-9 h-9 rounded-full ring-1 ring-navy/12 text-navy grid place-items-center"><i data-lucide="plus" class="w-4 h-4"></i></div>
+    </div>
+  </div>
+</div>
+</div>
+    <div class="cta-bar"><div><p class="text-[11.5px] text-navy/50 font-semibold">Trening personalny · 60 min</p><p class="text-[19px] font-extrabold text-navy leading-tight">180 zł</p></div><div class="btn-coral">Wybierz termin</div></div>
+    <nav class="tabbar"><div class="tab"><div class="ti"><i data-lucide="anchor" class="w-[22px] h-[22px]"></i></div><span>Mój klub</span></div><div class="tab"><div class="ti"><i data-lucide="search" class="w-[22px] h-[22px]"></i></div><span>Znajdź</span></div><div class="tab tab-center is-active"><div class="fab"><i data-lucide="concierge-bell" class="w-[26px] h-[26px]"></i></div><span>Hospitality</span></div><div class="tab"><div class="ti"><i data-lucide="calendar-check-2" class="w-[22px] h-[22px]"></i></div><span>Rezerwacje</span></div><div class="tab"><div class="ti"><i data-lucide="circle-user-round" class="w-[22px] h-[22px]"></i></div><span>Konto</span></div></nav><div class="home-ind"></div>
+  </div>
+</figure>
+<figure class="shot">
+  <figcaption class="cap"><span class="cap-num">08</span><span class="cap-name">Ranking</span><span class="cap-note">Top trenerzy w Gdyni</span></figcaption>
+  <div class="phone" style="background:#F7FBFC">
+    <div class="island"></div>
+    <div class="statusbar text-white"><span class="text-[16px] font-semibold tracking-tight pl-2">9:41</span><span class="flex items-center gap-[6px]"><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.1-1.2A10.2 10.2 0 0 0 8 .6 10.2 10.2 0 0 0 .9 3.4L2 4.6a8.6 8.6 0 0 1 6-2.4Zm0 3.3c1.4 0 2.7.5 3.7 1.4l1.1-1.2A7 7 0 0 0 8 3.9a7 7 0 0 0-4.8 1.8l1.1 1.2c1-.9 2.3-1.4 3.7-1.4Zm0 3.3c-.6 0-1.1.2-1.5.6L8 11l1.5-1.6c-.4-.4-.9-.6-1.5-.6Z"/></svg><svg width="27" height="13" viewBox="0 0 27 13" fill="currentColor"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" fill-opacity=".45"/></svg></span></div>
+    <div class="screen">
+<div class="relative hdr pb-[30px]">
+  <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 390 240" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#fff" stroke-opacity="0.12" stroke-width="1.2"><path d="M-20 40 C 60 14, 130 66, 210 40 S 360 14, 420 40" /><path d="M-20 78 C 60 52, 130 104, 210 78 S 360 52, 420 78" /><path d="M-20 116 C 60 90, 130 142, 210 116 S 360 90, 420 116" /><path d="M-20 154 C 60 128, 130 180, 210 154 S 360 128, 420 154" /><path d="M-20 192 C 60 166, 130 218, 210 192 S 360 166, 420 192" /></svg><div class="absolute -top-16 -right-20 w-64 h-64 rounded-full" style="background:radial-gradient(circle,rgba(255,255,255,.22),transparent 65%)"></div><div class="absolute top-24 -left-24 w-56 h-56 rounded-full" style="background:radial-gradient(circle,rgba(46,196,182,.45),transparent 65%)"></div>
+  <div class="relative px-5 pt-[58px]">
+    <div class="flex items-center justify-between">
+      <div class="glass-btn "><i data-lucide="chevron-left" class="w-[18px] h-[18px]"></i></div>
+      <span class="text-white/80 text-[12px] font-bold">Październik 2026</span>
+      <div class="glass-btn "><i data-lucide="info" class="w-[18px] h-[18px]"></i></div>
+    </div>
+    <h1 class="font-display text-[29px] text-white text-center mt-3 leading-tight">Top trenerzy w Gdyni</h1>
+    <div class="flex justify-center gap-2 mt-3">
+      <span class="chip-glass !h-8"><i data-lucide="dumbbell" class="w-3.5 h-3.5"></i> Trenerzy personalni <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i></span>
+      <span class="chip-glass !h-8">Gdynia <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i></span>
+    </div>
+    <div class="flex justify-center items-end gap-1 mt-8">
+      <div class="flex flex-col items-center w-[104px]">
+      <div class="relative"><div class="avatar shrink-0 ring-[3px] ring-white/80" style="width:60px;height:60px;border-radius:9999px;background:linear-gradient(135deg,#FF6B5B,#FFB48F);color:#fff;font-size:21px">JM</div>
+        <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full grid place-items-center text-[11px] font-extrabold text-navy ring-2 ring-white" style="background:#E3EEF6">2</span></div>
+      <p class="text-white text-[13px] font-extrabold mt-3.5 text-center leading-tight">Julia Mazur</p>
+      <p class="text-white/65 text-[11px] font-bold flex items-center gap-1 mt-0.5"><svg width="10" height="10" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#9BEFE4"/></svg> 4.96</p>
+      <div class="podium-col mt-2.5" style="height:64px"><span class="font-display text-white/90 text-[26px]">2</span></div>
+    </div>
+      <div class="flex flex-col items-center w-[104px]">
+      <div class="relative"><div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[#FFD9A0]"><i data-lucide="crown" class="w-6 h-6 fill-[#FFD9A0]"></i></div><div class="avatar shrink-0 ring-[3px] ring-white/80" style="width:74px;height:74px;border-radius:9999px;background:linear-gradient(135deg,#1B6CA8,#2EC4B6);color:#fff;font-size:26px">MK</div>
+        <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full grid place-items-center text-[11px] font-extrabold text-navy ring-2 ring-white" style="background:#FFD9A0">1</span></div>
+      <p class="text-white text-[13px] font-extrabold mt-3.5 text-center leading-tight">Michał Kowalczyk</p>
+      <p class="text-white/65 text-[11px] font-bold flex items-center gap-1 mt-0.5"><svg width="10" height="10" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#9BEFE4"/></svg> 4.97</p>
+      <div class="podium-col mt-2.5" style="height:92px"><span class="font-display text-white/90 text-[26px]">1</span></div>
+    </div>
+      <div class="flex flex-col items-center w-[104px]">
+      <div class="relative"><div class="avatar shrink-0 ring-[3px] ring-white/80" style="width:60px;height:60px;border-radius:9999px;background:linear-gradient(135deg,#2EC4B6,#A6EDE3);color:#0B2545;font-size:21px">KD</div>
+        <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full grid place-items-center text-[11px] font-extrabold text-navy ring-2 ring-white" style="background:#F2C6A4">3</span></div>
+      <p class="text-white text-[13px] font-extrabold mt-3.5 text-center leading-tight">Kamil Dąbrowski</p>
+      <p class="text-white/65 text-[11px] font-bold flex items-center gap-1 mt-0.5"><svg width="10" height="10" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#9BEFE4"/></svg> 4.94</p>
+      <div class="podium-col mt-2.5" style="height:46px"><span class="font-display text-white/90 text-[26px]">3</span></div>
+    </div>
+    </div>
+  </div>
+  <svg class="absolute left-0 right-0 bottom-[-1px] w-full" height="30" viewBox="0 0 390 30" preserveAspectRatio="none"><path d="M0 16 C 70 2, 140 2, 205 14 S 330 28, 390 10 V 30 H 0 Z" fill="#F7FBFC"/></svg>
+</div>
+<div class="px-5 relative">
+  <div class="flex items-center gap-2 text-[11.5px] font-semibold text-navy/55 bg-sea/10 rounded-2xl px-3 py-2 mb-1"><i data-lucide="shield-check" class="w-4 h-4 text-seadk shrink-0"></i> Liczymy tylko zweryfikowane wizyty z ostatnich 90 dni</div>
+  <div class="flex items-center gap-3 py-2.5 border-b border-navy/[.06] last:border-0">
+      <div class="w-7 flex flex-col items-center"><span class="text-[16px] font-extrabold text-navy">4</span><span class="text-seadk flex items-center text-[10px] font-extrabold"><i data-lucide="chevron-up" class="w-3.5 h-3.5"></i>2</span></div>
+      <div class="avatar shrink-0 " style="width:44px;height:44px;border-radius:15px;background:linear-gradient(135deg,#5E8FC9,#B8D6F2);color:#fff;font-size:15px">OL</div>
+      <div class="flex-1 min-w-0"><p class="text-[14px] font-extrabold text-navy truncate flex items-center gap-1">Oliwia Lewandowska <span class="text-sea inline-flex"><i data-lucide="badge-check" class="w-3.5 h-3.5"></i></span></p><p class="text-[11.5px] text-navy/50 truncate">Crossfit · Obłuże · <span class="inline-flex items-center gap-1 text-[11px] font-bold text-navy"><svg width="10" height="10" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg>4.93<span class="font-medium text-navy/45">(167)</span></span></p></div>
+      <div class="text-right"><p class="text-[15px] font-extrabold text-navy">93,8</p><p class="text-[10px] font-bold text-navy/40 uppercase tracking-wider">pkt</p></div>
+    </div>
+  <div class="flex items-center gap-3 py-2.5 border-b border-navy/[.06] last:border-0">
+      <div class="w-7 flex flex-col items-center"><span class="text-[16px] font-extrabold text-navy">5</span><span class="text-navy/30 flex items-center"><i data-lucide="minus" class="w-3.5 h-3.5"></i></span></div>
+      <div class="avatar shrink-0 " style="width:44px;height:44px;border-radius:15px;background:linear-gradient(135deg,#0B2545,#1B6CA8);color:#fff;font-size:15px">BN</div>
+      <div class="flex-1 min-w-0"><p class="text-[14px] font-extrabold text-navy truncate flex items-center gap-1">Bartosz Nowak <span class="text-sea inline-flex"><i data-lucide="badge-check" class="w-3.5 h-3.5"></i></span></p><p class="text-[11.5px] text-navy/50 truncate">Kalistenika · Orłowo · <span class="inline-flex items-center gap-1 text-[11px] font-bold text-navy"><svg width="10" height="10" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg>4.91<span class="font-medium text-navy/45">(142)</span></span></p></div>
+      <div class="text-right"><p class="text-[15px] font-extrabold text-navy">92,4</p><p class="text-[10px] font-bold text-navy/40 uppercase tracking-wider">pkt</p></div>
+    </div>
+  <div class="flex items-center gap-3 py-2.5 border-b border-navy/[.06] last:border-0">
+      <div class="w-7 flex flex-col items-center"><span class="text-[16px] font-extrabold text-navy">6</span><span class="text-coral flex items-center text-[10px] font-extrabold"><i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>1</span></div>
+      <div class="avatar shrink-0 " style="width:44px;height:44px;border-radius:15px;background:linear-gradient(135deg,#D9B48A,#F4E9D8);color:#0B2545;font-size:15px">ZK</div>
+      <div class="flex-1 min-w-0"><p class="text-[14px] font-extrabold text-navy truncate flex items-center gap-1">Zuzanna Kamińska <span class="text-sea inline-flex"><i data-lucide="badge-check" class="w-3.5 h-3.5"></i></span></p><p class="text-[11.5px] text-navy/50 truncate">Biegi · Redłowo · <span class="inline-flex items-center gap-1 text-[11px] font-bold text-navy"><svg width="10" height="10" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg>4.92<span class="font-medium text-navy/45">(98)</span></span></p></div>
+      <div class="text-right"><p class="text-[15px] font-extrabold text-navy">91,9</p><p class="text-[10px] font-bold text-navy/40 uppercase tracking-wider">pkt</p></div>
+    </div>
+  <div class="flex items-center gap-3 py-2.5 border-b border-navy/[.06] last:border-0">
+      <div class="w-7 flex flex-col items-center"><span class="text-[16px] font-extrabold text-navy">7</span><span class="text-seadk flex items-center text-[10px] font-extrabold"><i data-lucide="chevron-up" class="w-3.5 h-3.5"></i>4</span></div>
+      <div class="avatar shrink-0 " style="width:44px;height:44px;border-radius:15px;background:linear-gradient(135deg,#1B6CA8,#2EC4B6);color:#fff;font-size:15px">TW</div>
+      <div class="flex-1 min-w-0"><p class="text-[14px] font-extrabold text-navy truncate flex items-center gap-1">Tomasz Wójcik <span class="text-sea inline-flex"><i data-lucide="badge-check" class="w-3.5 h-3.5"></i></span></p><p class="text-[11.5px] text-navy/50 truncate">Boks · Chylonia · <span class="inline-flex items-center gap-1 text-[11px] font-bold text-navy"><svg width="10" height="10" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg>4.89<span class="font-medium text-navy/45">(121)</span></span></p></div>
+      <div class="text-right"><p class="text-[15px] font-extrabold text-navy">90,7</p><p class="text-[10px] font-bold text-navy/40 uppercase tracking-wider">pkt</p></div>
+    </div>
+</div>
+</div>
+    
+    <nav class="tabbar"><div class="tab"><div class="ti"><i data-lucide="anchor" class="w-[22px] h-[22px]"></i></div><span>Mój klub</span></div><div class="tab"><div class="ti"><i data-lucide="search" class="w-[22px] h-[22px]"></i></div><span>Znajdź</span></div><div class="tab tab-center is-active"><div class="fab"><i data-lucide="concierge-bell" class="w-[26px] h-[26px]"></i></div><span>Hospitality</span></div><div class="tab"><div class="ti"><i data-lucide="calendar-check-2" class="w-[22px] h-[22px]"></i></div><span>Rezerwacje</span></div><div class="tab"><div class="ti"><i data-lucide="circle-user-round" class="w-[22px] h-[22px]"></i></div><span>Konto</span></div></nav><div class="home-ind"></div>
+  </div>
+</figure>
+<figure class="shot">
+  <figcaption class="cap"><span class="cap-num">09</span><span class="cap-name">Wybór terminu</span><span class="cap-note">Kalendarz + sloty</span></figcaption>
+  <div class="phone" style="background:#F7FBFC">
+    <div class="island"></div>
+    <div class="statusbar text-navy"><span class="text-[16px] font-semibold tracking-tight pl-2">9:41</span><span class="flex items-center gap-[6px]"><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.1-1.2A10.2 10.2 0 0 0 8 .6 10.2 10.2 0 0 0 .9 3.4L2 4.6a8.6 8.6 0 0 1 6-2.4Zm0 3.3c1.4 0 2.7.5 3.7 1.4l1.1-1.2A7 7 0 0 0 8 3.9a7 7 0 0 0-4.8 1.8l1.1 1.2c1-.9 2.3-1.4 3.7-1.4Zm0 3.3c-.6 0-1.1.2-1.5.6L8 11l1.5-1.6c-.4-.4-.9-.6-1.5-.6Z"/></svg><svg width="27" height="13" viewBox="0 0 27 13" fill="currentColor"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" fill-opacity=".45"/></svg></span></div>
+    <div class="screen">
+<div class="px-5 pt-[58px]">
+  <div class="flex items-center justify-between">
+    <div class="white-btn "><i data-lucide="chevron-left" class="w-[18px] h-[18px]"></i></div>
+    <div class="text-center"><p class="text-[16px] font-extrabold text-navy">Wybierz termin</p><p class="text-[11.5px] text-navy/45 font-semibold">Krok 2 z 3</p></div>
+    <div class="white-btn "><i data-lucide="x" class="w-[18px] h-[18px]"></i></div>
+  </div>
+
+  <div class="card mt-4 p-3 flex items-center gap-3">
+    <div class="avatar shrink-0 " style="width:46px;height:46px;border-radius:15px;background:linear-gradient(135deg,#1B6CA8,#2EC4B6);color:#fff;font-size:16px">MK</div>
+    <div class="flex-1 min-w-0"><p class="text-[14px] font-extrabold text-navy">Trening personalny · 60 min</p><p class="text-[12px] text-navy/50">Michał Kowalczyk · Fit Harbour Gdynia</p></div>
+    <span class="text-[12px] font-bold text-ocean">Zmień</span>
+  </div>
+
+  <div class="card mt-3 p-4 pb-3">
+    <div class="flex items-center justify-between mb-3">
+      <div><p class="font-display text-[20px] text-navy leading-none">Listopad <span class="text-navy/35">2026</span></p><p class="flex gap-3 mt-1.5 text-[10.5px] font-semibold text-navy/45"><span class="flex items-center gap-1"><i class="w-1.5 h-1.5 rounded-full bg-sea"></i>wolne</span><span class="flex items-center gap-1"><i class="w-1.5 h-1.5 rounded-full bg-coral"></i>ostatnie miejsca</span></p></div>
+      <div class="flex gap-1.5"><span class="w-8 h-8 rounded-full ring-1 ring-navy/10 grid place-items-center text-navy/30"><i data-lucide="chevron-left" class="w-4 h-4"></i></span><span class="w-8 h-8 rounded-full ring-1 ring-navy/10 grid place-items-center text-navy"><i data-lucide="chevron-right" class="w-4 h-4"></i></span></div>
+    </div>
+    <div class="grid grid-cols-7 gap-y-1"><span class="text-[11px] font-bold text-navy/40 text-center">Pn</span><span class="text-[11px] font-bold text-navy/40 text-center">Wt</span><span class="text-[11px] font-bold text-navy/40 text-center">Śr</span><span class="text-[11px] font-bold text-navy/40 text-center">Cz</span><span class="text-[11px] font-bold text-navy/40 text-center">Pt</span><span class="text-[11px] font-bold text-navy/40 text-center">So</span><span class="text-[11px] font-bold text-navy/40 text-center">Nd</span><span></span><span></span><span></span><span></span><span></span><span></span><span class="cal-d is-off">1</span><span class="cal-d">2<i class="cal-dot bg-sea"></i></span><span class="cal-d">3<i class="cal-dot bg-coral"></i></span><span class="cal-d is-off">4</span><span class="cal-d is-sel">5</span><span class="cal-d">6<i class="cal-dot bg-sea"></i></span><span class="cal-d is-off">7</span><span class="cal-d is-off">8</span><span class="cal-d">9<i class="cal-dot bg-sea"></i></span><span class="cal-d">10<i class="cal-dot bg-coral"></i></span><span class="cal-d is-off">11</span><span class="cal-d">12<i class="cal-dot bg-sea"></i></span><span class="cal-d">13<i class="cal-dot bg-sea"></i></span><span class="cal-d is-off">14</span><span class="cal-d is-off">15</span><span class="cal-d">16<i class="cal-dot bg-sea"></i></span><span class="cal-d">17<i class="cal-dot bg-coral"></i></span><span class="cal-d is-off">18</span><span class="cal-d">19<i class="cal-dot bg-sea"></i></span><span class="cal-d">20<i class="cal-dot bg-sea"></i></span><span class="cal-d is-off">21</span><span class="cal-d is-off">22</span><span class="cal-d">23<i class="cal-dot bg-sea"></i></span><span class="cal-d">24<i class="cal-dot bg-sea"></i></span><span class="cal-d is-off">25</span><span class="cal-d">26<i class="cal-dot bg-sea"></i></span><span class="cal-d">27<i class="cal-dot bg-sea"></i></span><span class="cal-d is-off">28</span><span class="cal-d is-off">29</span><span class="cal-d">30<i class="cal-dot bg-sea"></i></span></div>
+  </div>
+
+  <div class="flex items-center justify-between mt-3.5 mb-2.5">
+    <p class="text-[14.5px] font-extrabold text-navy flex items-center gap-1.5">Czwartek, 5 listopada</p>
+    <span class="text-[12px] font-bold text-ocean">Wszystkie 6</span>
+  </div>
+  <div class="grid grid-cols-4 gap-2"><span class="slot ">07:00</span><span class="slot is-off">08:00</span><span class="slot ">17:00</span><span class="slot is-sel">18:00</span></div>
+  <div class="grid grid-cols-4 gap-2 mt-2"><span class="slot ">19:00</span><span class="slot ">20:00</span><span class="slot is-off">20:30</span><span class="slot ">21:00</span></div>
+</div>
+</div>
+    <div class="cta-bar"><div><p class="text-[11.5px] text-navy/50 font-semibold">Czw, 5 lis · 18:00–19:00</p><p class="text-[19px] font-extrabold text-navy leading-tight">180 zł</p></div><div class="btn-coral">Zarezerwuj</div></div>
+    <nav class="tabbar"><div class="tab"><div class="ti"><i data-lucide="anchor" class="w-[22px] h-[22px]"></i></div><span>Mój klub</span></div><div class="tab"><div class="ti"><i data-lucide="search" class="w-[22px] h-[22px]"></i></div><span>Znajdź</span></div><div class="tab tab-center is-active"><div class="fab"><i data-lucide="concierge-bell" class="w-[26px] h-[26px]"></i></div><span>Hospitality</span></div><div class="tab"><div class="ti"><i data-lucide="calendar-check-2" class="w-[22px] h-[22px]"></i></div><span>Rezerwacje</span></div><div class="tab"><div class="ti"><i data-lucide="circle-user-round" class="w-[22px] h-[22px]"></i></div><span>Konto</span></div></nav><div class="home-ind"></div>
+  </div>
+</figure>
+<figure class="shot">
+  <figcaption class="cap"><span class="cap-num">10</span><span class="cap-name">Potwierdzenie</span><span class="cap-note">Bilet rezerwacji</span></figcaption>
+  <div class="phone" style="background:#F7FBFC">
+    <div class="island"></div>
+    <div class="statusbar text-white"><span class="text-[16px] font-semibold tracking-tight pl-2">9:41</span><span class="flex items-center gap-[6px]"><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.1-1.2A10.2 10.2 0 0 0 8 .6 10.2 10.2 0 0 0 .9 3.4L2 4.6a8.6 8.6 0 0 1 6-2.4Zm0 3.3c1.4 0 2.7.5 3.7 1.4l1.1-1.2A7 7 0 0 0 8 3.9a7 7 0 0 0-4.8 1.8l1.1 1.2c1-.9 2.3-1.4 3.7-1.4Zm0 3.3c-.6 0-1.1.2-1.5.6L8 11l1.5-1.6c-.4-.4-.9-.6-1.5-.6Z"/></svg><svg width="27" height="13" viewBox="0 0 27 13" fill="currentColor"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" fill-opacity=".45"/></svg></span></div>
+    <div class="screen">
+<div class="relative hdr h-[340px]">
+  <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 390 240" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#fff" stroke-opacity="0.1" stroke-width="1.2"><path d="M-20 40 C 60 14, 130 66, 210 40 S 360 14, 420 40" /><path d="M-20 78 C 60 52, 130 104, 210 78 S 360 52, 420 78" /><path d="M-20 116 C 60 90, 130 142, 210 116 S 360 90, 420 116" /><path d="M-20 154 C 60 128, 130 180, 210 154 S 360 128, 420 154" /><path d="M-20 192 C 60 166, 130 218, 210 192 S 360 166, 420 192" /></svg><div class="absolute -top-16 -right-20 w-64 h-64 rounded-full" style="background:radial-gradient(circle,rgba(255,255,255,.22),transparent 65%)"></div><div class="absolute top-24 -left-24 w-56 h-56 rounded-full" style="background:radial-gradient(circle,rgba(46,196,182,.45),transparent 65%)"></div><span class="absolute rounded-full border border-white/30" style="left:40px;top:120px;width:10px;height:10px"></span><span class="absolute rounded-full border border-white/30" style="left:70px;top:200px;width:6px;height:6px"></span><span class="absolute rounded-full border border-white/30" style="left:320px;top:110px;width:14px;height:14px"></span><span class="absolute rounded-full border border-white/30" style="left:300px;top:230px;width:7px;height:7px"></span><span class="absolute rounded-full border border-white/30" style="left:350px;top:180px;width:5px;height:5px"></span><span class="absolute rounded-full border border-white/30" style="left:28px;top:260px;width:8px;height:8px"></span><span class="absolute rounded-full border border-white/30" style="left:250px;top:90px;width:6px;height:6px"></span>
+  <div class="relative flex flex-col items-center pt-[76px]">
+    <div class="relative grid place-items-center">
+      <div class="absolute w-[150px] h-[150px] rounded-full bg-white/[.07]"></div>
+      <div class="absolute w-[118px] h-[118px] rounded-full bg-white/[.12]"></div>
+      <div class="w-[86px] h-[86px] rounded-full bg-white grid place-items-center shadow-[0_18px_40px_-12px_rgba(11,37,69,.5)]">
+        <div class="w-[60px] h-[60px] rounded-full grid place-items-center text-white" style="background:linear-gradient(135deg,#1B6CA8,#2EC4B6)"><i data-lucide="check" class="w-8 h-8 stroke-[3]"></i></div>
+      </div>
+    </div>
+    <h1 class="font-display text-[29px] text-white mt-8">Rezerwacja potwierdzona</h1>
+    <p class="text-white/75 text-[14px] mt-1">Do zobaczenia w czwartek, Kasia!</p>
+  </div>
+  <svg class="absolute left-0 right-0 bottom-[-1px] w-full" height="36" viewBox="0 0 390 36" preserveAspectRatio="none"><path d="M0 20 C 70 2, 140 2, 205 16 S 330 34, 390 13 V 36 H 0 Z" fill="#F7FBFC"/></svg>
+</div>
+<div class="px-5 relative -mt-[30px]">
+  <div class="ticket">
+    <div class="p-4 flex items-center gap-3">
+      <div class="avatar shrink-0 " style="width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,#1B6CA8,#2EC4B6);color:#fff;font-size:17px">MK</div>
+      <div class="flex-1"><p class="text-[15.5px] font-extrabold text-navy flex items-center gap-1">Michał Kowalczyk <span class="text-sea inline-flex"><i data-lucide="badge-check" class="w-4 h-4"></i></span></p><p class="text-[12px] text-navy/50">Trening personalny · 60 min</p></div>
+      <span class="text-[10.5px] font-extrabold text-seadk bg-sea/12 rounded-full px-2.5 py-1 uppercase tracking-wider">Opłacone</span>
+    </div>
+    <div class="ticket-cut"></div>
+    <div class="p-4 grid grid-cols-2 gap-x-3 gap-y-4">
+      <div class="flex gap-2.5"><div class="w-8 h-8 rounded-xl bg-ocean/[.08] text-ocean grid place-items-center shrink-0"><i data-lucide="calendar" class="w-4 h-4"></i></div><div class="min-w-0"><p class="text-[10.5px] font-bold text-navy/40 uppercase tracking-wider">Data</p><p class="text-[13.5px] font-extrabold text-navy leading-tight">Czw, 5 listopada</p></div></div>
+      <div class="flex gap-2.5"><div class="w-8 h-8 rounded-xl bg-ocean/[.08] text-ocean grid place-items-center shrink-0"><i data-lucide="clock-3" class="w-4 h-4"></i></div><div class="min-w-0"><p class="text-[10.5px] font-bold text-navy/40 uppercase tracking-wider">Godzina</p><p class="text-[13.5px] font-extrabold text-navy leading-tight">18:00 – 19:00</p></div></div>
+      <div class="flex gap-2.5"><div class="w-8 h-8 rounded-xl bg-ocean/[.08] text-ocean grid place-items-center shrink-0"><i data-lucide="map-pin" class="w-4 h-4"></i></div><div class="min-w-0"><p class="text-[10.5px] font-bold text-navy/40 uppercase tracking-wider">Miejsce</p><p class="text-[13.5px] font-extrabold text-navy leading-tight">Fit Harbour</p><p class="text-[11px] text-navy/45">ul. Świętojańska 32</p></div></div>
+      <div class="flex gap-2.5"><div class="w-8 h-8 rounded-xl bg-ocean/[.08] text-ocean grid place-items-center shrink-0"><i data-lucide="wallet" class="w-4 h-4"></i></div><div class="min-w-0"><p class="text-[10.5px] font-bold text-navy/40 uppercase tracking-wider">Płatność</p><p class="text-[13.5px] font-extrabold text-navy leading-tight">180 zł · BLIK</p></div></div>
+    </div>
+    <div class="mx-4 mb-4 rounded-2xl bg-foam ring-1 ring-navy/[.06] p-3 flex items-center gap-3">
+      <div class="w-11 h-11 rounded-xl bg-white ring-1 ring-navy/10 grid place-items-center text-navy"><i data-lucide="qr-code" class="w-6 h-6"></i></div>
+      <div class="flex-1"><p class="text-[10.5px] font-bold text-navy/40 uppercase tracking-wider">Kod rezerwacji</p><p class="text-[16px] font-extrabold text-navy tracking-[.12em]">PRZ-48213</p></div>
+      <span class="text-navy/40"><i data-lucide="copy" class="w-[18px] h-[18px]"></i></span>
+    </div>
+  </div>
+  <div class="flex gap-2.5 mt-3.5">
+    <div class="btn-soft flex-1 !h-12 !bg-white shadow-card"><i data-lucide="calendar-plus" class="w-4 h-4"></i> Do kalendarza</div>
+    <div class="btn-soft flex-1 !h-12 !bg-white shadow-card"><i data-lucide="navigation" class="w-4 h-4"></i> Nawiguj</div>
+  </div>
+  <div class="mt-3 rounded-2xl bg-sand px-3.5 py-3 flex items-center gap-2.5 text-[12px] text-navy/70 font-medium">
+    <i data-lucide="shield-check" class="w-[18px] h-[18px] text-seadk shrink-0"></i><span>Bezpłatne odwołanie do <b class="text-navy">4 lis, 18:00</b>. Po wizycie poprosimy Cię o zweryfikowaną opinię.</span>
+  </div>
+</div>
+</div>
+    
+    <nav class="tabbar"><div class="tab"><div class="ti"><i data-lucide="anchor" class="w-[22px] h-[22px]"></i></div><span>Mój klub</span></div><div class="tab"><div class="ti"><i data-lucide="search" class="w-[22px] h-[22px]"></i></div><span>Znajdź</span></div><div class="tab tab-center"><div class="fab"><i data-lucide="concierge-bell" class="w-[26px] h-[26px]"></i></div><span>Hospitality</span></div><div class="tab is-active"><div class="ti"><i data-lucide="calendar-check-2" class="w-[22px] h-[22px]"></i></div><span>Rezerwacje</span></div><div class="tab"><div class="ti"><i data-lucide="circle-user-round" class="w-[22px] h-[22px]"></i></div><span>Konto</span></div></nav><div class="home-ind"></div>
+  </div>
+</figure>
+<figure class="shot">
+  <figcaption class="cap"><span class="cap-num">11</span><span class="cap-name">Wystaw opinię</span><span class="cap-note">Oceny w kategoriach · zweryfikowana wizyta</span></figcaption>
+  <div class="phone" style="background:#F7FBFC">
+    <div class="island"></div>
+    <div class="statusbar text-navy"><span class="text-[16px] font-semibold tracking-tight pl-2">9:41</span><span class="flex items-center gap-[6px]"><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.1-1.2A10.2 10.2 0 0 0 8 .6 10.2 10.2 0 0 0 .9 3.4L2 4.6a8.6 8.6 0 0 1 6-2.4Zm0 3.3c1.4 0 2.7.5 3.7 1.4l1.1-1.2A7 7 0 0 0 8 3.9a7 7 0 0 0-4.8 1.8l1.1 1.2c1-.9 2.3-1.4 3.7-1.4Zm0 3.3c-.6 0-1.1.2-1.5.6L8 11l1.5-1.6c-.4-.4-.9-.6-1.5-.6Z"/></svg><svg width="27" height="13" viewBox="0 0 27 13" fill="currentColor"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" fill-opacity=".45"/></svg></span></div>
+    <div class="screen">
+<div class="relative bg-sand pb-11">
+  <svg class="absolute inset-0 w-full h-full" viewBox="0 0 390 300" preserveAspectRatio="none" fill="none" stroke="#0B2545" stroke-opacity=".05" stroke-width="1.2"><path d="M-10 60 C 80 20, 160 100, 240 60 S 360 20, 400 50"/><path d="M-10 100 C 80 60, 160 140, 240 100 S 360 60, 400 90"/></svg>
+  <div class="relative px-5 pt-[58px]">
+    <div class="flex items-center justify-between">
+      <div class="white-btn "><i data-lucide="x" class="w-[18px] h-[18px]"></i></div>
+      <p class="text-[16px] font-extrabold text-navy">Wystaw opinię</p>
+      <span class="w-11"></span>
+    </div>
+    <div class="flex flex-col items-center mt-4">
+      <div class="avatar shrink-0 ring-4 ring-white shadow-soft" style="width:58px;height:58px;border-radius:20px;background:linear-gradient(135deg,#1B6CA8,#2EC4B6);color:#fff;font-size:20px">MK</div>
+      <h1 class="font-display text-[23px] text-navy text-center leading-tight mt-3">Jak było z Michałem?</h1>
+      <div class="flex gap-2 mt-3"><svg width="36" height="36" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg><svg width="36" height="36" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg><svg width="36" height="36" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg><svg width="36" height="36" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg><svg width="36" height="36" viewBox="0 0 24 24" class="shrink-0"><path d="M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z" fill="#2EC4B6"/></svg></div>
+      <p class="text-[13px] font-extrabold text-seadk mt-1.5">Rewelacyjnie!</p>
+    </div>
+  </div>
+  <svg class="absolute left-0 right-0 bottom-[-1px] w-full" height="30" viewBox="0 0 390 30" preserveAspectRatio="none"><path d="M0 16 C 70 2, 140 2, 205 14 S 330 28, 390 10 V 30 H 0 Z" fill="#F7FBFC"/></svg>
+</div>
+<div class="px-5 relative -mt-4">
+  <div class="verified-strip">
+    <div class="w-9 h-9 rounded-full bg-white/15 grid place-items-center"><i data-lucide="badge-check" class="w-5 h-5"></i></div>
+    <div class="flex-1"><p class="text-[13.5px] font-extrabold">Zweryfikowana wizyta</p><p class="text-[11.5px] text-white/75">Trening personalny · 5 lis 2026 · PRZ-48213</p></div>
+    <i data-lucide="lock" class="w-4 h-4 text-white/60"></i>
+  </div>
+
+  <div class="card mt-3 px-4 py-2">
+    <div class="flex items-center gap-3 py-[6px]">
+      <span class="text-ocean"><i data-lucide="award" class="w-4 h-4"></i></span>
+      <span class="text-[13px] font-bold text-navy w-[118px]">Profesjonalizm</span>
+      <div class="flex gap-1 flex-1"><span class="h-[8px] flex-1 rounded-full bg-sea"></span><span class="h-[8px] flex-1 rounded-full bg-sea"></span><span class="h-[8px] flex-1 rounded-full bg-sea"></span><span class="h-[8px] flex-1 rounded-full bg-sea"></span><span class="h-[8px] flex-1 rounded-full bg-sea"></span></div>
+      <span class="text-[12.5px] font-extrabold text-navy w-5 text-right">5</span>
+    </div>
+    <div class="flex items-center gap-3 py-[6px]">
+      <span class="text-ocean"><i data-lucide="timer" class="w-4 h-4"></i></span>
+      <span class="text-[13px] font-bold text-navy w-[118px]">Punktualność</span>
+      <div class="flex gap-1 flex-1"><span class="h-[8px] flex-1 rounded-full bg-sea"></span><span class="h-[8px] flex-1 rounded-full bg-sea"></span><span class="h-[8px] flex-1 rounded-full bg-sea"></span><span class="h-[8px] flex-1 rounded-full bg-sea"></span><span class="h-[8px] flex-1 rounded-full bg-sea"></span></div>
+      <span class="text-[12.5px] font-extrabold text-navy w-5 text-right">5</span>
+    </div>
+    <div class="flex items-center gap-3 py-[6px]">
+      <span class="text-ocean"><i data-lucide="smile" class="w-4 h-4"></i></span>
+      <span class="text-[13px] font-bold text-navy w-[118px]">Atmosfera</span>
+      <div class="flex gap-1 flex-1"><span class="h-[8px] flex-1 rounded-full bg-sea"></span><span class="h-[8px] flex-1 rounded-full bg-sea"></span><span class="h-[8px] flex-1 rounded-full bg-sea"></span><span class="h-[8px] flex-1 rounded-full bg-sea"></span><span class="h-[8px] flex-1 rounded-full bg-sea"></span></div>
+      <span class="text-[12.5px] font-extrabold text-navy w-5 text-right">5</span>
+    </div>
+    <div class="flex items-center gap-3 py-[6px]">
+      <span class="text-ocean"><i data-lucide="trending-up" class="w-4 h-4"></i></span>
+      <span class="text-[13px] font-bold text-navy w-[118px]">Efekty</span>
+      <div class="flex gap-1 flex-1"><span class="h-[8px] flex-1 rounded-full bg-sea"></span><span class="h-[8px] flex-1 rounded-full bg-sea"></span><span class="h-[8px] flex-1 rounded-full bg-sea"></span><span class="h-[8px] flex-1 rounded-full bg-sea"></span><span class="h-[8px] flex-1 rounded-full bg-navy/[.08]"></span></div>
+      <span class="text-[12.5px] font-extrabold text-navy w-5 text-right">4</span>
+    </div>
+    <div class="flex items-center gap-3 py-[6px]">
+      <span class="text-ocean"><i data-lucide="coins" class="w-4 h-4"></i></span>
+      <span class="text-[13px] font-bold text-navy w-[118px]">Jakość do ceny</span>
+      <div class="flex gap-1 flex-1"><span class="h-[8px] flex-1 rounded-full bg-sea"></span><span class="h-[8px] flex-1 rounded-full bg-sea"></span><span class="h-[8px] flex-1 rounded-full bg-sea"></span><span class="h-[8px] flex-1 rounded-full bg-sea"></span><span class="h-[8px] flex-1 rounded-full bg-navy/[.08]"></span></div>
+      <span class="text-[12.5px] font-extrabold text-navy w-5 text-right">4</span>
+    </div>
+  </div>
+
+  <p class="text-[13.5px] font-extrabold text-navy mt-4 mb-2">Co wyróżniało trening?</p>
+  <div class="flex flex-wrap gap-2">
+    <span class="chip is-active !h-8"><i data-lucide="check" class="w-3.5 h-3.5"></i> Indywidualne podejście</span>
+    <span class="chip is-active !h-8"><i data-lucide="check" class="w-3.5 h-3.5"></i> Technika</span>
+    <span class="chip !h-8">Motywacja</span><span class="chip !h-8">Czysta sala</span>
+  </div>
+  <div class="card mt-3 p-3.5 text-[13px] leading-relaxed text-navy/80">Michał od pierwszych minut poprawił mi technikę przysiadu i dobrał obciążenia pod kolano po kontuzji. Konkretnie, z humorem…</div>
+</div>
+</div>
+    <div class="absolute left-4 right-4 bottom-[106px] z-30"><div class="btn-coral w-full !h-[54px] !text-[16px]">Opublikuj opinię</div></div>
+    <nav class="tabbar"><div class="tab"><div class="ti"><i data-lucide="anchor" class="w-[22px] h-[22px]"></i></div><span>Mój klub</span></div><div class="tab"><div class="ti"><i data-lucide="search" class="w-[22px] h-[22px]"></i></div><span>Znajdź</span></div><div class="tab tab-center"><div class="fab"><i data-lucide="concierge-bell" class="w-[26px] h-[26px]"></i></div><span>Hospitality</span></div><div class="tab is-active"><div class="ti"><i data-lucide="calendar-check-2" class="w-[22px] h-[22px]"></i></div><span>Rezerwacje</span></div><div class="tab"><div class="ti"><i data-lucide="circle-user-round" class="w-[22px] h-[22px]"></i></div><span>Konto</span></div></nav><div class="home-ind"></div>
+  </div>
+</figure>
+<figure class="shot">
+  <figcaption class="cap"><span class="cap-num">12</span><span class="cap-name">Rezerwacje</span><span class="cap-note">Nadchodzące / historia</span></figcaption>
+  <div class="phone" style="background:#F7FBFC">
+    <div class="island"></div>
+    <div class="statusbar text-navy"><span class="text-[16px] font-semibold tracking-tight pl-2">9:41</span><span class="flex items-center gap-[6px]"><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.1-1.2A10.2 10.2 0 0 0 8 .6 10.2 10.2 0 0 0 .9 3.4L2 4.6a8.6 8.6 0 0 1 6-2.4Zm0 3.3c1.4 0 2.7.5 3.7 1.4l1.1-1.2A7 7 0 0 0 8 3.9a7 7 0 0 0-4.8 1.8l1.1 1.2c1-.9 2.3-1.4 3.7-1.4Zm0 3.3c-.6 0-1.1.2-1.5.6L8 11l1.5-1.6c-.4-.4-.9-.6-1.5-.6Z"/></svg><svg width="27" height="13" viewBox="0 0 27 13" fill="currentColor"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" fill-opacity=".45"/></svg></span></div>
+    <div class="screen">
+<div class="px-5 pt-[60px]">
+  <div class="flex items-center justify-between">
+    <h1 class="font-display text-[32px] text-navy leading-none">Rezerwacje</h1>
+    <div class="white-btn "><i data-lucide="calendar-days" class="w-[18px] h-[18px]"></i></div>
+  </div>
+  <div class="seg mt-4"><span class="seg-i is-on">Nadchodzące <b class="ml-1 text-[11px] bg-coral text-white rounded-full px-1.5 py-px">3</b></span><span class="seg-i">Historia</span></div>
+
+  <p class="eyebrow mt-5 mb-2.5">W tym tygodniu</p>
+  <div class="card overflow-hidden">
+    <div class="ph ph-clay h-[104px]">
+      <div class="absolute z-10 inset-x-0 bottom-0 p-3.5 flex items-end justify-between">
+        <div><span class="text-[10.5px] font-extrabold text-navy bg-white/90 rounded-full px-2 py-0.5">ZA 2 DNI</span><p class="text-white text-[17px] font-extrabold mt-1.5 tracking-tight drop-shadow">Arena Tenis Redłowo</p></div>
+        <div class="w-10 h-10 rounded-full bg-white/90 grid place-items-center text-navy"><i data-lucide="navigation" class="w-4 h-4"></i></div>
+      </div>
+    </div>
+    <div class="p-3.5 flex items-center justify-between">
+      <div><p class="text-[13.5px] font-extrabold text-navy">Pt, 30 października · 18:00</p><p class="text-[12px] text-navy/50">Kort ziemny nr 3 · 90 min · z Bartkiem</p></div>
+      <span class="text-[15px] font-extrabold text-navy">135 zł</span>
+    </div>
+  </div>
+
+  <p class="eyebrow mt-5 mb-2.5">Listopad</p>
+  <div class="flex flex-col gap-2.5">
+    <div class="card p-3 flex items-center gap-3.5">
+      <div class="w-[58px] h-[66px] rounded-[18px] flex flex-col items-center justify-center shrink-0" style="background:linear-gradient(160deg,#1B6CA8,#2EC4B6);color:#fff"><span class="text-[10px] font-extrabold uppercase tracking-wider opacity-70">Czw</span><span class="font-display text-[24px] leading-none">5</span><span class="text-[10px] font-bold uppercase opacity-70">lis</span></div>
+      <div class="flex-1 min-w-0">
+        <p class="text-[14.5px] font-extrabold text-navy truncate tracking-tight">Trening personalny</p>
+        <p class="text-[12px] text-navy/50 truncate">Michał Kowalczyk · Fit Harbour</p>
+        <p class="text-[11.5px] font-bold mt-1 flex items-center gap-1.5" style="color:#11998C"><span class="w-1.5 h-1.5 rounded-full" style="background:#11998C"></span>Opłacone <span class="text-navy/35 font-semibold">· 18:00</span></p>
+      </div>
+      <span class="text-navy/30"><i data-lucide="chevron-right" class="w-[18px] h-[18px]"></i></span>
+    </div>
+    <div class="card p-3 flex items-center gap-3.5">
+      <div class="w-[58px] h-[66px] rounded-[18px] flex flex-col items-center justify-center shrink-0" style="background:#F4E9D8;color:#0B2545"><span class="text-[10px] font-extrabold uppercase tracking-wider opacity-70">Wt</span><span class="font-display text-[24px] leading-none">10</span><span class="text-[10px] font-bold uppercase opacity-70">lis</span></div>
+      <div class="flex-1 min-w-0">
+        <p class="text-[14.5px] font-extrabold text-navy truncate tracking-tight">Fizjoterapia – kolano</p>
+        <p class="text-[12px] text-navy/50 truncate">mgr Anna Wiśniewska · Sopot</p>
+        <p class="text-[11.5px] font-bold mt-1 flex items-center gap-1.5" style="color:#1B6CA8"><span class="w-1.5 h-1.5 rounded-full" style="background:#1B6CA8"></span>Płatność na miejscu <span class="text-navy/35 font-semibold">· 9:00</span></p>
+      </div>
+      <span class="text-navy/30"><i data-lucide="chevron-right" class="w-[18px] h-[18px]"></i></span>
+    </div>
+  </div>
+
+  <p class="eyebrow mt-5 mb-2.5">Historia</p>
+  <div class="card p-3 flex items-center gap-3.5">
+    <div class="ph ph-squash w-[58px] h-[66px] rounded-[18px] shrink-0 opacity-90"></div>
+    <div class="flex-1 min-w-0"><p class="text-[14.5px] font-extrabold text-navy">Squash Point Sopot</p><p class="text-[12px] text-navy/50">Sob, 24.10 · kort 2 · 60 min</p></div>
+    <span class="text-[12px] font-extrabold text-coral ring-[1.5px] ring-coral rounded-full px-3 h-8 flex items-center gap-1"><i data-lucide="star" class="w-3.5 h-3.5"></i> Oceń</span>
+  </div>
+</div>
+</div>
+    
+    <nav class="tabbar"><div class="tab"><div class="ti"><i data-lucide="anchor" class="w-[22px] h-[22px]"></i></div><span>Mój klub</span></div><div class="tab"><div class="ti"><i data-lucide="search" class="w-[22px] h-[22px]"></i></div><span>Znajdź</span></div><div class="tab tab-center"><div class="fab"><i data-lucide="concierge-bell" class="w-[26px] h-[26px]"></i></div><span>Hospitality</span></div><div class="tab is-active"><div class="ti"><i data-lucide="calendar-check-2" class="w-[22px] h-[22px]"></i></div><span>Rezerwacje</span></div><div class="tab"><div class="ti"><i data-lucide="circle-user-round" class="w-[22px] h-[22px]"></i></div><span>Konto</span></div></nav><div class="home-ind"></div>
+  </div>
+</figure>
+<figure class="shot">
+  <figcaption class="cap"><span class="cap-num">13</span><span class="cap-name">Konto</span><span class="cap-note">Profil · portfel · ustawienia</span></figcaption>
+  <div class="phone" style="background:#F7FBFC">
+    <div class="island"></div>
+    <div class="statusbar text-white"><span class="text-[16px] font-semibold tracking-tight pl-2">9:41</span><span class="flex items-center gap-[6px]"><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.1-1.2A10.2 10.2 0 0 0 8 .6 10.2 10.2 0 0 0 .9 3.4L2 4.6a8.6 8.6 0 0 1 6-2.4Zm0 3.3c1.4 0 2.7.5 3.7 1.4l1.1-1.2A7 7 0 0 0 8 3.9a7 7 0 0 0-4.8 1.8l1.1 1.2c1-.9 2.3-1.4 3.7-1.4Zm0 3.3c-.6 0-1.1.2-1.5.6L8 11l1.5-1.6c-.4-.4-.9-.6-1.5-.6Z"/></svg><svg width="27" height="13" viewBox="0 0 27 13" fill="currentColor"><rect x=".5" y=".5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" stroke-opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.2"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" fill-opacity=".45"/></svg></span></div>
+    <div class="screen">
+<div class="relative hdr pb-[70px]">
+  <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 390 240" preserveAspectRatio="xMidYMid slice" fill="none" stroke="#fff" stroke-opacity="0.14" stroke-width="1.2"><path d="M-20 40 C 60 14, 130 66, 210 40 S 360 14, 420 40" /><path d="M-20 78 C 60 52, 130 104, 210 78 S 360 52, 420 78" /><path d="M-20 116 C 60 90, 130 142, 210 116 S 360 90, 420 116" /><path d="M-20 154 C 60 128, 130 180, 210 154 S 360 128, 420 154" /><path d="M-20 192 C 60 166, 130 218, 210 192 S 360 166, 420 192" /></svg><div class="absolute -top-16 -right-20 w-64 h-64 rounded-full" style="background:radial-gradient(circle,rgba(255,255,255,.22),transparent 65%)"></div><div class="absolute top-24 -left-24 w-56 h-56 rounded-full" style="background:radial-gradient(circle,rgba(46,196,182,.45),transparent 65%)"></div>
+  <div class="relative px-5 pt-[58px]">
+    <div class="flex justify-between"><div class="glass-btn "><i data-lucide="qr-code" class="w-[18px] h-[18px]"></i></div><div class="glass-btn "><i data-lucide="settings" class="w-[18px] h-[18px]"></i></div></div>
+    <div class="flex items-center gap-4 mt-2">
+      <div class="relative"><div class="avatar shrink-0 ring-4 ring-white/40 !text-[26px]" style="width:78px;height:78px;border-radius:9999px;background:linear-gradient(135deg,#FF6B5B,#FFB48F);color:#fff;font-size:28px">KN</div><span class="absolute bottom-0 right-0 w-7 h-7 rounded-full bg-white text-ocean grid place-items-center shadow"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></span></div>
+      <div>
+        <h1 class="font-display text-[26px] text-white leading-tight">Katarzyna Nowicka</h1>
+        <p class="text-white/70 text-[12.5px] mt-0.5">Gdynia · w Przystani od 2024</p>
+        <span class="inline-flex items-center gap-1.5 mt-2 text-[11.5px] font-extrabold text-navy bg-[#F4E9D8] rounded-full px-2.5 py-1"><i data-lucide="anchor" class="w-3.5 h-3.5"></i> Poziom Kapitan · 1 240 pkt</span>
+      </div>
+    </div>
+  </div>
+  <svg class="absolute left-0 right-0 bottom-[-1px] w-full" height="34" viewBox="0 0 390 34" preserveAspectRatio="none"><path d="M0 19 C 70 2, 140 2, 205 15 S 330 32, 390 12 V 34 H 0 Z" fill="#F7FBFC"/></svg>
+</div>
+<div class="px-5 relative -mt-[52px]">
+  <div class="card grid grid-cols-3 py-3.5">
+    <div class="text-center"><p class="font-display text-[24px] text-navy leading-none">27</p><p class="text-[11px] text-navy/45 font-semibold mt-1">rezerwacji</p></div>
+    <div class="text-center border-x border-navy/[.07]"><p class="font-display text-[24px] text-navy leading-none">12</p><p class="text-[11px] text-navy/45 font-semibold mt-1">opinii</p></div>
+    <div class="text-center"><p class="font-display text-[24px] text-navy leading-none">41 h</p><p class="text-[11px] text-navy/45 font-semibold mt-1">aktywności</p></div>
+  </div>
+
+  <div class="mt-3 rounded-[24px] p-4 text-white relative overflow-hidden" style="background:linear-gradient(135deg,#0B2545,#16457A)">
+    <svg class="absolute right-0 bottom-0 opacity-25" width="200" height="90" viewBox="0 0 200 90" fill="none" stroke="#2EC4B6" stroke-width="1.5"><path d="M0 60 C 40 30, 80 90, 120 60 S 180 30, 200 50"/><path d="M0 75 C 40 45, 80 105, 120 75 S 180 45, 200 65"/></svg>
+    <div class="flex items-center justify-between relative">
+      <div><p class="text-white/60 text-[11.5px] font-bold uppercase tracking-wider">Portfel Przystani</p><p class="font-display text-[28px] leading-tight mt-0.5">120,00 zł</p></div>
+      <span class="h-9 px-4 rounded-full bg-white text-navy text-[13px] font-extrabold flex items-center gap-1.5"><i data-lucide="plus" class="w-4 h-4"></i> Doładuj</span>
+    </div>
+    <div class="flex gap-2 mt-3 relative"><span class="text-[11px] font-bold bg-white/10 rounded-full px-2.5 py-1">BLIK</span><span class="text-[11px] font-bold bg-white/10 rounded-full px-2.5 py-1">Visa •• 4821</span><span class="text-[11px] font-bold bg-sea/25 text-[#BFF5EE] rounded-full px-2.5 py-1">Multisport ✓</span></div>
+  </div>
+
+  <p class="eyebrow mt-5 mb-2">Moje sporty</p>
+  <div class="flex gap-2 flex-wrap">
+    <span class="chip !h-8"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="w-[16px] h-[16px]"><circle cx="12" cy="12" r="9.3"/><path d="M5.4 5.4a9.3 9.3 0 0 1 0 13.2M18.6 5.4a9.3 9.3 0 0 0 0 13.2"/></svg> Tenis · NTRP 3.5</span><span class="chip !h-8"><i data-lucide="waves" class="w-4 h-4"></i> Pływanie</span><span class="chip !h-8 !w-8 !px-0 justify-center !text-ocean"><i data-lucide="plus" class="w-4 h-4"></i></span>
+  </div>
+
+  <div class="card px-4 py-1 mt-4">
+    <div class="flex items-center gap-3 py-3 border-b border-navy/[.06] last:border-0">
+      <div class="w-9 h-9 rounded-[12px] grid place-items-center" style="background:rgba(27,108,168,.08);color:#1B6CA8"><i data-lucide="user-round" class="w-[18px] h-[18px]"></i></div>
+      <span class="flex-1 text-[14px] font-bold text-navy">Dane osobowe</span>
+      <span class="text-navy/25"><i data-lucide="chevron-right" class="w-[18px] h-[18px]"></i></span>
+    </div>
+    <div class="flex items-center gap-3 py-3 border-b border-navy/[.06] last:border-0">
+      <div class="w-9 h-9 rounded-[12px] grid place-items-center" style="background:rgba(46,196,182,.12);color:#11998C"><i data-lucide="star" class="w-[18px] h-[18px]"></i></div>
+      <span class="flex-1 text-[14px] font-bold text-navy">Moje opinie</span><span class="text-[12px] font-bold text-navy/40 mr-1">12</span>
+      <span class="text-navy/25"><i data-lucide="chevron-right" class="w-[18px] h-[18px]"></i></span>
+    </div>
+    <div class="flex items-center gap-3 py-3 border-b border-navy/[.06] last:border-0">
+      <div class="w-9 h-9 rounded-[12px] grid place-items-center" style="background:rgba(255,107,91,.12);color:#E5503F"><i data-lucide="gift" class="w-[18px] h-[18px]"></i></div>
+      <span class="flex-1 text-[14px] font-bold text-navy">Zaproś znajomych</span><span class="text-[11px] font-extrabold text-coral bg-coral/10 rounded-full px-2 py-0.5 mr-1">+20 zł</span>
+      <span class="text-navy/25"><i data-lucide="chevron-right" class="w-[18px] h-[18px]"></i></span>
+    </div>
+    <div class="flex items-center gap-3 py-3 border-b border-navy/[.06] last:border-0">
+      <div class="w-9 h-9 rounded-[12px] grid place-items-center" style="background:rgba(27,108,168,.08);color:#1B6CA8"><i data-lucide="bell" class="w-[18px] h-[18px]"></i></div>
+      <span class="flex-1 text-[14px] font-bold text-navy">Powiadomienia</span>
+      <span class="text-navy/25"><i data-lucide="chevron-right" class="w-[18px] h-[18px]"></i></span>
+    </div>
+  </div>
+</div>
+</div>
+    
+    <nav class="tabbar"><div class="tab"><div class="ti"><i data-lucide="anchor" class="w-[22px] h-[22px]"></i></div><span>Mój klub</span></div><div class="tab"><div class="ti"><i data-lucide="search" class="w-[22px] h-[22px]"></i></div><span>Znajdź</span></div><div class="tab tab-center"><div class="fab"><i data-lucide="concierge-bell" class="w-[26px] h-[26px]"></i></div><span>Hospitality</span></div><div class="tab"><div class="ti"><i data-lucide="calendar-check-2" class="w-[22px] h-[22px]"></i></div><span>Rezerwacje</span></div><div class="tab is-active"><div class="ti"><i data-lucide="circle-user-round" class="w-[22px] h-[22px]"></i></div><span>Konto</span></div></nav><div class="home-ind"></div>
+  </div>
+</figure>
+</main>
+<footer class="text-center pb-16 text-[12px] font-semibold text-navy/40">Przystań · makiety statyczne · treści przykładowe · Gdynia · Sopot · Gdańsk</footer>
+<script src="https://unpkg.com/lucide@0.453.0/dist/umd/lucide.min.js"></script>
+<script>lucide.createIcons();</script>
+</body>
+</html>
