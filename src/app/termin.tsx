@@ -3,8 +3,9 @@ import { ChevronLeft, ChevronRight, X } from 'lucide-react-native';
 import { View } from 'react-native';
 
 import { CtaBar, Screen, useTopInset } from '../components/Screen';
+import { useTheme } from '../components/ThemeProvider';
 import { Avatar, Card, CoralBtn, Row, T, WhiteBtn } from '../components/ui';
-import { C, navyA, shadow } from '../theme';
+import { C } from '../theme';
 
 // Listopad 2026 zaczyna się w niedzielę; kalendarz od poniedziałku.
 const LEAD = 6;
@@ -14,6 +15,7 @@ const LAST_SPOTS = new Set([3, 10, 17]);
 const SELECTED = 5;
 
 function Day({ d }: { d: number | null }) {
+  const t = useTheme();
   if (d === null) return <View style={{ width: `${100 / 7}%`, height: 36 }} />;
   const selected = d === SELECTED;
   const available = AVAILABLE.has(d);
@@ -22,9 +24,9 @@ function Day({ d }: { d: number | null }) {
       <View
         style={[
           { width: 38, height: 34, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
-          selected && { backgroundColor: C.ocean, boxShadow: shadow.ocean },
+          selected && { backgroundColor: C.ocean, boxShadow: t.shadow.ocean },
         ]}>
-        <T w={700} size={14} color={selected ? C.white : available ? C.navy : navyA(0.22)}>
+        <T w={700} size={14} color={selected ? C.white : available ? t.text : t.textA(0.22)}>
           {d}
         </T>
         {available && !selected ? (
@@ -35,7 +37,8 @@ function Day({ d }: { d: number | null }) {
   );
 }
 
-function Slot({ t, state }: { t: string; state?: 'off' | 'sel' }) {
+function Slot({ time, state }: { time: string; state?: 'off' | 'sel' }) {
+  const t = useTheme();
   const sel = state === 'sel';
   const off = state === 'off';
   return (
@@ -46,19 +49,20 @@ function Slot({ t, state }: { t: string; state?: 'off' | 'sel' }) {
         borderRadius: 14,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: sel ? C.ocean : off ? 'transparent' : C.white,
+        backgroundColor: sel ? C.ocean : off ? 'transparent' : t.surface,
         borderWidth: sel ? 0 : 1,
-        borderColor: off ? navyA(0.06) : navyA(0.09),
-        boxShadow: sel ? shadow.ocean : undefined,
+        borderColor: off ? t.textA(0.06) : t.textA(0.09),
+        boxShadow: sel ? t.shadow.ocean : undefined,
       }}>
-      <T w={800} size={14} color={sel ? C.white : off ? navyA(0.25) : C.navy} style={off ? { textDecorationLine: 'line-through' } : undefined}>
-        {t}
+      <T w={800} size={14} color={sel ? C.white : off ? t.textA(0.25) : t.text} style={off ? { textDecorationLine: 'line-through' } : undefined}>
+        {time}
       </T>
     </View>
   );
 }
 
 export default function Termin() {
+  const t = useTheme();
   const top = useTopInset(4);
   const cells: (number | null)[] = [...Array(LEAD).fill(null), ...Array.from({ length: DAYS }, (_, i) => i + 1)];
   return (
@@ -66,7 +70,7 @@ export default function Termin() {
       tab="hosp"
       floating={
         <CtaBar action={<CoralBtn label="Zarezerwuj" onPress={() => router.push('/potwierdzenie')} />}>
-          <T w={600} size={11.5} color={navyA(0.5)}>
+          <T w={600} size={11.5} color={t.textA(0.5)}>
             Czw, 5 lis · 18:00–19:00
           </T>
           <T w={800} size={19}>
@@ -81,7 +85,7 @@ export default function Termin() {
             <T w={800} size={16}>
               Wybierz termin
             </T>
-            <T w={600} size={11.5} color={navyA(0.45)}>
+            <T w={600} size={11.5} color={t.textA(0.45)}>
               Krok 2 z 3
             </T>
           </View>
@@ -94,11 +98,11 @@ export default function Termin() {
             <T w={800} size={14}>
               Trening personalny · 60 min
             </T>
-            <T size={12} color={navyA(0.5)}>
+            <T size={12} color={t.textA(0.5)}>
               Michał Kowalczyk · Fit Harbour Gdynia
             </T>
           </View>
-          <T w={700} size={12} color={C.ocean}>
+          <T w={700} size={12} color={t.oceanInk}>
             Zmień
           </T>
         </Card>
@@ -108,37 +112,37 @@ export default function Termin() {
             <View>
               <T display size={20}>
                 Listopad{' '}
-                <T display size={20} color={navyA(0.35)}>
+                <T display size={20} color={t.textA(0.35)}>
                   2026
                 </T>
               </T>
               <Row gap={12} style={{ marginTop: 6 }}>
                 <Row gap={4}>
                   <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: C.sea }} />
-                  <T w={600} size={10.5} color={navyA(0.45)}>
+                  <T w={600} size={10.5} color={t.textA(0.45)}>
                     wolne
                   </T>
                 </Row>
                 <Row gap={4}>
                   <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: C.coral }} />
-                  <T w={600} size={10.5} color={navyA(0.45)}>
+                  <T w={600} size={10.5} color={t.textA(0.45)}>
                     ostatnie miejsca
                   </T>
                 </Row>
               </Row>
             </View>
             <Row gap={6}>
-              <View style={{ width: 32, height: 32, borderRadius: 16, borderWidth: 1, borderColor: navyA(0.1), alignItems: 'center', justifyContent: 'center' }}>
-                <ChevronLeft size={16} color={navyA(0.3)} />
+              <View style={{ width: 32, height: 32, borderRadius: 16, borderWidth: 1, borderColor: t.textA(0.1), alignItems: 'center', justifyContent: 'center' }}>
+                <ChevronLeft size={16} color={t.textA(0.3)} />
               </View>
-              <View style={{ width: 32, height: 32, borderRadius: 16, borderWidth: 1, borderColor: navyA(0.1), alignItems: 'center', justifyContent: 'center' }}>
-                <ChevronRight size={16} color={C.navy} />
+              <View style={{ width: 32, height: 32, borderRadius: 16, borderWidth: 1, borderColor: t.textA(0.1), alignItems: 'center', justifyContent: 'center' }}>
+                <ChevronRight size={16} color={t.text} />
               </View>
             </Row>
           </Row>
           <Row style={{ marginBottom: 4 }}>
             {['Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'So', 'Nd'].map((w) => (
-              <T key={w} w={700} size={11} color={navyA(0.4)} style={{ width: `${100 / 7}%`, textAlign: 'center' }}>
+              <T key={w} w={700} size={11} color={t.textA(0.4)} style={{ width: `${100 / 7}%`, textAlign: 'center' }}>
                 {w}
               </T>
             ))}
@@ -154,21 +158,21 @@ export default function Termin() {
           <T w={800} size={14.5}>
             Czwartek, 5 listopada
           </T>
-          <T w={700} size={12} color={C.ocean}>
+          <T w={700} size={12} color={t.oceanInk}>
             6 wolnych
           </T>
         </Row>
         <Row gap={8}>
-          <Slot t="07:00" />
-          <Slot t="08:00" state="off" />
-          <Slot t="17:00" />
-          <Slot t="18:00" state="sel" />
+          <Slot time="07:00" />
+          <Slot time="08:00" state="off" />
+          <Slot time="17:00" />
+          <Slot time="18:00" state="sel" />
         </Row>
         <Row gap={8} style={{ marginTop: 8 }}>
-          <Slot t="19:00" />
-          <Slot t="20:00" />
-          <Slot t="20:30" state="off" />
-          <Slot t="21:00" />
+          <Slot time="19:00" />
+          <Slot time="20:00" />
+          <Slot time="20:30" state="off" />
+          <Slot time="21:00" />
         </Row>
       </View>
     </Screen>

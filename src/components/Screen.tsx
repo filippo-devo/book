@@ -6,7 +6,8 @@ import type { ReactNode } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { C, shadow } from '../theme';
+import { C } from '../theme';
+import { useTheme } from './ThemeProvider';
 import { T } from './ui';
 
 export type TabKey = 'klub' | 'znajdz' | 'hosp' | 'rez' | 'konto';
@@ -33,6 +34,7 @@ export function useTopInset(extra = 8) {
 }
 
 function TabBar({ active }: { active: TabKey }) {
+  const t = useTheme();
   const height = useTabBarHeight();
   return (
     <View
@@ -42,10 +44,12 @@ function TabBar({ active }: { active: TabKey }) {
         right: 0,
         bottom: 0,
         height,
-        backgroundColor: 'rgba(255,255,255,0.97)',
+        backgroundColor: t.bar,
         borderTopLeftRadius: 28,
         borderTopRightRadius: 28,
-        boxShadow: '0px -12px 34px -14px rgba(11,37,69,0.18)',
+        borderTopWidth: 1,
+        borderColor: t.surfaceEdge,
+        boxShadow: t.shadow.tabBar,
         flexDirection: 'row',
         paddingTop: 9,
         paddingHorizontal: 6,
@@ -61,8 +65,8 @@ function TabBar({ active }: { active: TabKey }) {
                   marginBottom: 3,
                   borderRadius: 24,
                   borderWidth: 6,
-                  borderColor: C.white,
-                  boxShadow: isActive ? `0px 0px 0px 2px rgba(46,196,182,0.35), ${shadow.ocean}` : shadow.ocean,
+                  borderColor: t.scheme === 'dark' ? '#0B1E36' : C.white,
+                  boxShadow: isActive ? `0px 0px 0px 2px rgba(46,196,182,0.35), ${t.shadow.ocean}` : t.shadow.ocean,
                 }}>
                 <LinearGradient
                   colors={[C.ocean, '#1E8FB8', C.sea]}
@@ -72,7 +76,7 @@ function TabBar({ active }: { active: TabKey }) {
                   <Icon size={26} color={C.white} strokeWidth={1.9} />
                 </LinearGradient>
               </View>
-              <T w={700} size={10.5} color={isActive ? C.ocean : C.navy}>
+              <T w={700} size={10.5} color={isActive ? t.oceanInk : t.text}>
                 {label}
               </T>
             </Pressable>
@@ -87,11 +91,11 @@ function TabBar({ active }: { active: TabKey }) {
                 borderRadius: 16,
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: isActive ? 'rgba(27,108,168,0.1)' : 'transparent',
+                backgroundColor: isActive ? t.oceanTint : 'transparent',
               }}>
-              <Icon size={22} color={isActive ? C.ocean : C.muted} strokeWidth={1.9} />
+              <Icon size={22} color={isActive ? t.oceanInk : t.muted} strokeWidth={1.9} />
             </View>
-            <T w={700} size={10.5} color={isActive ? C.ocean : C.muted}>
+            <T w={700} size={10.5} color={isActive ? t.oceanInk : t.muted}>
               {label}
             </T>
           </Pressable>
@@ -104,26 +108,28 @@ function TabBar({ active }: { active: TabKey }) {
 /**
  * Frame shared by every screen: background, status bar style, scrollable content,
  * an optional floating bar above the tab bar (e.g. „Zarezerwuj”) and the tab bar itself.
+ * `dark` forces light status-bar content for screens that are always dark (My AI).
  */
 export function Screen({
   tab,
   children,
-  bg = C.foam,
-  light,
+  bg,
+  dark,
   floating,
   scroll = true,
 }: {
   tab: TabKey;
   children: ReactNode;
   bg?: string;
-  light?: boolean;
+  dark?: boolean;
   floating?: ReactNode;
   scroll?: boolean;
 }) {
+  const t = useTheme();
   const tabH = useTabBarHeight();
   return (
-    <View style={{ flex: 1, backgroundColor: bg }}>
-      <StatusBar style={light ? 'light' : 'dark'} />
+    <View style={{ flex: 1, backgroundColor: bg ?? t.bg }}>
+      <StatusBar style={dark || t.scheme === 'dark' ? 'light' : 'dark'} />
       {scroll ? (
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: tabH + (floating ? 110 : 28) }}>
           {children}
@@ -137,12 +143,13 @@ export function Screen({
   );
 }
 
-/** Floating white bar with summary on the left and the coral CTA on the right. */
+/** Floating bar with summary on the left and the coral CTA on the right. */
 export function CtaBar({ children, action }: { children: ReactNode; action: ReactNode }) {
+  const t = useTheme();
   return (
     <View
       style={{
-        backgroundColor: C.white,
+        backgroundColor: t.surface,
         borderRadius: 26,
         paddingVertical: 10,
         paddingRight: 10,
@@ -150,7 +157,9 @@ export function CtaBar({ children, action }: { children: ReactNode; action: Reac
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        boxShadow: `${shadow.float}, 0px 0px 0px 1px rgba(11,37,69,0.04)`,
+        borderWidth: 1,
+        borderColor: t.scheme === 'dark' ? t.surfaceEdge : t.textA(0.04),
+        boxShadow: t.shadow.float,
       }}>
       <View style={{ flexShrink: 1 }}>{children}</View>
       {action}

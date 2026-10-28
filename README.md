@@ -20,7 +20,7 @@ To statyczny prototyp UI: bez backendu i stanu, z prostą nawigacją między ekr
 | `/potwierdzenie` | Potwierdzenie rezerwacji |
 | `/opinia` | Wystaw opinię — oceny w kategoriach, zweryfikowana wizyta |
 | `/rezerwacje` | Rezerwacje — nadchodzące i historia |
-| `/konto` | Konto — profil, portfel, ustawienia |
+| `/konto` | Konto — profil, portfel, wybór motywu (systemowy / jasny / ciemny), ustawienia |
 
 Statyczne makiety HTML, od których zaczął się projekt: [`docs/przystan-makiety.html`](docs/przystan-makiety.html), podgląd: [`docs/podglad.png`](docs/podglad.png).
 
@@ -48,3 +48,5 @@ Wymaga sekretu repozytorium `EXPO_TOKEN` (expo.dev → Account settings → Acce
 Expo SDK 58 · Expo Router · react-native-svg · expo-linear-gradient · lucide-react-native · Fraunces + Plus Jakarta Sans (`@expo-google-fonts`).
 
 Paleta: granat `#0B2545`, ocean `#1B6CA8`, morska zieleń `#2EC4B6`, piasek `#F4E9D8`, piana `#F7FBFC`, koral `#FF6B5B` — w [`src/theme.ts`](src/theme.ts).
+
+Motyw jasny i ciemny: kolory semantyczne (`LIGHT` / `DARK`) są w [`src/theme.ts`](src/theme.ts), a wybór użytkownika (systemowy / jasny / ciemny) zapisuje [`ThemeProvider`](src/components/ThemeProvider.tsx) w AsyncStorage. Ekrany pobierają kolory przez `useTheme()`.

@@ -1,65 +1,80 @@
+import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { ChevronDown, ChevronLeft, ChevronUp, Crown, Dumbbell, Info, Minus, ShieldCheck } from 'lucide-react-native';
 import { View } from 'react-native';
 
-import { WaveHeader } from '../components/art';
+import { Hero } from '../components/art';
 import { Screen, useTopInset } from '../components/Screen';
+import { useTheme } from '../components/ThemeProvider';
 import { Avatar, Chip, GlassBtn, Rating, Row, StarIcon, T, Verified } from '../components/ui';
-import { C, navyA, whiteA } from '../theme';
+import { C } from '../theme';
 
 const MEDAL: Record<number, string> = { 1: '#FFD9A0', 2: '#E3EEF6', 3: '#F2C6A4' };
+const GOLD = '#E9A23B';
 
 function Podium({ initials, g, name, score, place, height }: { initials: string; g: number; name: string; score: string; place: 1 | 2 | 3; height: number }) {
+  const t = useTheme();
   const size = place === 1 ? 74 : 60;
+  const winner = place === 1;
+  const pedestal = { width: '100%' as const, height, borderTopLeftRadius: 18, borderTopRightRadius: 18, alignItems: 'center' as const, paddingTop: 6, marginTop: 10 };
   return (
     <View style={{ width: 104, alignItems: 'center' }}>
       <View>
-        {place === 1 ? (
+        {winner ? (
           <View style={{ position: 'absolute', top: -24, left: 0, right: 0, alignItems: 'center' }}>
-            <Crown size={24} color="#FFD9A0" fill="#FFD9A0" />
+            <Crown size={24} color={GOLD} fill={GOLD} />
           </View>
         ) : null}
-        <Avatar initials={initials} g={g} size={size} ring={{ width: 3, color: whiteA(0.8) }} />
+        <Avatar initials={initials} g={g} size={size} ring={{ width: 3, color: t.surface }} />
         <View style={{ position: 'absolute', bottom: -9, left: 0, right: 0, alignItems: 'center' }}>
-          <View style={{ width: 24, height: 24, borderRadius: 12, backgroundColor: MEDAL[place], borderWidth: 2, borderColor: C.white, alignItems: 'center', justifyContent: 'center' }}>
-            <T w={800} size={11}>
+          <View style={{ width: 24, height: 24, borderRadius: 12, backgroundColor: MEDAL[place], borderWidth: 2, borderColor: t.surface, alignItems: 'center', justifyContent: 'center' }}>
+            <T w={800} size={11} color={C.navy}>
               {place}
             </T>
           </View>
         </View>
       </View>
-      <T w={800} size={13} color={C.white} style={{ marginTop: 14, textAlign: 'center', lineHeight: 16 }}>
+      <T w={800} size={13} style={{ marginTop: 14, textAlign: 'center', lineHeight: 16 }}>
         {name}
       </T>
       <Row gap={4} style={{ marginTop: 2 }}>
-        <StarIcon size={10} color="#9BEFE4" />
-        <T w={700} size={11} color={whiteA(0.65)}>
+        <StarIcon size={10} />
+        <T w={700} size={11} color={t.textA(0.55)}>
           {score}
         </T>
       </Row>
-      <View style={{ marginTop: 10, width: '100%', height, borderTopLeftRadius: 18, borderTopRightRadius: 18, backgroundColor: whiteA(0.16), borderTopWidth: 1, borderColor: whiteA(0.4), alignItems: 'center', paddingTop: 6 }}>
-        <T display size={26} color={whiteA(0.9)}>
-          {place}
-        </T>
-      </View>
+      {winner ? (
+        <LinearGradient colors={[C.ocean, C.sea]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={[pedestal, { boxShadow: t.shadow.ocean }]}>
+          <T display size={26} color={C.white}>
+            {place}
+          </T>
+        </LinearGradient>
+      ) : (
+        <View style={[pedestal, { backgroundColor: t.surface, borderWidth: 1, borderBottomWidth: 0, borderColor: t.textA(0.06), boxShadow: t.shadow.card }]}>
+          <T display size={26} color={t.oceanInk}>
+            {place}
+          </T>
+        </View>
+      )}
     </View>
   );
 }
 
 function RankRow({ pos, trend, initials, g, name, spec, score, rating, count, last }: { pos: number; trend: ['up' | 'down' | 'eq', string]; initials: string; g: number; name: string; spec: string; score: string; rating: string; count: string; last?: boolean }) {
+  const t = useTheme();
   const [dir, delta] = trend;
   return (
-    <Row gap={12} style={{ paddingVertical: 10, borderBottomWidth: last ? 0 : 1, borderBottomColor: navyA(0.06) }}>
+    <Row gap={12} style={{ paddingVertical: 10, borderBottomWidth: last ? 0 : 1, borderBottomColor: t.textA(0.06) }}>
       <View style={{ width: 28, alignItems: 'center' }}>
         <T w={800} size={16}>
           {pos}
         </T>
         {dir === 'eq' ? (
-          <Minus size={14} color={navyA(0.3)} />
+          <Minus size={14} color={t.textA(0.3)} />
         ) : (
           <Row>
-            {dir === 'up' ? <ChevronUp size={14} color={C.seaDark} /> : <ChevronDown size={14} color={C.coral} />}
-            <T w={800} size={10} color={dir === 'up' ? C.seaDark : C.coral}>
+            {dir === 'up' ? <ChevronUp size={14} color={t.seaInk} /> : <ChevronDown size={14} color={C.coral} />}
+            <T w={800} size={10} color={dir === 'up' ? t.seaInk : C.coral}>
               {delta}
             </T>
           </Row>
@@ -74,7 +89,7 @@ function RankRow({ pos, trend, initials, g, name, spec, score, rating, count, la
           <Verified size={14} />
         </Row>
         <Row gap={6}>
-          <T size={11.5} color={navyA(0.5)}>
+          <T size={11.5} color={t.textA(0.5)}>
             {spec} ·
           </T>
           <Rating value={rating} count={count} size={11} />
@@ -84,7 +99,7 @@ function RankRow({ pos, trend, initials, g, name, spec, score, rating, count, la
         <T w={800} size={15}>
           {score}
         </T>
-        <T w={700} size={10} color={navyA(0.4)} style={{ letterSpacing: 1 }}>
+        <T w={700} size={10} color={t.textA(0.4)} style={{ letterSpacing: 1 }}>
           PKT
         </T>
       </View>
@@ -93,24 +108,25 @@ function RankRow({ pos, trend, initials, g, name, spec, score, rating, count, la
 }
 
 export default function Ranking() {
+  const t = useTheme();
   const top = useTopInset(4);
   return (
-    <Screen tab="hosp" light>
-      <WaveHeader style={{ paddingTop: top, paddingBottom: 30 }} waveHeight={30} lines={0.12}>
+    <Screen tab="hosp">
+      <Hero top={top} bottom={0}>
         <View style={{ paddingHorizontal: 20 }}>
           <Row style={{ justifyContent: 'space-between' }}>
             <GlassBtn icon={ChevronLeft} onPress={() => router.back()} />
-            <T w={700} size={12} color={whiteA(0.8)}>
+            <T w={700} size={12} color={t.textA(0.6)}>
               Październik 2026
             </T>
             <GlassBtn icon={Info} />
           </Row>
-          <T display size={29} color={C.white} style={{ textAlign: 'center', marginTop: 12 }}>
+          <T display size={29} style={{ textAlign: 'center', marginTop: 12 }}>
             Top trenerzy w Gdyni
           </T>
           <Row gap={8} style={{ justifyContent: 'center', marginTop: 12 }}>
-            <Chip glass height={32} label="Trenerzy personalni" icon={<Dumbbell size={14} color={whiteA(0.9)} />} />
-            <Chip glass height={32} label="Gdynia" icon={<ChevronDown size={14} color={whiteA(0.9)} />} />
+            <Chip height={32} label="Trenerzy personalni" icon={<Dumbbell size={14} color={t.text} />} />
+            <Chip height={32} label="Gdynia" icon={<ChevronDown size={14} color={t.text} />} />
           </Row>
           <Row gap={4} style={{ justifyContent: 'center', alignItems: 'flex-end', marginTop: 34 }}>
             <Podium initials="JM" g={1} name="Julia Mazur" score="4.96" place={2} height={64} />
@@ -118,12 +134,12 @@ export default function Ranking() {
             <Podium initials="KD" g={3} name={'Kamil\nDąbrowski'} score="4.94" place={3} height={46} />
           </Row>
         </View>
-      </WaveHeader>
+      </Hero>
 
-      <View style={{ paddingHorizontal: 20 }}>
-        <Row gap={8} style={{ backgroundColor: 'rgba(46,196,182,0.1)', borderRadius: 16, paddingHorizontal: 12, paddingVertical: 8, marginBottom: 4 }}>
-          <ShieldCheck size={16} color={C.seaDark} />
-          <T w={600} size={11.5} color={navyA(0.6)} style={{ flex: 1 }}>
+      <View style={{ paddingHorizontal: 20, paddingTop: 16 }}>
+        <Row gap={8} style={{ backgroundColor: t.seaTint, borderRadius: 16, paddingHorizontal: 12, paddingVertical: 8, marginBottom: 4 }}>
+          <ShieldCheck size={16} color={t.seaInk} />
+          <T w={600} size={11.5} color={t.textA(0.6)} style={{ flex: 1 }}>
             Liczymy tylko zweryfikowane wizyty z ostatnich 90 dni
           </T>
         </Row>

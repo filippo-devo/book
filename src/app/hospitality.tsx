@@ -3,23 +3,25 @@ import { Bookmark, ConciergeBell, Dumbbell, HandHeart, Mic, Salad, SlidersHorizo
 import { Pressable, ScrollView, View } from 'react-native';
 import Svg, { Circle, Defs, RadialGradient, Stop } from 'react-native-svg';
 
-import { WaveHeader } from '../components/art';
+import { Hero } from '../components/art';
 import { SearchField } from '../components/blocks';
 import { Screen, useTopInset } from '../components/Screen';
+import { useTheme } from '../components/ThemeProvider';
 import { Avatar, Card, Chip, GlassBtn, Rating, Row, T, Verified } from '../components/ui';
-import { C, navyA, shadow, whiteA } from '../theme';
+import { C, whiteA } from '../theme';
 
 function Category({ icon: Icon, label, count, bg, fg }: { icon: LucideIcon; label: string; count: string; bg: string; fg: string }) {
+  const t = useTheme();
   return (
-    <View style={{ flex: 1, borderRadius: 22, padding: 10, paddingBottom: 14, gap: 12, backgroundColor: bg, boxShadow: shadow.card }}>
-      <View style={{ width: 40, height: 40, borderRadius: 14, backgroundColor: whiteA(0.8), alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ flex: 1, borderRadius: 22, padding: 10, paddingBottom: 14, gap: 12, backgroundColor: bg, boxShadow: t.shadow.card }}>
+      <View style={{ width: 40, height: 40, borderRadius: 14, backgroundColor: t.scheme === 'dark' ? whiteA(0.08) : whiteA(0.8), alignItems: 'center', justifyContent: 'center' }}>
         <Icon size={20} color={fg} />
       </View>
       <View>
         <T w={800} size={12.5} numberOfLines={1} adjustsFontSizeToFit>
           {label}
         </T>
-        <T w={600} size={11} color={navyA(0.45)} style={{ marginTop: 2 }}>
+        <T w={600} size={11} color={t.textA(0.45)} style={{ marginTop: 2 }}>
           {count}
         </T>
       </View>
@@ -50,12 +52,13 @@ function SpecialistCard({
   price: string;
   rank?: number;
 }) {
+  const t = useTheme();
   return (
     <Card style={{ padding: 14 }} onPress={() => router.push('/specjalista')}>
       <Row gap={12} style={{ alignItems: 'flex-start' }}>
         <View>
           <Avatar initials={initials} g={g} size={58} radius={20} />
-          <View style={{ position: 'absolute', right: -4, bottom: -4, width: 22, height: 22, borderRadius: 11, backgroundColor: C.white, alignItems: 'center', justifyContent: 'center' }}>
+          <View style={{ position: 'absolute', right: -4, bottom: -4, width: 22, height: 22, borderRadius: 11, backgroundColor: t.surface, alignItems: 'center', justifyContent: 'center' }}>
             <Verified size={16} />
           </View>
         </View>
@@ -65,35 +68,35 @@ function SpecialistCard({
               {name}
             </T>
             {rank ? (
-              <View style={{ backgroundColor: C.sand, borderRadius: 8, paddingHorizontal: 7, paddingVertical: 2 }}>
+              <View style={{ backgroundColor: t.sand, borderRadius: 8, paddingHorizontal: 7, paddingVertical: 2 }}>
                 <T w={800} size={11}>
                   #{rank}
                 </T>
               </View>
             ) : null}
           </Row>
-          <T size={12} color={navyA(0.55)} numberOfLines={1}>
+          <T size={12} color={t.textA(0.55)} numberOfLines={1}>
             {role}
           </T>
           <Row gap={8} style={{ marginTop: 4 }}>
             <Rating value={rating} count={count} size={12} />
-            <T size={12} color={navyA(0.25)}>
+            <T size={12} color={t.textA(0.25)}>
               ·
             </T>
-            <T w={500} size={12} color={navyA(0.55)}>
+            <T w={500} size={12} color={t.textA(0.55)}>
               {place}
             </T>
           </Row>
         </View>
       </Row>
-      <Row style={{ justifyContent: 'space-between', marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderStyle: 'dashed', borderTopColor: navyA(0.1) }}>
-        <Row gap={6} style={{ backgroundColor: 'rgba(46,196,182,0.1)', borderRadius: 999, paddingHorizontal: 10, paddingVertical: 4 }}>
-          <Zap size={14} color={C.seaDark} />
-          <T w={700} size={12} color={C.seaDark}>
+      <Row style={{ justifyContent: 'space-between', marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderStyle: 'dashed', borderTopColor: t.textA(0.1) }}>
+        <Row gap={6} style={{ backgroundColor: t.seaTint, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 4 }}>
+          <Zap size={14} color={t.seaInk} />
+          <T w={700} size={12} color={t.seaInk}>
             {next}
           </T>
         </Row>
-        <T size={12} color={navyA(0.5)}>
+        <T size={12} color={t.textA(0.5)}>
           od{' '}
           <T w={800} size={15}>
             {price}
@@ -105,39 +108,40 @@ function SpecialistCard({
 }
 
 export default function Hospitality() {
+  const t = useTheme();
   const top = useTopInset(10);
   return (
-    <Screen tab="hosp" light>
-      <WaveHeader style={{ paddingTop: top, paddingBottom: 58, paddingHorizontal: 20 }}>
+    <Screen tab="hosp">
+      <Hero top={top} bottom={36} style={{ paddingHorizontal: 20 }}>
         <Row style={{ justifyContent: 'space-between' }}>
           <Row gap={6}>
-            <ConciergeBell size={14} color={whiteA(0.8)} />
-            <T w={700} size={12.5} color={whiteA(0.8)}>
+            <ConciergeBell size={14} color={t.textA(0.6)} />
+            <T w={700} size={12.5} color={t.textA(0.6)}>
               Hospitality
             </T>
           </Row>
           <GlassBtn icon={Bookmark} />
         </Row>
-        <T display size={28} color={C.white} style={{ marginTop: 4, lineHeight: 32 }}>
+        <T display size={28} style={{ marginTop: 4, lineHeight: 32 }}>
           Specjaliści, którzy{'\n'}dbają o{' '}
-          <T display italic size={28} color="#BFF5EE">
+          <T display italic size={28} color={t.oceanInk}>
             Twoją formę
           </T>
         </T>
         <SearchField placeholder="Trener, fizjo, dietetyk…" mic={Mic} style={{ marginTop: 16 }} />
-      </WaveHeader>
+      </Hero>
 
-      <View style={{ paddingHorizontal: 20, marginTop: -20 }}>
+      <View style={{ paddingHorizontal: 20, marginTop: -8 }}>
         <Row gap={10} style={{ alignItems: 'stretch' }}>
-          <Category icon={Dumbbell} label="Trenerzy" count="128" bg="#E3EFF8" fg={C.ocean} />
-          <Category icon={HandHeart} label="Fizjo" count="64" bg="#DDF4F1" fg={C.seaDark} />
-          <Category icon={Salad} label="Dietetycy" count="37" bg={C.sand} fg="#9A6A2C" />
-          <Category icon={Stethoscope} label="Lekarze" count="22" bg="#FFE6E2" fg="#E5503F" />
+          <Category icon={Dumbbell} label="Trenerzy" count="128" bg={t.categories[0].bg} fg={t.categories[0].ink} />
+          <Category icon={HandHeart} label="Fizjo" count="64" bg={t.categories[1].bg} fg={t.categories[1].ink} />
+          <Category icon={Salad} label="Dietetycy" count="37" bg={t.categories[2].bg} fg={t.categories[2].ink} />
+          <Category icon={Stethoscope} label="Lekarze" count="22" bg={t.categories[3].bg} fg={t.categories[3].ink} />
         </Row>
 
         <Pressable
           onPress={() => router.push('/ranking')}
-          style={{ marginTop: 16, borderRadius: 22, backgroundColor: C.navy, padding: 14, paddingRight: 16, flexDirection: 'row', alignItems: 'center', gap: 12, overflow: 'hidden' }}>
+          style={{ marginTop: 16, borderRadius: 22, backgroundColor: C.navy, borderWidth: 1, borderColor: t.surfaceEdge, padding: 14, paddingRight: 16, flexDirection: 'row', alignItems: 'center', gap: 12, overflow: 'hidden' }}>
           <Svg pointerEvents="none" width={150} height={150} style={{ position: 'absolute', right: -24, top: -40 }}>
             <Defs>
               <RadialGradient id="rk" cx="50%" cy="50%" r="50%">
@@ -174,8 +178,8 @@ export default function Hospitality() {
             Polecani w pobliżu
           </T>
           <Row gap={4}>
-            <SlidersHorizontal size={14} color={C.ocean} />
-            <T w={700} size={13} color={C.ocean}>
+            <SlidersHorizontal size={14} color={t.oceanInk} />
+            <T w={700} size={13} color={t.oceanInk}>
               Filtry
             </T>
           </Row>

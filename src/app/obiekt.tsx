@@ -4,16 +4,18 @@ import { View } from 'react-native';
 
 import { Photo, SportIcon } from '../components/art';
 import { CtaBar, Screen, useTopInset } from '../components/Screen';
+import { useTheme } from '../components/ThemeProvider';
 import { Avatar, Card, CoralBtn, GlassBtn, Pill, Row, SectionHeader, Stars, T } from '../components/ui';
-import { C, navyA, whiteA } from '../theme';
+import { C, whiteA } from '../theme';
 
 function Amenity({ icon: Icon, label }: { icon: LucideIcon; label: string }) {
+  const t = useTheme();
   return (
     <View style={{ alignItems: 'center', gap: 6 }}>
-      <View style={{ width: 52, height: 52, borderRadius: 17, backgroundColor: C.sand, alignItems: 'center', justifyContent: 'center' }}>
-        <Icon size={22} color={C.navy} />
+      <View style={{ width: 52, height: 52, borderRadius: 17, backgroundColor: t.sand, alignItems: 'center', justifyContent: 'center' }}>
+        <Icon size={22} color={t.text} />
       </View>
-      <T w={600} size={11} color={navyA(0.7)}>
+      <T w={600} size={11} color={t.textA(0.7)}>
         {label}
       </T>
     </View>
@@ -21,24 +23,25 @@ function Amenity({ icon: Icon, label }: { icon: LucideIcon; label: string }) {
 }
 
 function PriceTile({ label, value, hot }: { label: string; value: string; hot?: boolean }) {
+  const t = useTheme();
   return (
     <View
       style={{
         flex: 1,
         borderRadius: 18,
         padding: 12,
-        backgroundColor: hot ? C.navy : C.white,
+        backgroundColor: hot ? C.ocean : t.surface,
         borderWidth: hot ? 0 : 1,
-        borderColor: navyA(0.07),
-        boxShadow: hot ? '0px 14px 26px -12px rgba(11,37,69,0.6)' : undefined,
+        borderColor: t.textA(0.07),
+        boxShadow: hot ? t.shadow.ocean : undefined,
       }}>
-      <T w={800} size={10.5} color={hot ? whiteA(0.6) : navyA(0.45)} style={{ letterSpacing: 0.6 }}>
+      <T w={800} size={10.5} color={hot ? whiteA(0.7) : t.textA(0.45)} style={{ letterSpacing: 0.6 }}>
         {label}
       </T>
-      <T display size={22} color={hot ? C.white : C.navy} style={{ marginTop: 4 }}>
+      <T display size={22} color={hot ? C.white : t.text} style={{ marginTop: 4 }}>
         {value}
       </T>
-      <T w={600} size={11} color={hot ? whiteA(0.6) : navyA(0.45)}>
+      <T w={600} size={11} color={hot ? whiteA(0.7) : t.textA(0.45)}>
         kort / h
       </T>
     </View>
@@ -46,17 +49,18 @@ function PriceTile({ label, value, hot }: { label: string; value: string; hot?: 
 }
 
 export default function Obiekt() {
+  const t = useTheme();
   const top = useTopInset(6);
   return (
     <Screen
       tab="znajdz"
-      light
+      dark
       floating={
         <CtaBar action={<CoralBtn label="Zarezerwuj" onPress={() => router.push('/termin')} />}>
-          <T w={600} size={11.5} color={navyA(0.5)}>
+          <T w={600} size={11.5} color={t.textA(0.5)}>
             Wolne jutro od 18:00
           </T>
-          <T size={13} color={navyA(0.6)}>
+          <T size={13} color={t.textA(0.6)}>
             od{' '}
             <T w={800} size={19}>
               80 zł
@@ -90,17 +94,17 @@ export default function Obiekt() {
         </Row>
       </Photo>
 
-      <View style={{ marginTop: -28, borderTopLeftRadius: 30, borderTopRightRadius: 30, backgroundColor: C.foam, paddingHorizontal: 20, paddingTop: 20 }}>
+      <View style={{ marginTop: -28, borderTopLeftRadius: 30, borderTopRightRadius: 30, backgroundColor: t.bg, paddingHorizontal: 20, paddingTop: 20 }}>
         <Row gap={8}>
-          <Row gap={5} style={{ height: 26, paddingHorizontal: 10, borderRadius: 999, backgroundColor: 'rgba(27,108,168,0.08)' }}>
-            <SportIcon sport="tenis" size={13} color={C.ocean} />
-            <T w={800} size={11.5} color={C.ocean}>
+          <Row gap={5} style={{ height: 26, paddingHorizontal: 10, borderRadius: 999, backgroundColor: t.oceanTint }}>
+            <SportIcon sport="tenis" size={13} color={t.oceanInk} />
+            <T w={800} size={11.5} color={t.oceanInk}>
               Tenis
             </T>
           </Row>
-          <Row gap={5} style={{ height: 26, paddingHorizontal: 10, borderRadius: 999, backgroundColor: 'rgba(27,108,168,0.08)' }}>
-            <SportIcon sport="padel" size={13} color={C.ocean} />
-            <T w={800} size={11.5} color={C.ocean}>
+          <Row gap={5} style={{ height: 26, paddingHorizontal: 10, borderRadius: 999, backgroundColor: t.oceanTint }}>
+            <SportIcon sport="padel" size={13} color={t.oceanInk} />
+            <T w={800} size={11.5} color={t.oceanInk}>
               Padel
             </T>
           </Row>
@@ -110,26 +114,26 @@ export default function Obiekt() {
           Arena Tenis Redłowo
         </T>
         <Row gap={4} style={{ marginTop: 2 }}>
-          <MapPin size={14} color={navyA(0.55)} />
-          <T size={12.5} color={navyA(0.55)}>
+          <MapPin size={14} color={t.textA(0.55)} />
+          <T size={12.5} color={t.textA(0.55)}>
             ul. Legionów 130, Gdynia · 1,2 km · do 22:00
           </T>
         </Row>
 
         <Card style={{ marginTop: 14, padding: 14, flexDirection: 'row', gap: 16, alignItems: 'center' }}>
-          <View style={{ alignItems: 'center', paddingRight: 16, borderRightWidth: 1, borderRightColor: navyA(0.07) }}>
+          <View style={{ alignItems: 'center', paddingRight: 16, borderRightWidth: 1, borderRightColor: t.textA(0.07) }}>
             <T display size={32}>
               4.9
             </T>
             <View style={{ marginTop: 4 }}>
               <Stars n={5} size={10} />
             </View>
-            <T w={600} size={10.5} color={navyA(0.45)} style={{ marginTop: 4 }}>
+            <T w={600} size={10.5} color={t.textA(0.45)} style={{ marginTop: 4 }}>
               312 opinii
             </T>
           </View>
           <View style={{ flex: 1 }}>
-            <T w={500} size={13} color={navyA(0.8)} style={{ lineHeight: 18 }}>
+            <T w={500} size={13} color={t.textA(0.8)} style={{ lineHeight: 18 }}>
               „Najlepsza mączka w Trójmieście, korty równe nawet po deszczu.”
             </T>
             <Row gap={8} style={{ marginTop: 8 }}>
@@ -138,8 +142,8 @@ export default function Obiekt() {
                 Piotr S.
               </T>
               <Row gap={3}>
-                <BadgeCheck size={14} color={C.seaDark} />
-                <T w={700} size={11} color={C.seaDark}>
+                <BadgeCheck size={14} color={t.seaInk} />
+                <T w={700} size={11} color={t.seaInk}>
                   zweryfikowana
                 </T>
               </Row>
@@ -171,13 +175,13 @@ export default function Obiekt() {
               <T w={800} size={13.5}>
                 Magda D.
               </T>
-              <T size={11} color={navyA(0.45)}>
+              <T size={11} color={t.textA(0.45)}>
                 Padel · 19.10.2026 · zweryfikowana wizyta
               </T>
             </View>
             <Stars n={5} size={12} />
           </Row>
-          <T size={13} color={navyA(0.75)} style={{ marginTop: 10, lineHeight: 19 }}>
+          <T size={13} color={t.textA(0.75)} style={{ marginTop: 10, lineHeight: 19 }}>
             Świetna hala, szatnie czyste, a obsługa pożyczyła nam rakiety. Wrócimy w zimie!
           </T>
         </Card>

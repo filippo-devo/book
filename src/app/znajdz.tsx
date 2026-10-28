@@ -5,13 +5,15 @@ import { Pressable, View } from 'react-native';
 import { Photo, type PhotoKind } from '../components/art';
 import { SearchField, Segmented, SportChips } from '../components/blocks';
 import { Screen, useTopInset } from '../components/Screen';
+import { useTheme } from '../components/ThemeProvider';
 import { Card, Pill, Rating, Row, T } from '../components/ui';
-import { C, navyA, shadow, whiteA } from '../theme';
+import { C, whiteA } from '../theme';
 
 function MiniFilter({ icon: Icon, label }: { icon: LucideIcon; label: string }) {
+  const t = useTheme();
   return (
-    <Row gap={5} style={{ height: 30, paddingHorizontal: 11, borderRadius: 999, backgroundColor: C.sand }}>
-      <Icon size={14} color={C.navy} />
+    <Row gap={5} style={{ height: 30, paddingHorizontal: 11, borderRadius: 999, backgroundColor: t.sand }}>
+      <Icon size={14} color={t.text} />
       <T w={600} size={12.5}>
         {label}
       </T>
@@ -19,7 +21,8 @@ function MiniFilter({ icon: Icon, label }: { icon: LucideIcon; label: string }) 
   );
 }
 
-function Slot({ t, on }: { t: string; on?: boolean }) {
+function Slot({ time, on }: { time: string; on?: boolean }) {
+  const t = useTheme();
   return (
     <View
       style={{
@@ -27,22 +30,27 @@ function Slot({ t, on }: { t: string; on?: boolean }) {
         paddingHorizontal: 10,
         borderRadius: 10,
         justifyContent: 'center',
-        backgroundColor: on ? 'rgba(46,196,182,0.14)' : C.white,
+        backgroundColor: on ? t.seaTint : t.surface,
         borderWidth: on ? 1.5 : 1,
-        borderColor: on ? 'rgba(46,196,182,0.6)' : navyA(0.1),
+        borderColor: on ? 'rgba(46,196,182,0.6)' : t.textA(0.1),
       }}>
-      <T w={800} size={12.5} color={on ? C.seaDark : C.navy}>
-        {t}
+      <T w={800} size={12.5} color={on ? t.seaInk : t.text}>
+        {time}
       </T>
     </View>
   );
 }
 
 function VenueCard({ kind, name, meta, rating, count, price, badge, isNew }: { kind: PhotoKind; name: string; meta: string; rating: string; count: string; price: string; badge?: string; isNew?: boolean }) {
+  const t = useTheme();
   return (
     <Card style={{ overflow: 'hidden' }} onPress={() => router.push('/obiekt')}>
       <Photo kind={kind} style={{ height: 148 }}>
-        {badge ? <Pill icon={Trophy} style={{ position: 'absolute', top: 12, left: 12 }}>{badge}</Pill> : null}
+        {badge ? (
+          <Pill icon={Trophy} bg={C.sand} color={C.navy} style={{ position: 'absolute', top: 12, left: 12 }}>
+            {badge}
+          </Pill>
+        ) : null}
         {isNew ? (
           <Pill icon={Sparkles} bg="rgba(11,37,69,0.55)" color={C.white} style={{ position: 'absolute', top: 12, left: 12 }}>
             Nowość
@@ -64,7 +72,7 @@ function VenueCard({ kind, name, meta, rating, count, price, badge, isNew }: { k
             <T w={800} size={17}>
               {name}
             </T>
-            <T size={12.5} color={navyA(0.55)} style={{ marginTop: 2 }}>
+            <T size={12.5} color={t.textA(0.55)} style={{ marginTop: 2 }}>
               {meta}
             </T>
           </View>
@@ -72,14 +80,14 @@ function VenueCard({ kind, name, meta, rating, count, price, badge, isNew }: { k
         </Row>
         <Row style={{ justifyContent: 'space-between', marginTop: 12 }}>
           <Row gap={6}>
-            <Slot t="18:00" on />
-            <Slot t="19:30" />
-            <Slot t="20:00" />
-            <T w={800} size={12.5} color={navyA(0.45)} style={{ marginLeft: 4 }}>
+            <Slot time="18:00" on />
+            <Slot time="19:30" />
+            <Slot time="20:00" />
+            <T w={800} size={12.5} color={t.textA(0.45)} style={{ marginLeft: 4 }}>
               +4
             </T>
           </Row>
-          <T size={12} color={navyA(0.5)}>
+          <T size={12} color={t.textA(0.5)}>
             od{' '}
             <T w={800} size={16}>
               {price}
@@ -93,6 +101,7 @@ function VenueCard({ kind, name, meta, rating, count, price, badge, isNew }: { k
 }
 
 export default function Znajdz() {
+  const t = useTheme();
   const top = useTopInset(8);
   return (
     <Screen
@@ -101,9 +110,9 @@ export default function Znajdz() {
         <View style={{ alignItems: 'center' }}>
           <Pressable
             onPress={() => router.navigate('/mapa')}
-            style={{ height: 44, paddingHorizontal: 18, borderRadius: 22, backgroundColor: C.navy, flexDirection: 'row', alignItems: 'center', gap: 7, boxShadow: '0px 14px 28px -10px rgba(11,37,69,0.6)' }}>
-            <Map size={16} color={C.white} />
-            <T w={800} size={14} color={C.white}>
+            style={{ height: 44, paddingHorizontal: 18, borderRadius: 22, backgroundColor: t.inverse, flexDirection: 'row', alignItems: 'center', gap: 7, boxShadow: t.shadow.float }}>
+            <Map size={16} color={t.onInverse} />
+            <T w={800} size={14} color={t.onInverse}>
               Mapa
             </T>
           </Pressable>
@@ -114,18 +123,18 @@ export default function Znajdz() {
           <T display size={32}>
             Znajdź
           </T>
-          <Row gap={5} style={{ height: 34, paddingHorizontal: 12, borderRadius: 999, backgroundColor: C.white, borderWidth: 1, borderColor: navyA(0.08) }}>
+          <Row gap={5} style={{ height: 34, paddingHorizontal: 12, borderRadius: 999, backgroundColor: t.surface, borderWidth: 1, borderColor: t.textA(0.08) }}>
             <MapPin size={14} color={C.coral} />
             <T w={700} size={12.5}>
               Gdynia, Redłowo
             </T>
-            <ChevronDown size={14} color={navyA(0.4)} />
+            <ChevronDown size={14} color={t.textA(0.4)} />
           </Row>
         </Row>
         <Row gap={10} style={{ marginTop: 16 }}>
           <SearchField placeholder="Sport, obiekt lub dzielnica" style={{ flex: 1 }} />
-          <View style={{ width: 52, height: 52, borderRadius: 18, backgroundColor: C.navy, alignItems: 'center', justifyContent: 'center', boxShadow: shadow.soft }}>
-            <SlidersHorizontal size={20} color={C.white} />
+          <View style={{ width: 52, height: 52, borderRadius: 18, backgroundColor: t.inverse, alignItems: 'center', justifyContent: 'center', boxShadow: t.shadow.soft }}>
+            <SlidersHorizontal size={20} color={t.onInverse} />
           </View>
         </Row>
         <View style={{ marginTop: 16 }}>
@@ -148,7 +157,7 @@ export default function Znajdz() {
           <MiniFilter icon={Warehouse} label="Kryte" />
         </Row>
         <Row style={{ justifyContent: 'space-between', marginTop: 16, marginBottom: 12 }}>
-          <T w={600} size={13} color={navyA(0.55)}>
+          <T w={600} size={13} color={t.textA(0.55)}>
             <T w={800} size={13}>
               14 kortów
             </T>{' '}
@@ -158,7 +167,7 @@ export default function Znajdz() {
             <T w={700} size={13}>
               Polecane
             </T>
-            <ArrowDownUp size={14} color={C.navy} />
+            <ArrowDownUp size={14} color={t.text} />
           </Row>
         </Row>
         <View style={{ gap: 12 }}>

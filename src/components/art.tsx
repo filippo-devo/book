@@ -3,7 +3,8 @@ import type { ReactNode } from 'react';
 import { StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 import Svg, { Circle, Defs, Ellipse, G, Line, LinearGradient as SvgLinear, Path, RadialGradient, Rect, Stop } from 'react-native-svg';
 
-import { C, OCEAN_GRADIENT, OCEAN_STOPS } from '../theme';
+import { C } from '../theme';
+import { useTheme } from './ThemeProvider';
 
 // ---------------------------------------------------------------- photo placeholders
 
@@ -170,23 +171,13 @@ export function Photo({
   );
 }
 
-// ---------------------------------------------------------------- wave header
+// ---------------------------------------------------------------- header backdrop
 
-export function Wave({ fill = C.foam, height = 34 }: { fill?: string; height?: number }) {
-  const h = height;
-  const d = `M0 ${Math.round(h * 0.55)} C 70 ${Math.round(h * 0.05)}, 140 ${Math.round(h * 0.05)}, 205 ${Math.round(h * 0.45)} S 330 ${Math.round(h * 0.95)}, 390 ${Math.round(h * 0.35)} V ${h} H 0 Z`;
-  return (
-    <Svg pointerEvents="none" width="100%" height={h} viewBox={`0 0 390 ${h}`} preserveAspectRatio="none" style={{ position: 'absolute', left: 0, right: 0, bottom: -1 }}>
-      <Path d={d} fill={fill} />
-    </Svg>
-  );
-}
-
-export function WaveLines({ opacity = 0.14, color = '#fff' }: { opacity?: number; color?: string }) {
+export function WaveLines({ opacity = 0.14, color = '#fff', rows = [40, 78, 116, 154, 192] }: { opacity?: number; color?: string; rows?: number[] }) {
   return (
     <Svg pointerEvents="none" style={StyleSheet.absoluteFill} width="100%" height="100%" viewBox="0 0 390 240" preserveAspectRatio="xMidYMid slice">
       <G fill="none" stroke={color} strokeOpacity={opacity} strokeWidth={1.2}>
-        {[40, 78, 116, 154, 192].map((y) => (
+        {rows.map((y) => (
           <Path key={y} d={`M-20 ${y} C 60 ${y - 26}, 130 ${y + 26}, 210 ${y} S 360 ${y - 26}, 420 ${y}`} />
         ))}
       </G>
@@ -209,18 +200,22 @@ function Glow({ cx, cy, r, color, opacity }: { cx: number; cy: number; r: number
   );
 }
 
-/** Ocean → turquoise header with wave lines, soft glows and a wave-shaped bottom edge. */
-export function WaveHeader({ children, style, waveHeight = 34, waveFill = C.foam, lines = 0.14 }: { children?: ReactNode; style?: StyleProp<ViewStyle>; waveHeight?: number; waveFill?: string; lines?: number }) {
+/**
+ * Soft "sea mist" backdrop for the top of a screen: a pale ocean tint with a glow and faint wave lines
+ * that fades into the page background. `top` is the safe-area padding.
+ */
+export function Hero({ top, bottom = 40, children, style }: { top: number; bottom?: number; children?: ReactNode; style?: StyleProp<ViewStyle> }) {
+  const t = useTheme();
+  const dark = t.scheme === 'dark';
   return (
-    <View style={[{ overflow: 'hidden' }, style]}>
-      <LinearGradient colors={OCEAN_GRADIENT} locations={OCEAN_STOPS} start={{ x: 0, y: 0 }} end={{ x: 0.9, y: 1.1 }} style={StyleSheet.absoluteFill} />
+    <View style={[{ overflow: 'hidden', paddingTop: top, paddingBottom: bottom }, style]}>
+      <LinearGradient colors={[t.hero.top, t.hero.mid, t.bg]} locations={[0, 0.55, 1]} style={StyleSheet.absoluteFill} />
       <Svg pointerEvents="none" style={StyleSheet.absoluteFill} width="100%" height="100%" viewBox="0 0 390 300" preserveAspectRatio="xMidYMid slice">
-        <Glow cx={360} cy={20} r={130} color="#fff" opacity={0.22} />
-        <Glow cx={10} cy={200} r={115} color={C.sea} opacity={0.45} />
+        <Glow cx={380} cy={10} r={170} color={t.hero.glow} opacity={dark ? 0.22 : 0.28} />
+        <Glow cx={0} cy={120} r={120} color={C.ocean} opacity={dark ? 0.18 : 0.08} />
       </Svg>
-      <WaveLines opacity={lines} />
+      <WaveLines color={t.hero.lines} opacity={dark ? 0.12 : 0.09} rows={[52, 96, 140]} />
       {children}
-      <Wave fill={waveFill} height={waveHeight} />
     </View>
   );
 }
@@ -304,7 +299,9 @@ export function Laurel({ size = 58, color = C.ocean, mirror }: { size?: number; 
 
 export type Sport = 'tenis' | 'padel' | 'squash' | 'orlik';
 
-export function SportIcon({ sport, size = 16, color = C.navy }: { sport: Sport; size?: number; color?: string }) {
+export function SportIcon({ sport, size = 16, color: colorProp }: { sport: Sport; size?: number; color?: string }) {
+  const t = useTheme();
+  const color = colorProp ?? t.text;
   const common = { fill: 'none', stroke: color, strokeWidth: 1.8, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24">

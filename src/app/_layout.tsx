@@ -9,7 +9,7 @@ import {
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 
-import { C } from '../theme';
+import { ThemeProvider, useTheme } from '../components/ThemeProvider';
 
 // Tab roots switch instantly; detail screens slide in.
 const TAB_ROOTS = ['index', 'znajdz', 'hospitality', 'rezerwacje', 'konto'];
@@ -27,7 +27,16 @@ export default function RootLayout() {
   if (!loaded) return null;
 
   return (
-    <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: C.foam } }}>
+    <ThemeProvider>
+      <Navigator />
+    </ThemeProvider>
+  );
+}
+
+function Navigator() {
+  const t = useTheme();
+  return (
+    <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: t.bg } }}>
       {TAB_ROOTS.map((name) => (
         <Stack.Screen key={name} name={name} options={{ animation: 'none' }} />
       ))}
