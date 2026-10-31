@@ -124,7 +124,7 @@ export default function Hospitality() {
         </Row>
         <T display size={28} style={{ marginTop: 4, lineHeight: 32 }}>
           Specjaliści, którzy{'\n'}dbają o{' '}
-          <T display italic size={28} color={t.oceanInk}>
+          <T display italic size={28} color={t.primaryInk}>
             Twoją formę
           </T>
         </T>
@@ -141,7 +141,7 @@ export default function Hospitality() {
 
         <Pressable
           onPress={() => router.push('/ranking')}
-          style={{ marginTop: 16, borderRadius: 22, backgroundColor: C.navy, borderWidth: 1, borderColor: t.surfaceEdge, padding: 14, paddingRight: 16, flexDirection: 'row', alignItems: 'center', gap: 12, overflow: 'hidden' }}>
+          style={{ marginTop: 16, borderRadius: 22, backgroundColor: t.deep[0], borderWidth: 1, borderColor: t.surfaceEdge, padding: 14, paddingRight: 16, flexDirection: 'row', alignItems: 'center', gap: 12, overflow: 'hidden' }}>
           <Svg pointerEvents="none" width={150} height={150} style={{ position: 'absolute', right: -24, top: -40 }}>
             <Defs>
               <RadialGradient id="rk" cx="50%" cy="50%" r="50%">
@@ -168,7 +168,7 @@ export default function Hospitality() {
               ['JM', 1],
               ['KD', 3],
             ].map(([ini, g], i) => (
-              <Avatar key={ini} initials={ini as string} g={g as number} size={30} ring={{ width: 2, color: C.navy }} style={{ marginLeft: i ? -10 : 0 }} />
+              <Avatar key={ini} initials={ini as string} g={g as number} size={30} ring={{ width: 2, color: t.deep[0] }} style={{ marginLeft: i ? -10 : 0 }} />
             ))}
           </Row>
         </Pressable>
@@ -178,8 +178,8 @@ export default function Hospitality() {
             Polecani w pobliżu
           </T>
           <Row gap={4}>
-            <SlidersHorizontal size={14} color={t.oceanInk} />
-            <T w={700} size={13} color={t.oceanInk}>
+            <SlidersHorizontal size={14} color={t.primaryInk} />
+            <T w={700} size={13} color={t.primaryInk}>
               Filtry
             </T>
           </Row>

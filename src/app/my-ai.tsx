@@ -8,7 +8,7 @@ import { Orb, OrbGlow, Photo, Waveform, type PhotoKind } from '../components/art
 import { Screen, useTopInset } from '../components/Screen';
 import { useTheme } from '../components/ThemeProvider';
 import { Chip, Eyebrow, GlassBtn, InkProvider, ON_DARK_INK, Rating, Row, T } from '../components/ui';
-import { C, whiteA } from '../theme';
+import { AI_GRADIENT, C, whiteA } from '../theme';
 
 function Result({ kind, name, meta, slots, price, rating }: { kind: PhotoKind; name: string; meta: string; slots: string[]; price: string; rating: string }) {
   const t = useTheme();
@@ -31,7 +31,7 @@ function Result({ kind, name, meta, slots, price, rating }: { kind: PhotoKind; n
       <Row style={{ justifyContent: 'space-between', marginTop: 12 }}>
         <Row gap={6}>
           {slots.map((s, i) => (
-            <View key={s} style={{ height: 26, paddingHorizontal: 9, borderRadius: 9, justifyContent: 'center', backgroundColor: i === 0 ? C.coral : t.oceanTint }}>
+            <View key={s} style={{ height: 26, paddingHorizontal: 9, borderRadius: 9, justifyContent: 'center', backgroundColor: i === 0 ? C.coral : t.primaryTint }}>
               <T w={800} size={12} color={i === 0 ? C.white : t.text}>
                 {s}
               </T>
@@ -49,12 +49,12 @@ function Result({ kind, name, meta, slots, price, rating }: { kind: PhotoKind; n
 export default function MyAI() {
   const top = useTopInset(8);
   return (
-    <Screen tab="klub" dark bg={C.navy}>
+    <Screen tab="klub" dark bg={AI_GRADIENT[3]}>
       <InkProvider value={ON_DARK_INK}>
-        <LinearGradient colors={[C.ocean, '#123A69', C.navy, '#071A33']} locations={[0, 0.35, 0.7, 1]} start={{ x: 0.5, y: 0.25 }} end={{ x: 0.5, y: 1 }} style={StyleSheet.absoluteFill} />
+        <LinearGradient colors={AI_GRADIENT} locations={[0, 0.35, 0.7, 1]} start={{ x: 0.5, y: 0.25 }} end={{ x: 0.5, y: 1 }} style={StyleSheet.absoluteFill} />
         <Svg pointerEvents="none" width="100%" height={160} viewBox="0 0 390 160" style={{ position: 'absolute', top: 330, opacity: 0.6 }} fill="none">
           <Path d="M-10 80 C 60 20, 120 140, 195 80 S 330 20, 400 80" stroke={C.sea} strokeOpacity={0.35} strokeWidth={1.2} />
-          <Path d="M-10 90 C 70 40, 130 150, 195 90 S 320 30, 400 95" stroke={C.ocean} strokeOpacity={0.5} strokeWidth={1.2} />
+          <Path d="M-10 90 C 70 40, 130 150, 195 90 S 320 30, 400 95" stroke="#3E9FAE" strokeOpacity={0.4} strokeWidth={1.2} />
           <Path d="M-10 70 C 50 120, 140 10, 195 70 S 340 130, 400 65" stroke="#fff" strokeOpacity={0.12} strokeWidth={1.2} />
         </Svg>
 

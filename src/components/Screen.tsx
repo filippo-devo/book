@@ -6,7 +6,7 @@ import type { ReactNode } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { C } from '../theme';
+import { whiteA } from '../theme';
 import { useTheme } from './ThemeProvider';
 import { T } from './ui';
 
@@ -20,11 +20,13 @@ const TABS: { key: TabKey; href: Href; label: string; icon: LucideIcon }[] = [
   { key: 'konto', href: '/konto', label: 'Konto', icon: CircleUserRound },
 ];
 
-const TAB_BAR_BASE = 70;
+const TAB_BAR_BASE = 64;
+const TAB_BAR_GAP = 10;
 
+/** Space the floating tab bar takes at the bottom of the screen, including its gap. */
 export function useTabBarHeight() {
   const insets = useSafeAreaInsets();
-  return TAB_BAR_BASE + Math.max(insets.bottom, 14);
+  return TAB_BAR_BASE + Math.max(insets.bottom - 4, TAB_BAR_GAP) + TAB_BAR_GAP;
 }
 
 /** Top padding for content that starts under the status bar. */
@@ -33,69 +35,62 @@ export function useTopInset(extra = 8) {
   return Math.max(insets.top, 24) + extra;
 }
 
+/** Floating deep-sea pill; Hospitality sits in the middle as a raised sea-green button. */
 function TabBar({ active }: { active: TabKey }) {
   const t = useTheme();
-  const height = useTabBarHeight();
+  const insets = useSafeAreaInsets();
+  const bar = t.tabBar;
   return (
     <View
       style={{
         position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: 0,
-        height,
-        backgroundColor: t.bar,
-        borderTopLeftRadius: 28,
-        borderTopRightRadius: 28,
-        borderTopWidth: 1,
-        borderColor: t.surfaceEdge,
+        left: 12,
+        right: 12,
+        bottom: Math.max(insets.bottom - 4, TAB_BAR_GAP),
+        height: TAB_BAR_BASE,
+        backgroundColor: bar.bg,
+        borderRadius: TAB_BAR_BASE / 2,
+        borderWidth: 1,
+        borderColor: t.scheme === 'dark' ? whiteA(0.08) : 'transparent',
         boxShadow: t.shadow.tabBar,
         flexDirection: 'row',
-        paddingTop: 9,
+        alignItems: 'center',
         paddingHorizontal: 6,
       }}>
       {TABS.map(({ key, href, label, icon: Icon }) => {
         const isActive = key === active;
         if (key === 'hosp') {
           return (
-            <Pressable key={key} onPress={() => router.navigate(href)} style={{ flex: 1, alignItems: 'center' }}>
-              <View
-                style={{
-                  marginTop: -31,
-                  marginBottom: 3,
-                  borderRadius: 24,
-                  borderWidth: 6,
-                  borderColor: t.scheme === 'dark' ? '#0B1E36' : C.white,
-                  boxShadow: isActive ? `0px 0px 0px 2px rgba(46,196,182,0.35), ${t.shadow.ocean}` : t.shadow.ocean,
-                }}>
+            <Pressable key={key} onPress={() => router.navigate(href)} accessibilityLabel={label} style={{ flex: 1, alignItems: 'center' }}>
+              <View style={{ marginTop: -26, borderRadius: 26, borderWidth: 5, borderColor: t.bg, boxShadow: isActive ? `0px 0px 0px 2px ${bar.centerFrom}` : undefined }}>
                 <LinearGradient
-                  colors={[C.ocean, '#1E8FB8', C.sea]}
+                  colors={[bar.centerFrom, bar.centerTo]}
                   start={{ x: 0, y: 0 }}
                   end={{ x: 1, y: 1 }}
-                  style={{ width: 58, height: 58, borderRadius: 19, alignItems: 'center', justifyContent: 'center' }}>
-                  <Icon size={26} color={C.white} strokeWidth={1.9} />
+                  style={{ width: 54, height: 54, borderRadius: 21, alignItems: 'center', justifyContent: 'center' }}>
+                  <Icon size={25} color={bar.centerIcon} strokeWidth={2} />
                 </LinearGradient>
               </View>
-              <T w={700} size={10.5} color={isActive ? t.oceanInk : t.text}>
+              <T w={700} size={10} color={isActive ? bar.active : bar.icon} style={{ marginTop: 1 }}>
                 {label}
               </T>
             </Pressable>
           );
         }
         return (
-          <Pressable key={key} onPress={() => router.navigate(href)} style={{ flex: 1, alignItems: 'center', gap: 3 }}>
+          <Pressable key={key} onPress={() => router.navigate(href)} style={{ flex: 1, alignItems: 'center', gap: 2 }}>
             <View
               style={{
-                width: 52,
-                height: 32,
-                borderRadius: 16,
+                width: 48,
+                height: 30,
+                borderRadius: 15,
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: isActive ? t.oceanTint : 'transparent',
+                backgroundColor: isActive ? bar.activeBg : 'transparent',
               }}>
-              <Icon size={22} color={isActive ? t.oceanInk : t.muted} strokeWidth={1.9} />
+              <Icon size={21} color={isActive ? bar.active : bar.icon} strokeWidth={isActive ? 2.1 : 1.8} />
             </View>
-            <T w={700} size={10.5} color={isActive ? t.oceanInk : t.muted}>
+            <T w={700} size={10} color={isActive ? bar.active : bar.icon}>
               {label}
             </T>
           </Pressable>
@@ -136,6 +131,14 @@ export function Screen({
         </ScrollView>
       ) : (
         children
+      )}
+      {bg ? null : (
+        <LinearGradient
+          pointerEvents="none"
+          colors={[t.bgA(0), t.bgA(0.9), t.bg]}
+          locations={[0, 0.45, 1]}
+          style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: tabH + (floating ? 90 : 26) }}
+        />
       )}
       {floating ? <View style={{ position: 'absolute', left: 12, right: 12, bottom: tabH + 10 }}>{floating}</View> : null}
       <TabBar active={tab} />

@@ -13,7 +13,7 @@ function Criterion({ icon: Icon, label, n }: { icon: LucideIcon; label: string; 
   const t = useTheme();
   return (
     <Row gap={12} style={{ paddingVertical: 7 }}>
-      <Icon size={16} color={t.oceanInk} />
+      <Icon size={16} color={t.primaryInk} />
       <T w={700} size={13} style={{ width: 112 }}>
         {label}
       </T>
@@ -100,8 +100,8 @@ export default function Opinia() {
         </Card>
         <Row gap={10} style={{ marginTop: 12 }}>
           <View style={{ width: 72, height: 72, borderRadius: 18, borderWidth: 1.5, borderStyle: 'dashed', borderColor: t.textA(0.2), alignItems: 'center', justifyContent: 'center', gap: 4 }}>
-            <Camera size={20} color={t.oceanInk} />
-            <T w={700} size={10.5} color={t.oceanInk}>
+            <Camera size={20} color={t.primaryInk} />
+            <T w={700} size={10.5} color={t.primaryInk}>
               Dodaj
             </T>
           </View>

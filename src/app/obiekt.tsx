@@ -30,18 +30,18 @@ function PriceTile({ label, value, hot }: { label: string; value: string; hot?: 
         flex: 1,
         borderRadius: 18,
         padding: 12,
-        backgroundColor: hot ? C.ocean : t.surface,
+        backgroundColor: hot ? t.primary : t.surface,
         borderWidth: hot ? 0 : 1,
         borderColor: t.textA(0.07),
-        boxShadow: hot ? t.shadow.ocean : undefined,
+        boxShadow: hot ? t.shadow.primary : undefined,
       }}>
-      <T w={800} size={10.5} color={hot ? whiteA(0.7) : t.textA(0.45)} style={{ letterSpacing: 0.6 }}>
+      <T w={800} size={10.5} color={hot ? t.onPrimary : t.textA(0.45)} style={{ letterSpacing: 0.6, opacity: hot ? 0.7 : 1 }}>
         {label}
       </T>
-      <T display size={22} color={hot ? C.white : t.text} style={{ marginTop: 4 }}>
+      <T display size={22} color={hot ? t.onPrimary : t.text} style={{ marginTop: 4 }}>
         {value}
       </T>
-      <T w={600} size={11} color={hot ? whiteA(0.7) : t.textA(0.45)}>
+      <T w={600} size={11} color={hot ? t.onPrimary : t.textA(0.45)} style={{ opacity: hot ? 0.7 : 1 }}>
         kort / h
       </T>
     </View>
@@ -71,9 +71,9 @@ export default function Obiekt() {
       }>
       <Photo kind="clay" style={{ height: 222 + top - 50 }}>
         <Row style={{ position: 'absolute', top, left: 16, right: 16, justifyContent: 'space-between' }}>
-          <GlassBtn icon={ChevronLeft} bg={whiteA(0.85)} tint={C.navy} onPress={() => router.back()} />
+          <GlassBtn icon={ChevronLeft} bg={whiteA(0.85)} tint={C.ink} onPress={() => router.back()} />
           <Row gap={8}>
-            <GlassBtn icon={Share} bg={whiteA(0.85)} tint={C.navy} />
+            <GlassBtn icon={Share} bg={whiteA(0.85)} tint={C.ink} />
             <GlassBtn icon={Heart} bg={whiteA(0.85)} tint={C.coral} />
           </Row>
         </Row>
@@ -96,15 +96,15 @@ export default function Obiekt() {
 
       <View style={{ marginTop: -28, borderTopLeftRadius: 30, borderTopRightRadius: 30, backgroundColor: t.bg, paddingHorizontal: 20, paddingTop: 20 }}>
         <Row gap={8}>
-          <Row gap={5} style={{ height: 26, paddingHorizontal: 10, borderRadius: 999, backgroundColor: t.oceanTint }}>
-            <SportIcon sport="tenis" size={13} color={t.oceanInk} />
-            <T w={800} size={11.5} color={t.oceanInk}>
+          <Row gap={5} style={{ height: 26, paddingHorizontal: 10, borderRadius: 999, backgroundColor: t.primaryTint }}>
+            <SportIcon sport="tenis" size={13} color={t.primaryInk} />
+            <T w={800} size={11.5} color={t.primaryInk}>
               Tenis
             </T>
           </Row>
-          <Row gap={5} style={{ height: 26, paddingHorizontal: 10, borderRadius: 999, backgroundColor: t.oceanTint }}>
-            <SportIcon sport="padel" size={13} color={t.oceanInk} />
-            <T w={800} size={11.5} color={t.oceanInk}>
+          <Row gap={5} style={{ height: 26, paddingHorizontal: 10, borderRadius: 999, backgroundColor: t.primaryTint }}>
+            <SportIcon sport="padel" size={13} color={t.primaryInk} />
+            <T w={800} size={11.5} color={t.primaryInk}>
               Padel
             </T>
           </Row>

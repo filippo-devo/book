@@ -47,7 +47,7 @@ function VenueCard({ kind, name, meta, rating, count, price, badge, isNew }: { k
     <Card style={{ overflow: 'hidden' }} onPress={() => router.push('/obiekt')}>
       <Photo kind={kind} style={{ height: 148 }}>
         {badge ? (
-          <Pill icon={Trophy} bg={C.sand} color={C.navy} style={{ position: 'absolute', top: 12, left: 12 }}>
+          <Pill icon={Trophy} bg={C.sand} color={C.ink} style={{ position: 'absolute', top: 12, left: 12 }}>
             {badge}
           </Pill>
         ) : null}

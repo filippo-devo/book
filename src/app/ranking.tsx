@@ -9,7 +9,7 @@ import { useTheme } from '../components/ThemeProvider';
 import { Avatar, Chip, GlassBtn, Rating, Row, StarIcon, T, Verified } from '../components/ui';
 import { C } from '../theme';
 
-const MEDAL: Record<number, string> = { 1: '#FFD9A0', 2: '#E3EEF6', 3: '#F2C6A4' };
+const MEDAL: Record<number, string> = { 1: '#FFD9A0', 2: '#E4E7E6', 3: '#F2C6A4' };
 const GOLD = '#E9A23B';
 
 function Podium({ initials, g, name, score, place, height }: { initials: string; g: number; name: string; score: string; place: 1 | 2 | 3; height: number }) {
@@ -28,7 +28,7 @@ function Podium({ initials, g, name, score, place, height }: { initials: string;
         <Avatar initials={initials} g={g} size={size} ring={{ width: 3, color: t.surface }} />
         <View style={{ position: 'absolute', bottom: -9, left: 0, right: 0, alignItems: 'center' }}>
           <View style={{ width: 24, height: 24, borderRadius: 12, backgroundColor: MEDAL[place], borderWidth: 2, borderColor: t.surface, alignItems: 'center', justifyContent: 'center' }}>
-            <T w={800} size={11} color={C.navy}>
+            <T w={800} size={11} color={C.ink}>
               {place}
             </T>
           </View>
@@ -44,14 +44,14 @@ function Podium({ initials, g, name, score, place, height }: { initials: string;
         </T>
       </Row>
       {winner ? (
-        <LinearGradient colors={[C.ocean, C.sea]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={[pedestal, { boxShadow: t.shadow.ocean }]}>
+        <LinearGradient colors={t.deep} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={[pedestal, { boxShadow: t.shadow.primary }]}>
           <T display size={26} color={C.white}>
             {place}
           </T>
         </LinearGradient>
       ) : (
         <View style={[pedestal, { backgroundColor: t.surface, borderWidth: 1, borderBottomWidth: 0, borderColor: t.textA(0.06), boxShadow: t.shadow.card }]}>
-          <T display size={26} color={t.oceanInk}>
+          <T display size={26} color={t.primaryInk}>
             {place}
           </T>
         </View>

@@ -1,11 +1,9 @@
 /** Brand colours — identical in both colour schemes (accents, fills, text on accents). */
 export const C = {
-  navy: '#0B2545',
-  ocean: '#1B6CA8',
+  ink: '#0F2A33',
   sea: '#2EC4B6',
   seaDark: '#0E8C80',
-  sand: '#F4E9D8',
-  foam: '#F7FBFC',
+  sand: '#EDE5D7',
   coral: '#FF6B5B',
   white: '#FFFFFF',
 };
@@ -25,6 +23,8 @@ export const F = {
 export type Scheme = 'light' | 'dark';
 export type ThemeMode = 'system' | Scheme;
 
+type Pair = readonly [string, string];
+
 /** Semantic colours that change between light and dark mode. */
 export type Theme = {
   scheme: Scheme;
@@ -32,8 +32,6 @@ export type Theme = {
   /** Page background with alpha, for fades over content. */
   bgA: (a: number) => string;
   surface: string;
-  /** Translucent surface for bars floating over content. */
-  bar: string;
   /** Hairline that separates a surface from the background (only visible in dark mode). */
   surfaceEdge: string;
   text: string;
@@ -43,137 +41,158 @@ export type Theme = {
   /** High-contrast fill for selected chips, highlighted tiles etc. */
   inverse: string;
   onInverse: string;
+  /** Brand colour for selected states (slots, dates, price cards) and its text colour. */
+  primary: string;
+  onPrimary: string;
+  /** Brand colour for links and icons on the page background. */
+  primaryInk: string;
+  primaryTint: string;
+  /** The one deep colour block of a screen (My AI card, wallet, ranking banner, tab bar). */
+  deep: Pair;
+  /** Accent for icons and highlights placed on `deep`. */
+  onDeepAccent: string;
   sand: string;
   sandInk: string;
-  oceanInk: string;
   seaInk: string;
-  oceanTint: string;
   seaTint: string;
   coralTint: string;
   segment: string;
+  segmentOn: string;
   emptyStar: string;
-  hero: { top: string; mid: string; glow: string; lines: string };
+  /** Sea-chart contours drawn behind the top of a screen. */
+  hero: { lines: string; linesOpacity: number; glow: string; glowOpacity: number };
+  tabBar: { bg: string; icon: string; active: string; activeBg: string; centerFrom: string; centerTo: string; centerIcon: string };
   categories: { bg: string; ink: string }[];
   map: { land: string; grid: string; park: string; parkAlt: string; beach: string; seaFrom: string; seaTo: string; road: string; avenue: string; avenueEdge: string; rail: string; label: string; water: string };
-  shadow: { card: string; soft: string; float: string; coral: string; ocean: string; tabBar: string };
+  shadow: { card: string; soft: string; float: string; coral: string; primary: string; tabBar: string };
 };
 
 const rgba = (rgb: string) => (a: number) => `rgba(${rgb},${a})`;
 
 export const LIGHT: Theme = {
   scheme: 'light',
-  bg: '#F7FBFC',
-  bgA: rgba('247,251,252'),
+  bg: '#F5F1EA',
+  bgA: rgba('245,241,234'),
   surface: '#FFFFFF',
-  bar: 'rgba(255,255,255,0.97)',
   surfaceEdge: 'transparent',
-  text: '#0B2545',
-  textA: rgba('11,37,69'),
-  muted: '#8C9BAD',
-  inverse: '#0B2545',
+  text: '#0F2A33',
+  textA: rgba('15,42,51'),
+  muted: '#8B9497',
+  inverse: '#0F2A33',
   onInverse: '#FFFFFF',
-  sand: '#F4E9D8',
-  sandInk: '#9A6A2C',
-  oceanInk: '#1B6CA8',
+  primary: '#0F4C5C',
+  onPrimary: '#FFFFFF',
+  primaryInk: '#0F5F6E',
+  primaryTint: 'rgba(15,76,92,0.08)',
+  deep: ['#134652', '#0B2D37'],
+  onDeepAccent: '#7FE0D4',
+  sand: '#EDE5D7',
+  sandInk: '#8A6430',
   seaInk: '#0E8C80',
-  oceanTint: 'rgba(27,108,168,0.08)',
-  seaTint: 'rgba(46,196,182,0.12)',
+  seaTint: 'rgba(46,196,182,0.14)',
   coralTint: 'rgba(255,107,91,0.12)',
-  segment: '#EAF0F3',
-  emptyStar: '#D9E3EA',
-  hero: { top: '#DCEEF6', mid: '#EBF6F9', glow: '#2EC4B6', lines: '#1B6CA8' },
+  segment: '#EBE4D8',
+  segmentOn: '#FFFFFF',
+  emptyStar: '#E3DCD0',
+  hero: { lines: '#0F4C5C', linesOpacity: 0.1, glow: '#E9DCC4', glowOpacity: 0.9 },
+  tabBar: { bg: '#0F3540', icon: 'rgba(255,255,255,0.55)', active: '#FFFFFF', activeBg: 'rgba(255,255,255,0.12)', centerFrom: '#3FD3C4', centerTo: '#22AFA2', centerIcon: '#0B2D37' },
   categories: [
-    { bg: '#E3EFF8', ink: '#1B6CA8' },
-    { bg: '#DDF4F1', ink: '#0E8C80' },
-    { bg: '#F4E9D8', ink: '#9A6A2C' },
-    { bg: '#FFE6E2', ink: '#E5503F' },
+    { bg: '#DCEAEA', ink: '#0F5F6E' },
+    { bg: '#D9F1EC', ink: '#0E8C80' },
+    { bg: '#EDE2CF', ink: '#8A6430' },
+    { bg: '#FBE2DC', ink: '#D9503F' },
   ],
   map: {
-    land: '#F1EEE7',
+    land: '#F1ECE2',
     grid: '#FFFFFF',
-    park: '#D9EBDA',
-    parkAlt: '#D2E7D3',
+    park: '#DCE9D6',
+    parkAlt: '#D3E4CD',
     beach: '#EADCC3',
-    seaFrom: '#CBEAF1',
-    seaTo: '#9ED4E4',
+    seaFrom: '#CDE8E6',
+    seaTo: '#A3D3D2',
     road: '#FFFFFF',
-    avenue: '#FCE3B8',
+    avenue: '#F6E2BE',
     avenueEdge: '#FFFFFF',
-    rail: '#C3CAD3',
-    label: 'rgba(11,37,69,0.38)',
-    water: '#3E8FB0',
+    rail: '#C8C9C6',
+    label: 'rgba(15,42,51,0.4)',
+    water: '#2E8C94',
   },
   shadow: {
-    card: '0px 1px 2px rgba(11,37,69,0.04), 0px 14px 34px -18px rgba(11,37,69,0.22)',
-    soft: '0px 12px 30px -12px rgba(11,37,69,0.28)',
-    float: '0px 20px 44px -14px rgba(11,37,69,0.35)',
-    coral: '0px 14px 26px -10px rgba(255,107,91,0.75)',
-    ocean: '0px 10px 20px -8px rgba(27,108,168,0.7)',
-    tabBar: '0px -12px 34px -14px rgba(11,37,69,0.18)',
+    card: '0px 1px 2px rgba(15,42,51,0.04), 0px 14px 34px -18px rgba(15,42,51,0.2)',
+    soft: '0px 12px 30px -12px rgba(15,42,51,0.24)',
+    float: '0px 20px 44px -14px rgba(15,42,51,0.32)',
+    coral: '0px 14px 26px -10px rgba(255,107,91,0.7)',
+    primary: '0px 10px 20px -8px rgba(15,76,92,0.55)',
+    tabBar: '0px 18px 36px -12px rgba(11,45,55,0.55)',
   },
 };
 
 export const DARK: Theme = {
   scheme: 'dark',
-  bg: '#061528',
-  bgA: rgba('6,21,40'),
-  surface: '#0D223D',
-  bar: 'rgba(11,30,54,0.97)',
+  bg: '#0B1517',
+  bgA: rgba('11,21,23'),
+  surface: '#142225',
   surfaceEdge: 'rgba(255,255,255,0.06)',
-  text: '#E8F1F7',
-  textA: rgba('232,241,247'),
-  muted: '#6F8299',
-  inverse: '#E8F1F7',
-  onInverse: '#0B2545',
-  sand: '#2A2B31',
+  text: '#EAF1EF',
+  textA: rgba('234,241,239'),
+  muted: '#76898C',
+  inverse: '#EAF1EF',
+  onInverse: '#0F2A33',
+  primary: '#2EC4B6',
+  onPrimary: '#06221F',
+  primaryInk: '#5FD3C6',
+  primaryTint: 'rgba(95,211,198,0.12)',
+  deep: ['#16444E', '#0F2F37'],
+  onDeepAccent: '#7FE0D4',
+  sand: '#1E2B2C',
   sandInk: '#E3C9A2',
-  oceanInk: '#6DB3EA',
   seaInk: '#4FD8CB',
-  oceanTint: 'rgba(109,179,234,0.14)',
-  seaTint: 'rgba(46,196,182,0.16)',
-  coralTint: 'rgba(255,107,91,0.16)',
-  segment: '#0D223D',
-  emptyStar: '#24395A',
-  hero: { top: '#0E3157', mid: '#0A2240', glow: '#2EC4B6', lines: '#6DB3EA' },
+  seaTint: 'rgba(46,196,182,0.15)',
+  coralTint: 'rgba(255,107,91,0.15)',
+  segment: '#142225',
+  segmentOn: '#21363A',
+  emptyStar: '#2A3B3E',
+  hero: { lines: '#5FD3C6', linesOpacity: 0.07, glow: '#16444E', glowOpacity: 0.55 },
+  tabBar: { bg: '#17343B', icon: 'rgba(255,255,255,0.5)', active: '#FFFFFF', activeBg: 'rgba(255,255,255,0.1)', centerFrom: '#3FD3C4', centerTo: '#22AFA2', centerIcon: '#0B2D37' },
   categories: [
-    { bg: '#11304F', ink: '#6DB3EA' },
-    { bg: '#0F3438', ink: '#4FD8CB' },
-    { bg: '#2E2A26', ink: '#E3C9A2' },
-    { bg: '#3A2228', ink: '#FF8B7E' },
+    { bg: '#15333A', ink: '#7FC6D0' },
+    { bg: '#11353A', ink: '#4FD8CB' },
+    { bg: '#2B2A25', ink: '#E3C9A2' },
+    { bg: '#3A2427', ink: '#FF8B7E' },
   ],
   map: {
-    land: '#0D1F35',
+    land: '#0F1C1E',
     grid: 'rgba(255,255,255,0.05)',
-    park: '#123331',
-    parkAlt: '#143A37',
-    beach: '#2A3242',
-    seaFrom: '#0B3150',
-    seaTo: '#0E4366',
+    park: '#13302B',
+    parkAlt: '#15362F',
+    beach: '#2A3030',
+    seaFrom: '#0C3036',
+    seaTo: '#0F4148',
     road: 'rgba(255,255,255,0.09)',
-    avenue: '#5C4A2A',
+    avenue: '#574629',
     avenueEdge: 'rgba(255,255,255,0.12)',
     rail: 'rgba(255,255,255,0.18)',
-    label: 'rgba(232,241,247,0.38)',
-    water: '#6DB3EA',
+    label: 'rgba(234,241,239,0.38)',
+    water: '#5FD3C6',
   },
   shadow: {
     card: '0px 1px 2px rgba(0,0,0,0.3), 0px 14px 34px -18px rgba(0,0,0,0.7)',
     soft: '0px 12px 30px -12px rgba(0,0,0,0.6)',
     float: '0px 20px 44px -14px rgba(0,0,0,0.7)',
-    coral: '0px 14px 26px -10px rgba(255,107,91,0.55)',
-    ocean: '0px 10px 20px -8px rgba(27,108,168,0.8)',
-    tabBar: '0px -12px 34px -14px rgba(0,0,0,0.6)',
+    coral: '0px 14px 26px -10px rgba(255,107,91,0.5)',
+    primary: '0px 10px 20px -8px rgba(46,196,182,0.45)',
+    tabBar: '0px 18px 36px -12px rgba(0,0,0,0.75)',
   },
 };
 
-export const OCEAN_GRADIENT = ['#174F86', '#1B6CA8', '#1F8EB6', '#2EC4B6'] as const;
-export const OCEAN_STOPS = [0, 0.35, 0.7, 1] as const;
+/** Background of the always-dark My AI screen, top to bottom. */
+export const AI_GRADIENT = ['#17505B', '#0F3640', '#0A242B', '#071A1F'] as const;
 
 export const AVATAR_GRADIENTS: readonly (readonly [string, string])[] = [
-  ['#1B6CA8', '#2EC4B6'],
+  ['#0F4C5C', '#2EC4B6'],
   ['#FF6B5B', '#FFB48F'],
-  ['#0B2545', '#1B6CA8'],
+  ['#0F2A33', '#2A6F7C'],
   ['#2EC4B6', '#A6EDE3'],
-  ['#D9B48A', '#F4E9D8'],
-  ['#5E8FC9', '#B8D6F2'],
+  ['#D9B48A', '#F1E6D3'],
+  ['#5E9A8E', '#BFDCD2'],
 ];

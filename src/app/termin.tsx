@@ -24,9 +24,9 @@ function Day({ d }: { d: number | null }) {
       <View
         style={[
           { width: 38, height: 34, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
-          selected && { backgroundColor: C.ocean, boxShadow: t.shadow.ocean },
+          selected && { backgroundColor: t.primary, boxShadow: t.shadow.primary },
         ]}>
-        <T w={700} size={14} color={selected ? C.white : available ? t.text : t.textA(0.22)}>
+        <T w={700} size={14} color={selected ? t.onPrimary : available ? t.text : t.textA(0.22)}>
           {d}
         </T>
         {available && !selected ? (
@@ -49,12 +49,12 @@ function Slot({ time, state }: { time: string; state?: 'off' | 'sel' }) {
         borderRadius: 14,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: sel ? C.ocean : off ? 'transparent' : t.surface,
+        backgroundColor: sel ? t.primary : off ? 'transparent' : t.surface,
         borderWidth: sel ? 0 : 1,
         borderColor: off ? t.textA(0.06) : t.textA(0.09),
-        boxShadow: sel ? t.shadow.ocean : undefined,
+        boxShadow: sel ? t.shadow.primary : undefined,
       }}>
-      <T w={800} size={14} color={sel ? C.white : off ? t.textA(0.25) : t.text} style={off ? { textDecorationLine: 'line-through' } : undefined}>
+      <T w={800} size={14} color={sel ? t.onPrimary : off ? t.textA(0.25) : t.text} style={off ? { textDecorationLine: 'line-through' } : undefined}>
         {time}
       </T>
     </View>
@@ -102,7 +102,7 @@ export default function Termin() {
               Michał Kowalczyk · Fit Harbour Gdynia
             </T>
           </View>
-          <T w={700} size={12} color={t.oceanInk}>
+          <T w={700} size={12} color={t.primaryInk}>
             Zmień
           </T>
         </Card>
@@ -158,7 +158,7 @@ export default function Termin() {
           <T w={800} size={14.5}>
             Czwartek, 5 listopada
           </T>
-          <T w={700} size={12} color={t.oceanInk}>
+          <T w={700} size={12} color={t.primaryInk}>
             6 wolnych
           </T>
         </Row>

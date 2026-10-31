@@ -29,14 +29,14 @@ export function SearchField({ placeholder, style, mic }: { placeholder: string; 
       <T size={14} color={t.textA(0.4)} style={{ flex: 1 }}>
         {placeholder}
       </T>
-      {Mic ? <Mic size={18} color={t.oceanInk} /> : null}
+      {Mic ? <Mic size={18} color={t.primaryInk} /> : null}
     </Row>
   );
 }
 
 export function Segmented({ items, active }: { items: { label: string; icon?: LucideIcon; badge?: string }[]; active: number }) {
   const t = useTheme();
-  const onBg = t.scheme === 'dark' ? '#173457' : t.surface;
+  const onBg = t.segmentOn;
   return (
     <Row style={{ padding: 4, borderRadius: 999, backgroundColor: t.segment, borderWidth: 1, borderColor: t.surfaceEdge }}>
       {items.map(({ label, icon: Icon, badge }, i) => {

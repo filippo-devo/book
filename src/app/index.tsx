@@ -8,7 +8,7 @@ import { Hero, Orb, Photo, WaveLines } from '../components/art';
 import { Screen, useTopInset } from '../components/Screen';
 import { useTheme } from '../components/ThemeProvider';
 import { Avatar, Card, GlassBtn, Pill, RatingTag, Row, SectionHeader, SoftBtn, T } from '../components/ui';
-import { C, OCEAN_GRADIENT, OCEAN_STOPS, whiteA } from '../theme';
+import { C, whiteA } from '../theme';
 
 function Fav({ children, label }: { children: ReactNode; label: string }) {
   const t = useTheme();
@@ -47,15 +47,14 @@ function Recommended({ kind, name, meta, rating }: { kind: 'pool' | 'pilates' | 
 function MyAiCard() {
   const t = useTheme();
   return (
-    <Pressable onPress={() => router.push('/my-ai')} style={{ marginTop: 20, borderRadius: 30, boxShadow: t.shadow.ocean }}>
+    <Pressable onPress={() => router.push('/my-ai')} style={{ marginTop: 20, borderRadius: 30, boxShadow: t.shadow.tabBar }}>
       <LinearGradient
-        colors={OCEAN_GRADIENT}
-        locations={OCEAN_STOPS}
+        colors={t.deep}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={{ flexDirection: 'row', alignItems: 'center', gap: 14, padding: 14, borderRadius: 30, overflow: 'hidden' }}>
         <View style={StyleSheet.absoluteFill}>
-          <WaveLines opacity={0.12} rows={[70, 130, 190]} />
+          <WaveLines opacity={0.1} rows={[70, 130, 190]} />
         </View>
         <View style={{ width: 66, height: 66, borderRadius: 33, alignItems: 'center', justifyContent: 'center', borderWidth: 6, borderColor: whiteA(0.14) }}>
           <View style={{ position: 'absolute' }}>
@@ -69,8 +68,8 @@ function MyAiCard() {
               My AI
             </T>
             <Row gap={4} style={{ backgroundColor: '#BFF5EE', borderRadius: 999, paddingHorizontal: 7, paddingVertical: 2 }}>
-              <Sparkles size={12} color={C.navy} />
-              <T w={800} size={10.5} color={C.navy}>
+              <Sparkles size={12} color={C.ink} />
+              <T w={800} size={10.5} color={C.ink}>
                 głosowo
               </T>
             </Row>
@@ -80,7 +79,7 @@ function MyAiCard() {
           </T>
         </View>
         <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: C.white, alignItems: 'center', justifyContent: 'center' }}>
-          <ArrowUpRight size={18} color={C.ocean} />
+          <ArrowUpRight size={18} color={t.deep[1]} />
         </View>
       </LinearGradient>
     </Pressable>
@@ -128,7 +127,7 @@ export default function MojKlub() {
         <Card style={{ padding: 12 }} onPress={() => router.navigate('/rezerwacje')}>
           <Row gap={14} style={{ alignItems: 'flex-start' }}>
             <Photo kind="clay" radius={18} style={{ width: 92, height: 92 }}>
-              <Pill bg={whiteA(0.92)} color={C.navy} size={10} style={{ position: 'absolute', left: 8, bottom: 8, paddingHorizontal: 8, paddingVertical: 2 }}>
+              <Pill bg={whiteA(0.92)} color={C.ink} size={10} style={{ position: 'absolute', left: 8, bottom: 8, paddingHorizontal: 8, paddingVertical: 2 }}>
                 ZA 2 DNI
               </Pill>
             </Photo>
@@ -147,13 +146,13 @@ export default function MojKlub() {
               </T>
               <Row gap={12} style={{ marginTop: 8 }}>
                 <Row gap={4}>
-                  <Calendar size={14} color={t.oceanInk} />
+                  <Calendar size={14} color={t.primaryInk} />
                   <T w={700} size={12.5}>
                     Pt, 30.10
                   </T>
                 </Row>
                 <Row gap={4}>
-                  <Clock3 size={14} color={t.oceanInk} />
+                  <Clock3 size={14} color={t.primaryInk} />
                   <T w={700} size={12.5}>
                     18:00
                   </T>

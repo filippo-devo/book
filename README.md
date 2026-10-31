@@ -47,6 +47,6 @@ Wymaga sekretu repozytorium `EXPO_TOKEN` (expo.dev → Account settings → Acce
 
 Expo SDK 58 · Expo Router · react-native-svg · expo-linear-gradient · lucide-react-native · Fraunces + Plus Jakarta Sans (`@expo-google-fonts`).
 
-Paleta: granat `#0B2545`, ocean `#1B6CA8`, morska zieleń `#2EC4B6`, piasek `#F4E9D8`, piana `#F7FBFC`, koral `#FF6B5B` — w [`src/theme.ts`](src/theme.ts).
+Paleta „Głębia”: ciepłe tło `#F5F1EA`, atrament `#0F2A33`, głębina `#0F4C5C` / `#134652` (bloki marki i tab bar), morska zieleń `#2EC4B6` (oceny, Hospitality), piasek `#EDE5D7`, koral `#FF6B5B` (tylko „Zarezerwuj”) — w [`src/theme.ts`](src/theme.ts).
 
 Motyw jasny i ciemny: kolory semantyczne (`LIGHT` / `DARK`) są w [`src/theme.ts`](src/theme.ts), a wybór użytkownika (systemowy / jasny / ciemny) zapisuje [`ThemeProvider`](src/components/ThemeProvider.tsx) w AsyncStorage. Ekrany pobierają kolory przez `useTheme()`.

@@ -6,7 +6,7 @@ import { Hero, Laurel } from '../components/art';
 import { CtaBar, Screen, useTopInset } from '../components/Screen';
 import { useTheme } from '../components/ThemeProvider';
 import { Avatar, Card, CoralBtn, GlassBtn, Row, StarIcon, Stars, T, Verified } from '../components/ui';
-import { C } from '../theme';
+
 
 function Service({ name, meta, price, selected }: { name: string; meta: string; price: string; selected?: boolean }) {
   const t = useTheme();
@@ -24,8 +24,8 @@ function Service({ name, meta, price, selected }: { name: string; meta: string; 
         {price}
       </T>
       {selected ? (
-        <View style={{ width: 36, height: 36, borderRadius: 18, backgroundColor: C.ocean, alignItems: 'center', justifyContent: 'center', boxShadow: t.shadow.ocean }}>
-          <Check size={16} color={C.white} />
+        <View style={{ width: 36, height: 36, borderRadius: 18, backgroundColor: t.primary, alignItems: 'center', justifyContent: 'center', boxShadow: t.shadow.primary }}>
+          <Check size={16} color={t.onPrimary} />
         </View>
       ) : (
         <View style={{ width: 36, height: 36, borderRadius: 18, borderWidth: 1, borderColor: t.textA(0.12), alignItems: 'center', justifyContent: 'center' }}>
@@ -108,11 +108,11 @@ export default function Specjalista() {
 
         <Row gap={14} style={{ marginTop: 16, borderRadius: 24, backgroundColor: t.sand, padding: 16 }}>
           <Row>
-            <Laurel size={58} color={t.oceanInk} />
+            <Laurel size={58} color={t.primaryInk} />
             <T display size={36} style={{ marginHorizontal: -2 }}>
               #1
             </T>
-            <Laurel size={58} color={t.oceanInk} mirror />
+            <Laurel size={58} color={t.primaryInk} mirror />
           </Row>
           <View style={{ flex: 1 }}>
             <T w={800} size={14.5} style={{ lineHeight: 18 }}>
@@ -131,7 +131,7 @@ export default function Specjalista() {
 
         <Row gap={20} style={{ marginTop: 18, borderBottomWidth: 1, borderBottomColor: t.textA(0.08) }}>
           {['Usługi', 'Opinie 214', 'O mnie', 'Galeria'].map((tab, i) => (
-            <View key={tab} style={{ paddingBottom: 10, borderBottomWidth: 3, borderBottomColor: i === 0 ? t.oceanInk : 'transparent', marginBottom: -1 }}>
+            <View key={tab} style={{ paddingBottom: 10, borderBottomWidth: 3, borderBottomColor: i === 0 ? t.primaryInk : 'transparent', marginBottom: -1 }}>
               <T w={700} size={14} color={i === 0 ? t.text : t.textA(0.45)}>
                 {tab}
               </T>

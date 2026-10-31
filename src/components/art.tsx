@@ -18,7 +18,7 @@ function Court() {
         <Path d="M78 250 L146 28 M322 250 L254 28" />
         <Path d="M96 182 L304 182 M127 82 L273 82 M200 182 L200 82" />
       </G>
-      <Line x1={66} y1={122} x2={334} y2={122} stroke={C.navy} strokeOpacity={0.55} strokeWidth={5} />
+      <Line x1={66} y1={122} x2={334} y2={122} stroke={C.ink} strokeOpacity={0.55} strokeWidth={5} />
       <Line x1={66} y1={118} x2={334} y2={118} stroke="#fff" strokeOpacity={0.9} strokeWidth={2} />
     </>
   );
@@ -44,7 +44,7 @@ function PhotoArt({ kind }: { kind: PhotoKind }) {
           <Defs>
             <Grad
               id={`g-${kind}`}
-              stops={kind === 'clay' ? [[0, '#E59166'], [0.55, '#CC6640'], [1, '#A94E30']] : [[0, '#4C9BD8'], [0.55, '#1B6CA8'], [1, '#124F82']]}
+              stops={kind === 'clay' ? [[0, '#E59166'], [0.55, '#CC6640'], [1, '#A94E30']] : [[0, '#4FA3B2'], [0.55, '#2A7D8F'], [1, '#1B5E6E']]}
             />
           </Defs>
           <Rect width={400} height={240} fill={`url(#g-${kind})`} />
@@ -59,7 +59,7 @@ function PhotoArt({ kind }: { kind: PhotoKind }) {
           </Defs>
           <Rect width={400} height={240} fill="url(#g-pool)" />
           {[120, 200, 280].map((x) => (
-            <Rect key={x} x={x - 5} y={0} width={10} height={240} fill={C.navy} opacity={0.14} />
+            <Rect key={x} x={x - 5} y={0} width={10} height={240} fill={C.ink} opacity={0.14} />
           ))}
           <G fill="none" stroke="#fff" strokeOpacity={0.22} strokeWidth={2}>
             <Path d="M0 40 C 40 25, 70 60, 120 42 S 200 20, 260 48 S 350 30, 400 44" />
@@ -115,7 +115,7 @@ function PhotoArt({ kind }: { kind: PhotoKind }) {
           <Rect x={40} y={150} width={320} height={18} rx={9} fill="#fff" fillOpacity={0.7} />
           <Rect x={70} y={168} width={10} height={40} rx={5} fill="#fff" fillOpacity={0.55} />
           <Rect x={320} y={168} width={10} height={40} rx={5} fill="#fff" fillOpacity={0.55} />
-          <Rect x={110} y={132} width={110} height={18} rx={9} fill={C.navy} fillOpacity={0.18} />
+          <Rect x={110} y={132} width={110} height={18} rx={9} fill={C.ink} fillOpacity={0.18} />
           <Line x1={300} y1={150} x2={300} y2={100} stroke="#fff" strokeOpacity={0.7} strokeWidth={6} strokeLinecap="round" />
         </>
       );
@@ -123,7 +123,7 @@ function PhotoArt({ kind }: { kind: PhotoKind }) {
       return (
         <>
           <Defs>
-            <Grad id="g-stu" stops={[[0, '#16406E'], [1, C.navy]]} />
+            <Grad id="g-stu" stops={[[0, '#1B4F5B'], [1, C.ink]]} />
           </Defs>
           <Rect width={400} height={240} fill="url(#g-stu)" />
           <Circle cx={330} cy={40} r={70} fill={C.sea} fillOpacity={0.25} />
@@ -161,7 +161,7 @@ export function Photo({
       {gloss ? (
         <LinearGradient
           pointerEvents="none"
-          colors={['rgba(255,255,255,0.16)', 'rgba(255,255,255,0)', 'rgba(11,37,69,0.28)']}
+          colors={['rgba(255,255,255,0.16)', 'rgba(255,255,255,0)', 'rgba(15,42,51,0.28)']}
           locations={[0, 0.38, 1]}
           style={StyleSheet.absoluteFill}
         />
@@ -200,21 +200,45 @@ function Glow({ cx, cy, r, color, opacity }: { cx: number; cy: number; r: number
   );
 }
 
+/** Bathymetric contour lines, like on a sea chart, centred off the top-right corner. */
+function Contours({ color, opacity }: { color: string; opacity: number }) {
+  const rings = [60, 104, 150, 198, 248, 300, 354];
+  return (
+    <Svg pointerEvents="none" style={StyleSheet.absoluteFill} width="100%" height="100%" viewBox="0 0 390 300" preserveAspectRatio="xMaxYMin slice">
+      <G fill="none" stroke={color} strokeOpacity={opacity} strokeWidth={1.1}>
+        {rings.map((r, i) => (
+          <Path
+            key={r}
+            d={`M ${410 - r} -10 C ${404 - r * 0.98} ${r * 0.55}, ${410 - r * 0.62} ${r * 0.98 + (i % 2) * 14}, ${410 - r * 0.08} ${r * 1.02} S 430 ${r * 0.9}, 440 ${r * 0.86}`}
+          />
+        ))}
+      </G>
+      <G fill={color} fillOpacity={opacity * 2.2}>
+        {[
+          [262, 58],
+          [318, 132],
+          [214, 162],
+          [356, 222],
+        ].map(([x, y]) => (
+          <Circle key={`${x}-${y}`} cx={x} cy={y} r={1.6} />
+        ))}
+      </G>
+    </Svg>
+  );
+}
+
 /**
- * Soft "sea mist" backdrop for the top of a screen: a pale ocean tint with a glow and faint wave lines
- * that fades into the page background. `top` is the safe-area padding.
+ * Backdrop for the top of a screen: the plain page background with a warm glow and faint sea-chart contours,
+ * so every screen shares one calm surface. `top` is the safe-area padding.
  */
 export function Hero({ top, bottom = 40, children, style }: { top: number; bottom?: number; children?: ReactNode; style?: StyleProp<ViewStyle> }) {
   const t = useTheme();
-  const dark = t.scheme === 'dark';
   return (
     <View style={[{ overflow: 'hidden', paddingTop: top, paddingBottom: bottom }, style]}>
-      <LinearGradient colors={[t.hero.top, t.hero.mid, t.bg]} locations={[0, 0.55, 1]} style={StyleSheet.absoluteFill} />
-      <Svg pointerEvents="none" style={StyleSheet.absoluteFill} width="100%" height="100%" viewBox="0 0 390 300" preserveAspectRatio="xMidYMid slice">
-        <Glow cx={380} cy={10} r={170} color={t.hero.glow} opacity={dark ? 0.22 : 0.28} />
-        <Glow cx={0} cy={120} r={120} color={C.ocean} opacity={dark ? 0.18 : 0.08} />
+      <Svg pointerEvents="none" style={StyleSheet.absoluteFill} width="100%" height="100%" viewBox="0 0 390 300" preserveAspectRatio="xMaxYMin slice">
+        <Glow cx={390} cy={0} r={260} color={t.hero.glow} opacity={t.hero.glowOpacity} />
       </Svg>
-      <WaveLines color={t.hero.lines} opacity={dark ? 0.12 : 0.09} rows={[52, 96, 140]} />
+      <Contours color={t.hero.lines} opacity={t.hero.linesOpacity} />
       {children}
     </View>
   );
@@ -230,8 +254,8 @@ export function Orb({ size }: { size: number }) {
           <Stop offset="0" stopColor="#FFFFFF" />
           <Stop offset="0.12" stopColor="#BFF7EF" />
           <Stop offset="0.38" stopColor={C.sea} />
-          <Stop offset="0.72" stopColor={C.ocean} />
-          <Stop offset="1" stopColor={C.navy} />
+          <Stop offset="0.72" stopColor="#1F6F7C" />
+          <Stop offset="1" stopColor={C.ink} />
         </RadialGradient>
         <SvgLinear id="orb-hl" x1="0" y1="0" x2="0" y2="1">
           <Stop offset="0" stopColor="#fff" stopOpacity={0.75} />
@@ -250,8 +274,8 @@ export function OrbGlow({ size }: { size: number }) {
       <Defs>
         <RadialGradient id="halo" cx="50%" cy="50%" r="50%">
           <Stop offset="0.35" stopColor={C.sea} stopOpacity={0.55} />
-          <Stop offset="0.65" stopColor={C.ocean} stopOpacity={0.25} />
-          <Stop offset="1" stopColor={C.ocean} stopOpacity={0} />
+          <Stop offset="0.65" stopColor="#1F6F7C" stopOpacity={0.25} />
+          <Stop offset="1" stopColor="#1F6F7C" stopOpacity={0} />
         </RadialGradient>
       </Defs>
       <Circle cx={50} cy={50} r={50} fill="url(#halo)" />
@@ -274,7 +298,7 @@ export function Waveform({ bars = 30, height = 26, color = C.sea }: { bars?: num
 
 // ---------------------------------------------------------------- laurel (ranking badge)
 
-export function Laurel({ size = 58, color = C.ocean, mirror }: { size?: number; color?: string; mirror?: boolean }) {
+export function Laurel({ size = 58, color = C.seaDark, mirror }: { size?: number; color?: string; mirror?: boolean }) {
   const cx = 50;
   const cy = 50;
   const r = 34;

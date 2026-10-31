@@ -13,8 +13,8 @@ function Info({ icon: Icon, label, value, sub }: { icon: LucideIcon; label: stri
   const t = useTheme();
   return (
     <Row gap={10} style={{ width: '50%', alignItems: 'flex-start', paddingRight: 8, marginBottom: 16 }}>
-      <View style={{ width: 32, height: 32, borderRadius: 11, backgroundColor: t.oceanTint, alignItems: 'center', justifyContent: 'center' }}>
-        <Icon size={16} color={t.oceanInk} />
+      <View style={{ width: 32, height: 32, borderRadius: 11, backgroundColor: t.primaryTint, alignItems: 'center', justifyContent: 'center' }}>
+        <Icon size={16} color={t.primaryInk} />
       </View>
       <View style={{ flex: 1 }}>
         <T w={700} size={10.5} color={t.textA(0.4)} style={{ letterSpacing: 0.8 }}>
@@ -57,7 +57,7 @@ export default function Potwierdzenie() {
             <View style={{ position: 'absolute', width: 150, height: 150, borderRadius: 75, backgroundColor: t.seaTint }} />
             <View style={{ position: 'absolute', width: 118, height: 118, borderRadius: 59, backgroundColor: t.seaTint }} />
             <View style={{ width: 86, height: 86, borderRadius: 43, backgroundColor: t.surface, alignItems: 'center', justifyContent: 'center', boxShadow: t.shadow.float }}>
-              <LinearGradient colors={[C.ocean, C.sea]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={{ width: 60, height: 60, borderRadius: 30, alignItems: 'center', justifyContent: 'center' }}>
+              <LinearGradient colors={[t.primary, C.sea]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={{ width: 60, height: 60, borderRadius: 30, alignItems: 'center', justifyContent: 'center' }}>
                 <Check size={32} color={C.white} strokeWidth={3} />
               </LinearGradient>
             </View>
@@ -133,7 +133,7 @@ export default function Potwierdzenie() {
             . Po wizycie poprosimy Cię o zweryfikowaną opinię.
           </T>
         </Row>
-        <T w={700} size={13} color={t.oceanInk} style={{ textAlign: 'center', marginTop: 16 }} onPress={() => router.navigate('/rezerwacje')}>
+        <T w={700} size={13} color={t.primaryInk} style={{ textAlign: 'center', marginTop: 16 }} onPress={() => router.navigate('/rezerwacje')}>
           Przejdź do rezerwacji
         </T>
       </View>

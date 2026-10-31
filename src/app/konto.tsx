@@ -28,8 +28,8 @@ function SettingRow({ icon: Icon, label, right, tint, bg, last }: { icon: Lucide
   const t = useTheme();
   return (
     <Row gap={12} style={{ paddingVertical: 12, borderBottomWidth: last ? 0 : 1, borderBottomColor: t.textA(0.06) }}>
-      <View style={{ width: 36, height: 36, borderRadius: 12, backgroundColor: bg ?? t.oceanTint, alignItems: 'center', justifyContent: 'center' }}>
-        <Icon size={18} color={tint ?? t.oceanInk} />
+      <View style={{ width: 36, height: 36, borderRadius: 12, backgroundColor: bg ?? t.primaryTint, alignItems: 'center', justifyContent: 'center' }}>
+        <Icon size={18} color={tint ?? t.primaryInk} />
       </View>
       <T w={700} size={14} style={{ flex: 1 }}>
         {label}
@@ -54,8 +54,8 @@ function Tag({ children, tint }: { children: ReactNode; tint?: boolean }) {
 function MiniScreen({ palette, style }: { palette: Theme; style?: object }) {
   return (
     <View style={[{ flex: 1, backgroundColor: palette.bg, padding: 6, gap: 4 }, style]}>
-      <View style={{ height: 10, borderRadius: 4, backgroundColor: palette.hero.top }} />
-      <View style={{ height: 12, borderRadius: 4, backgroundColor: C.ocean }} />
+      <View style={{ height: 14, borderRadius: 4, backgroundColor: palette.deep[0] }} />
+      <View style={{ height: 8, width: '45%', borderRadius: 3, backgroundColor: C.coral }} />
       <View style={{ height: 8, width: '70%', borderRadius: 3, backgroundColor: palette.surface, borderWidth: 1, borderColor: palette.textA(0.08) }} />
     </View>
   );
@@ -92,7 +92,7 @@ function ThemePicker() {
                   overflow: 'hidden',
                   flexDirection: 'row',
                   borderWidth: selected ? 2 : 1,
-                  borderColor: selected ? C.ocean : t.textA(0.1),
+                  borderColor: selected ? t.primary : t.textA(0.1),
                 }}>
                 {option === 'system' ? (
                   <>
@@ -103,13 +103,13 @@ function ThemePicker() {
                   <MiniScreen palette={option === 'dark' ? DARK : LIGHT} />
                 )}
                 {selected ? (
-                  <View style={{ position: 'absolute', top: 5, right: 5, width: 18, height: 18, borderRadius: 9, backgroundColor: C.ocean, alignItems: 'center', justifyContent: 'center' }}>
-                    <Check size={12} color={C.white} strokeWidth={3} />
+                  <View style={{ position: 'absolute', top: 5, right: 5, width: 18, height: 18, borderRadius: 9, backgroundColor: t.primary, alignItems: 'center', justifyContent: 'center' }}>
+                    <Check size={12} color={t.onPrimary} strokeWidth={3} />
                   </View>
                 ) : null}
               </View>
               <Row gap={5}>
-                <Icon size={14} color={selected ? t.oceanInk : t.textA(0.55)} />
+                <Icon size={14} color={selected ? t.primaryInk : t.textA(0.55)} />
                 <T w={selected ? 800 : 600} size={12.5} color={selected ? t.text : t.textA(0.6)}>
                   {label}
                 </T>
@@ -139,7 +139,7 @@ export default function Konto() {
           <View>
             <Avatar initials="KN" g={1} size={78} ring={{ width: 4, color: t.surface }} />
             <View style={{ position: 'absolute', right: 0, bottom: 0, width: 28, height: 28, borderRadius: 14, backgroundColor: t.surface, alignItems: 'center', justifyContent: 'center', boxShadow: t.shadow.soft }}>
-              <Pencil size={14} color={t.oceanInk} />
+              <Pencil size={14} color={t.primaryInk} />
             </View>
           </View>
           <View style={{ flex: 1 }}>
@@ -167,7 +167,7 @@ export default function Konto() {
         </Card>
 
         <LinearGradient
-          colors={[C.navy, '#16457A']}
+          colors={t.deep}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           style={{ marginTop: 12, borderRadius: 24, padding: 16, overflow: 'hidden', borderWidth: 1, borderColor: t.surfaceEdge }}>
@@ -185,8 +185,8 @@ export default function Konto() {
               </T>
             </View>
             <Row gap={6} style={{ height: 36, paddingHorizontal: 16, borderRadius: 18, backgroundColor: C.white }}>
-              <Plus size={16} color={C.navy} />
-              <T w={800} size={13} color={C.navy}>
+              <Plus size={16} color={t.deep[1]} />
+              <T w={800} size={13} color={t.deep[1]}>
                 Doładuj
               </T>
             </Row>
@@ -205,7 +205,7 @@ export default function Konto() {
         <Row gap={8} style={{ flexWrap: 'wrap' }}>
           <Chip height={32} label="Tenis · NTRP 3.5" icon={<SportIcon sport="tenis" />} />
           <Chip height={32} label="Pływanie" icon={<Waves size={16} color={t.text} />} />
-          <Chip height={32} icon={<Plus size={16} color={t.oceanInk} />} />
+          <Chip height={32} icon={<Plus size={16} color={t.primaryInk} />} />
         </Row>
 
         <Card style={{ marginTop: 16, paddingHorizontal: 16, paddingVertical: 4 }}>

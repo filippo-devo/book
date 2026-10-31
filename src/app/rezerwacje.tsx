@@ -29,7 +29,7 @@ function DateTile({ dow, day, month, accent }: { dow: string; day: string; month
   );
   const box = { width: 58, height: 66, borderRadius: 18, alignItems: 'center' as const, justifyContent: 'center' as const };
   return accent ? (
-    <LinearGradient colors={[C.ocean, C.sea]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={box}>
+    <LinearGradient colors={t.deep} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={box}>
       {content}
     </LinearGradient>
   ) : (
@@ -78,9 +78,9 @@ function PastRow({ kind, title, sub, rated }: { kind: 'squash' | 'pool'; title: 
         </T>
       </View>
       {rated ? (
-        <Row gap={4} style={{ height: 32, paddingHorizontal: 12, borderRadius: 16, backgroundColor: t.oceanTint }}>
-          <RotateCcw size={14} color={t.oceanInk} />
-          <T w={800} size={12} color={t.oceanInk}>
+        <Row gap={4} style={{ height: 32, paddingHorizontal: 12, borderRadius: 16, backgroundColor: t.primaryTint }}>
+          <RotateCcw size={14} color={t.primaryInk} />
+          <T w={800} size={12} color={t.primaryInk}>
             Ponów
           </T>
         </Row>
@@ -117,7 +117,7 @@ export default function Rezerwacje() {
           <Photo kind="clay" style={{ height: 104 }}>
             <Row style={{ position: 'absolute', left: 14, right: 14, bottom: 14, justifyContent: 'space-between', alignItems: 'flex-end' }}>
               <View>
-                <Pill bg={whiteA(0.9)} color={C.navy} size={10.5} style={{ paddingHorizontal: 8, paddingVertical: 2 }}>
+                <Pill bg={whiteA(0.9)} color={C.ink} size={10.5} style={{ paddingHorizontal: 8, paddingVertical: 2 }}>
                   ZA 2 DNI
                 </Pill>
                 <T w={800} size={17} color={C.white} style={{ marginTop: 6, textShadowColor: 'rgba(11,37,69,0.4)', textShadowRadius: 6 }}>
@@ -125,7 +125,7 @@ export default function Rezerwacje() {
                 </T>
               </View>
               <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: whiteA(0.9), alignItems: 'center', justifyContent: 'center' }}>
-                <Navigation size={16} color={C.navy} />
+                <Navigation size={16} color={C.ink} />
               </View>
             </Row>
           </Photo>
@@ -155,7 +155,7 @@ export default function Rezerwacje() {
             color={t.seaInk}
             onPress={() => router.push('/potwierdzenie')}
           />
-          <BookingRow tile={<DateTile dow="Wt" day="10" month="lis" />} title="Fizjoterapia – kolano" sub="mgr Anna Wiśniewska · Sopot" status="Płatność na miejscu" time="9:00" color={t.oceanInk} />
+          <BookingRow tile={<DateTile dow="Wt" day="10" month="lis" />} title="Fizjoterapia – kolano" sub="mgr Anna Wiśniewska · Sopot" status="Płatność na miejscu" time="9:00" color={t.primaryInk} />
         </View>
 
         <Eyebrow style={{ marginTop: 20, marginBottom: 10 }}>Historia</Eyebrow>

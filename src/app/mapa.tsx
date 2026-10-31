@@ -101,20 +101,20 @@ export default function Mapa() {
         <MapArt />
       </Svg>
 
-      {pin(214, 222, <SportIcon sport="tenis" size={14} color={t.oceanInk} />, '120 zł')}
-      {pin(92, 360, <Waves size={14} color={t.oceanInk} />, '22 zł')}
-      {pin(160, 330, <SportIcon sport="squash" size={14} color={t.oceanInk} />, '60 zł')}
-      {pin(214, 410, <SportIcon sport="padel" size={14} color={t.oceanInk} />, '140 zł')}
-      {pin(74, 468, <SportIcon sport="orlik" size={14} color={t.oceanInk} />, '150 zł')}
+      {pin(214, 222, <SportIcon sport="tenis" size={14} color={t.primaryInk} />, '120 zł')}
+      {pin(92, 360, <Waves size={14} color={t.primaryInk} />, '22 zł')}
+      {pin(160, 330, <SportIcon sport="squash" size={14} color={t.primaryInk} />, '60 zł')}
+      {pin(214, 410, <SportIcon sport="padel" size={14} color={t.primaryInk} />, '140 zł')}
+      {pin(74, 468, <SportIcon sport="orlik" size={14} color={t.primaryInk} />, '150 zł')}
       {pin(244, 520, <SportIcon sport="tenis" size={16} color={C.white} />, '90 zł', true)}
-      <View style={[{ position: 'absolute', width: 44, height: 44, marginLeft: -22, marginTop: -22, borderRadius: 22, backgroundColor: C.ocean, borderWidth: 4, borderColor: t.surface, alignItems: 'center', justifyContent: 'center', boxShadow: t.shadow.soft }, at(64, 214)]}>
-        <T w={800} size={13} color={C.white}>
+      <View style={[{ position: 'absolute', width: 44, height: 44, marginLeft: -22, marginTop: -22, borderRadius: 22, backgroundColor: t.primary, borderWidth: 4, borderColor: t.surface, alignItems: 'center', justifyContent: 'center', boxShadow: t.shadow.soft }, at(64, 214)]}>
+        <T w={800} size={13} color={t.onPrimary}>
           +6
         </T>
       </View>
       <View style={[{ position: 'absolute' }, at(150, 500)]}>
         <View style={{ position: 'absolute', width: 96, height: 96, left: -48, top: -48, borderRadius: 48, backgroundColor: 'rgba(27,108,168,0.15)' }} />
-        <View style={{ position: 'absolute', width: 18, height: 18, left: -9, top: -9, borderRadius: 9, backgroundColor: C.ocean, borderWidth: 3, borderColor: t.surface }} />
+        <View style={{ position: 'absolute', width: 18, height: 18, left: -9, top: -9, borderRadius: 9, backgroundColor: t.primary, borderWidth: 3, borderColor: t.surface }} />
       </View>
 
       <LinearGradient colors={[t.bgA(0.95), t.bgA(0.6), t.bgA(0)]} locations={[0, 0.6, 1]} style={{ position: 'absolute', left: 0, right: 0, top: 0, height: top + 110 }} />
@@ -122,7 +122,7 @@ export default function Mapa() {
         <Row gap={10}>
           <WhiteBtn icon={ChevronLeft} size={50} onPress={() => router.back()} />
           <Row gap={12} style={{ flex: 1, height: 50, borderRadius: 25, backgroundColor: t.surface, borderWidth: 1, borderColor: t.surfaceEdge, paddingHorizontal: 16, boxShadow: t.shadow.soft }}>
-            <Search size={18} color={t.oceanInk} />
+            <Search size={18} color={t.primaryInk} />
             <View style={{ flex: 1 }}>
               <T w={800} size={13.5}>
                 Tenis w Gdyni
@@ -142,7 +142,7 @@ export default function Mapa() {
       </View>
       <View style={{ position: 'absolute', right: 16, top: height * 0.39, gap: 10 }}>
         <WhiteBtn icon={Layers} />
-        <WhiteBtn icon={LocateFixed} tint={t.oceanInk} />
+        <WhiteBtn icon={LocateFixed} tint={t.primaryInk} />
       </View>
 
       <View style={{ position: 'absolute', left: 16, right: 16, bottom: tabH + 12 }}>

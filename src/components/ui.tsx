@@ -88,7 +88,7 @@ export function Avatar({
         ring && { borderWidth: ring.width, borderColor: ring.color },
         style,
       ]}>
-      <T w={800} size={Math.max(11, Math.round(size * 0.36))} color={dark ? C.navy : C.white}>
+      <T w={800} size={Math.max(11, Math.round(size * 0.36))} color={dark ? C.ink : C.white}>
         {initials}
       </T>
     </LinearGradient>
@@ -134,7 +134,7 @@ export function RatingTag({ value, style }: { value: string; style?: StyleProp<V
   return (
     <Row gap={4} style={[{ backgroundColor: whiteA(0.92), borderRadius: 999, paddingHorizontal: 8, paddingVertical: 3, alignSelf: 'flex-start' }, style]}>
       <StarIcon size={11} />
-      <T w={800} size={11.5} color={C.navy}>
+      <T w={800} size={11.5} color={C.ink}>
         {value}
       </T>
     </Row>
@@ -216,7 +216,7 @@ export function SoftBtn({ icon: Icon, label, style, onPress }: { icon?: LucideIc
           height: 40,
           paddingHorizontal: 12,
           borderRadius: 20,
-          backgroundColor: t.oceanTint,
+          backgroundColor: t.primaryTint,
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
@@ -224,9 +224,9 @@ export function SoftBtn({ icon: Icon, label, style, onPress }: { icon?: LucideIc
         },
         style,
       ]}>
-      {Icon ? <Icon size={16} color={t.oceanInk} strokeWidth={1.9} /> : null}
+      {Icon ? <Icon size={16} color={t.primaryInk} strokeWidth={1.9} /> : null}
       {label ? (
-        <T w={700} size={13} color={t.oceanInk}>
+        <T w={700} size={13} color={t.primaryInk}>
           {label}
         </T>
       ) : null}
@@ -292,7 +292,7 @@ export function SectionHeader({ title, link, style, onPress }: { title: string; 
       </T>
       {link ? (
         <Pressable onPress={onPress}>
-          <T w={700} size={13} color={t.oceanInk}>
+          <T w={700} size={13} color={t.primaryInk}>
             {link}
           </T>
         </Pressable>
