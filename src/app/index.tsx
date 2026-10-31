@@ -1,6 +1,6 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import { ArrowUpRight, Bell, Calendar, Clock3, CloudSun, Ellipsis, Mic, Navigation, Plus, Sparkles, UserPlus } from 'lucide-react-native';
+import { ArrowUpRight, Bell, Calendar, Clock3, Ellipsis, Mic, Navigation, Plus, Sparkles, UserPlus } from 'lucide-react-native';
 import type { ReactNode } from 'react';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 
@@ -63,17 +63,15 @@ function MyAiCard() {
           <Mic size={26} color={C.white} />
         </View>
         <View style={{ flex: 1 }}>
-          <Row gap={8}>
-            <T w={800} size={20} color={C.white}>
-              My AI
+          <Row gap={4} style={{ alignSelf: 'flex-start', backgroundColor: '#BFF5EE', borderRadius: 999, paddingHorizontal: 7, paddingVertical: 2 }}>
+            <Sparkles size={12} color={C.ink} />
+            <T w={800} size={10.5} color={C.ink}>
+              głosowo
             </T>
-            <Row gap={4} style={{ backgroundColor: '#BFF5EE', borderRadius: 999, paddingHorizontal: 7, paddingVertical: 2 }}>
-              <Sparkles size={12} color={C.ink} />
-              <T w={800} size={10.5} color={C.ink}>
-                głosowo
-              </T>
-            </Row>
           </Row>
+          <T w={800} size={19} color={C.white} numberOfLines={1} style={{ marginTop: 4 }}>
+            Mój asystent
+          </T>
           <T size={13} color={whiteA(0.8)} style={{ marginTop: 2, lineHeight: 17 }}>
             „Znajdź kort w Orłowie{'\n'}na jutro po 18:00”
           </T>
@@ -89,24 +87,18 @@ function MyAiCard() {
 function Greeting() {
   const t = useTheme();
   return (
-    <Row style={{ justifyContent: 'space-between', alignItems: 'flex-start' }}>
-      <View>
-        <Row gap={6}>
-          <CloudSun size={14} color={t.textA(0.6)} />
-          <T w={700} size={12.5} color={t.textA(0.6)}>
-            Śr, 28 października · Gdynia 11°
-          </T>
-        </Row>
-        <T display size={32} color={t.text} style={{ marginTop: 8 }}>
-          Cześć, Kasia
-        </T>
-      </View>
-      <Row gap={10} style={{ paddingTop: 4 }}>
+    <Row style={{ justifyContent: 'space-between' }}>
+      <T display size={32} color={t.text}>
+        Cześć, Kasia
+      </T>
+      <Row gap={10}>
         <View>
           <GlassBtn icon={Bell} />
-          <View style={{ position: 'absolute', top: 9, right: 10, width: 8, height: 8, borderRadius: 4, backgroundColor: C.coral }} />
+          <View style={{ position: 'absolute', top: 10, right: 11, width: 8, height: 8, borderRadius: 4, backgroundColor: C.coral, borderWidth: 1.5, borderColor: t.surface }} />
         </View>
-        <Avatar initials="KN" g={1} size={42} ring={{ width: 2, color: t.textA(0.12) }} />
+        <Pressable onPress={() => router.navigate('/konto')}>
+          <Avatar initials="KN" g={1} size={42} />
+        </Pressable>
       </Row>
     </Row>
   );

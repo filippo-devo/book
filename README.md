@@ -8,8 +8,8 @@ To statyczny prototyp UI: bez backendu i stanu, z prostą nawigacją między ekr
 
 | Trasa | Ekran |
 | --- | --- |
-| `/` | Mój klub — powitanie, przycisk My AI, najbliższa rezerwacja, ulubione, polecane |
-| `/my-ai` | My AI — asystent głosowy w stanie „słucham”, transkrypcja, wyniki |
+| `/` | Mój klub — powitanie, przycisk Mój asystent, najbliższa rezerwacja, ulubione, polecane |
+| `/my-ai` | Mój asystent — asystent głosowy w stanie „słucham”, transkrypcja, wyniki |
 | `/znajdz` | Znajdź — wyszukiwarka, chipy sportów, karty obiektów |
 | `/mapa` | Znajdź — mapa Gdyni z pinezkami i kartą obiektu |
 | `/obiekt` | Profil obiektu — galeria, opinie, udogodnienia, cennik |
@@ -20,7 +20,8 @@ To statyczny prototyp UI: bez backendu i stanu, z prostą nawigacją między ekr
 | `/potwierdzenie` | Potwierdzenie rezerwacji |
 | `/opinia` | Wystaw opinię — oceny w kategoriach, zweryfikowana wizyta |
 | `/rezerwacje` | Rezerwacje — nadchodzące i historia |
-| `/konto` | Konto — profil, portfel, wybór motywu (systemowy / jasny / ciemny), ustawienia |
+| `/konto` | Konto — profil, statystyki, portfel, moje sporty |
+| `/ustawienia` | Ustawienia — wygląd (systemowy / jasny / ciemny), dane osobowe, opinie, płatności i BLIK, powiadomienia |
 
 Statyczne makiety HTML, od których zaczął się projekt: [`docs/przystan-makiety.html`](docs/przystan-makiety.html), podgląd: [`docs/podglad.png`](docs/podglad.png).
 

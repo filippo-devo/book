@@ -200,27 +200,16 @@ function Glow({ cx, cy, r, color, opacity }: { cx: number; cy: number; r: number
   );
 }
 
-/** Bathymetric contour lines, like on a sea chart, centred off the top-right corner. */
+/**
+ * Bathymetric contour lines, like on a sea chart: evenly spaced arcs around the top-right corner.
+ * Drawn at a fixed pixel size so they look the same on every screen, whatever the header height.
+ */
 function Contours({ color, opacity }: { color: string; opacity: number }) {
-  const rings = [60, 104, 150, 198, 248, 300, 354];
   return (
-    <Svg pointerEvents="none" style={StyleSheet.absoluteFill} width="100%" height="100%" viewBox="0 0 390 300" preserveAspectRatio="xMaxYMin slice">
-      <G fill="none" stroke={color} strokeOpacity={opacity} strokeWidth={1.1}>
-        {rings.map((r, i) => (
-          <Path
-            key={r}
-            d={`M ${410 - r} -10 C ${404 - r * 0.98} ${r * 0.55}, ${410 - r * 0.62} ${r * 0.98 + (i % 2) * 14}, ${410 - r * 0.08} ${r * 1.02} S 430 ${r * 0.9}, 440 ${r * 0.86}`}
-          />
-        ))}
-      </G>
-      <G fill={color} fillOpacity={opacity * 2.2}>
-        {[
-          [262, 58],
-          [318, 132],
-          [214, 162],
-          [356, 222],
-        ].map(([x, y]) => (
-          <Circle key={`${x}-${y}`} cx={x} cy={y} r={1.6} />
+    <Svg pointerEvents="none" width={390} height={320} style={{ position: 'absolute', top: 0, right: 0 }}>
+      <G fill="none" stroke={color} strokeOpacity={opacity} strokeWidth={1.2}>
+        {[70, 120, 170, 220, 270, 320].map((r) => (
+          <Circle key={r} cx={390} cy={0} r={r} />
         ))}
       </G>
     </Svg>
@@ -235,8 +224,8 @@ export function Hero({ top, bottom = 40, children, style }: { top: number; botto
   const t = useTheme();
   return (
     <View style={[{ overflow: 'hidden', paddingTop: top, paddingBottom: bottom }, style]}>
-      <Svg pointerEvents="none" style={StyleSheet.absoluteFill} width="100%" height="100%" viewBox="0 0 390 300" preserveAspectRatio="xMaxYMin slice">
-        <Glow cx={390} cy={0} r={260} color={t.hero.glow} opacity={t.hero.glowOpacity} />
+      <Svg pointerEvents="none" width={390} height={320} style={{ position: 'absolute', top: 0, right: 0 }}>
+        <Glow cx={390} cy={0} r={300} color={t.hero.glow} opacity={t.hero.glowOpacity} />
       </Svg>
       <Contours color={t.hero.lines} opacity={t.hero.linesOpacity} />
       {children}

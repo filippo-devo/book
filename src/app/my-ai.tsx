@@ -65,7 +65,7 @@ export default function MyAI() {
               <Row gap={6}>
                 <Sparkles size={16} color={C.sea} />
                 <T w={800} size={16} color={C.white}>
-                  My AI
+                  Mój asystent
                 </T>
               </Row>
               <T w={600} size={11} color={whiteA(0.5)}>
