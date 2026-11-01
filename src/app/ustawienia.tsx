@@ -30,7 +30,7 @@ function MiniScreen({ palette, style }: { palette: Theme; style?: object }) {
   return (
     <View style={[{ flex: 1, backgroundColor: palette.bg, padding: 6, gap: 4 }, style]}>
       <View style={{ height: 14, borderRadius: 4, backgroundColor: palette.deep[0] }} />
-      <View style={{ height: 8, width: '45%', borderRadius: 3, backgroundColor: C.coral }} />
+      <View style={{ height: 8, width: '45%', borderRadius: 3, backgroundColor: C.red }} />
       <View style={{ height: 8, width: '70%', borderRadius: 3, backgroundColor: palette.surface, borderWidth: 1, borderColor: palette.textA(0.08) }} />
     </View>
   );
@@ -124,8 +124,8 @@ export default function Ustawienia() {
           <SettingRow
             icon={Star}
             label="Moje opinie"
-            tint={t.seaInk}
-            bg={t.seaTint}
+            tint={t.mintInk}
+            bg={t.mintTint}
             right={
               <T w={700} size={12} color={t.textA(0.4)} style={{ marginRight: 4 }}>
                 12
@@ -135,12 +135,12 @@ export default function Ustawienia() {
           <SettingRow
             icon={Gift}
             label="Zaproś znajomych"
-            tint={C.coral}
-            bg={t.coralTint}
+            tint={C.red}
+            bg={t.redTint}
             last
             right={
-              <View style={{ backgroundColor: t.coralTint, borderRadius: 999, paddingHorizontal: 8, paddingVertical: 2, marginRight: 4 }}>
-                <T w={800} size={11} color={C.coral}>
+              <View style={{ backgroundColor: t.redTint, borderRadius: 999, paddingHorizontal: 8, paddingVertical: 2, marginRight: 4 }}>
+                <T w={800} size={11} color={C.red}>
                   +20 zł
                 </T>
               </View>

@@ -33,7 +33,7 @@ function DateTile({ dow, day, month, accent }: { dow: string; day: string; month
       {content}
     </LinearGradient>
   ) : (
-    <View style={[box, { backgroundColor: t.sand }]}>{content}</View>
+    <View style={[box, { backgroundColor: t.soft }]}>{content}</View>
   );
 }
 
@@ -85,9 +85,9 @@ function PastRow({ kind, title, sub, rated }: { kind: 'squash' | 'pool'; title: 
           </T>
         </Row>
       ) : (
-        <Pressable onPress={() => router.push('/opinia')} style={{ height: 32, paddingHorizontal: 12, borderRadius: 16, borderWidth: 1.5, borderColor: C.coral, flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-          <Star size={14} color={C.coral} />
-          <T w={800} size={12} color={C.coral}>
+        <Pressable onPress={() => router.push('/opinia')} style={{ height: 32, paddingHorizontal: 12, borderRadius: 16, borderWidth: 1.5, borderColor: t.primaryInk, flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+          <Star size={14} color={t.primaryInk} />
+          <T w={800} size={12} color={t.primaryInk}>
             Oceń
           </T>
         </Pressable>
@@ -121,7 +121,7 @@ export default function Rezerwacje() {
                   ZA 2 DNI
                 </Pill>
                 <T w={800} size={17} color={C.white} style={{ marginTop: 6, textShadowColor: 'rgba(11,37,69,0.4)', textShadowRadius: 6 }}>
-                  Arena Tenis Redłowo
+                  Arena Tenis Mokotów
                 </T>
               </View>
               <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: whiteA(0.9), alignItems: 'center', justifyContent: 'center' }}>
@@ -149,19 +149,19 @@ export default function Rezerwacje() {
           <BookingRow
             tile={<DateTile dow="Czw" day="5" month="lis" accent />}
             title="Trening personalny"
-            sub="Michał Kowalczyk · Fit Harbour"
+            sub="Michał Kowalczyk · Fit Studio"
             status="Opłacone"
             time="18:00"
-            color={t.seaInk}
+            color={t.mintInk}
             onPress={() => router.push('/potwierdzenie')}
           />
-          <BookingRow tile={<DateTile dow="Wt" day="10" month="lis" />} title="Fizjoterapia – kolano" sub="mgr Anna Wiśniewska · Sopot" status="Płatność na miejscu" time="9:00" color={t.primaryInk} />
+          <BookingRow tile={<DateTile dow="Wt" day="10" month="lis" />} title="Fizjoterapia – kolano" sub="mgr Anna Wiśniewska · Żoliborz" status="Płatność na miejscu" time="9:00" color={t.primaryInk} />
         </View>
 
         <Eyebrow style={{ marginTop: 20, marginBottom: 10 }}>Historia</Eyebrow>
         <View style={{ gap: 10 }}>
-          <PastRow kind="squash" title="Squash Point Sopot" sub="Sob, 24.10 · kort 2 · 60 min" />
-          <PastRow kind="pool" title="Morska Pływalnia Orłowo" sub="Śr, 21.10 · tor 4 · 45 min" rated />
+          <PastRow kind="squash" title="Squash Point Ursynów" sub="Sob, 24.10 · kort 2 · 60 min" />
+          <PastRow kind="pool" title="Pływalnia Wilanów" sub="Śr, 21.10 · tor 4 · 45 min" rated />
         </View>
       </View>
     </Screen>

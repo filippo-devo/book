@@ -5,14 +5,14 @@ import { View } from 'react-native';
 import { Photo, SportIcon } from '../components/art';
 import { CtaBar, Screen, useTopInset } from '../components/Screen';
 import { useTheme } from '../components/ThemeProvider';
-import { Avatar, Card, CoralBtn, GlassBtn, Pill, Row, SectionHeader, Stars, T } from '../components/ui';
+import { Avatar, Card, CtaBtn, GlassBtn, Pill, Row, SectionHeader, Stars, T } from '../components/ui';
 import { C, whiteA } from '../theme';
 
 function Amenity({ icon: Icon, label }: { icon: LucideIcon; label: string }) {
   const t = useTheme();
   return (
     <View style={{ alignItems: 'center', gap: 6 }}>
-      <View style={{ width: 52, height: 52, borderRadius: 17, backgroundColor: t.sand, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ width: 52, height: 52, borderRadius: 17, backgroundColor: t.soft, alignItems: 'center', justifyContent: 'center' }}>
         <Icon size={22} color={t.text} />
       </View>
       <T w={600} size={11} color={t.textA(0.7)}>
@@ -56,7 +56,7 @@ export default function Obiekt() {
       tab="znajdz"
       dark
       floating={
-        <CtaBar action={<CoralBtn label="Zarezerwuj" onPress={() => router.push('/termin')} />}>
+        <CtaBar action={<CtaBtn label="Zarezerwuj" onPress={() => router.push('/termin')} />}>
           <T w={600} size={11.5} color={t.textA(0.5)}>
             Wolne jutro od 18:00
           </T>
@@ -74,7 +74,7 @@ export default function Obiekt() {
           <GlassBtn icon={ChevronLeft} bg={whiteA(0.85)} tint={C.ink} onPress={() => router.back()} />
           <Row gap={8}>
             <GlassBtn icon={Share} bg={whiteA(0.85)} tint={C.ink} />
-            <GlassBtn icon={Heart} bg={whiteA(0.85)} tint={C.coral} />
+            <GlassBtn icon={Heart} bg={whiteA(0.85)} tint={C.red} />
           </Row>
         </Row>
         <Row gap={6} style={{ position: 'absolute', left: 16, bottom: 40 }}>
@@ -108,15 +108,15 @@ export default function Obiekt() {
               Padel
             </T>
           </Row>
-          <Pill icon={Trophy}>#2 w Trójmieście</Pill>
+          <Pill icon={Trophy}>#2 w Warszawie</Pill>
         </Row>
         <T display size={27} style={{ marginTop: 10 }}>
-          Arena Tenis Redłowo
+          Arena Tenis Mokotów
         </T>
         <Row gap={4} style={{ marginTop: 2 }}>
           <MapPin size={14} color={t.textA(0.55)} />
           <T size={12.5} color={t.textA(0.55)}>
-            ul. Legionów 130, Gdynia · 1,2 km · do 22:00
+            ul. Puławska 130, Warszawa · 1,2 km · do 22:00
           </T>
         </Row>
 
@@ -134,7 +134,7 @@ export default function Obiekt() {
           </View>
           <View style={{ flex: 1 }}>
             <T w={500} size={13} color={t.textA(0.8)} style={{ lineHeight: 18 }}>
-              „Najlepsza mączka w Trójmieście, korty równe nawet po deszczu.”
+              „Najlepsza mączka w Warszawie, korty równe nawet po deszczu.”
             </T>
             <Row gap={8} style={{ marginTop: 8 }}>
               <Avatar initials="PS" g={5} size={22} />
@@ -142,8 +142,8 @@ export default function Obiekt() {
                 Piotr S.
               </T>
               <Row gap={3}>
-                <BadgeCheck size={14} color={t.seaInk} />
-                <T w={700} size={11} color={t.seaInk}>
+                <BadgeCheck size={14} color={t.mintInk} />
+                <T w={700} size={11} color={t.mintInk}>
                   zweryfikowana
                 </T>
               </Row>

@@ -50,14 +50,14 @@ export default function Potwierdzenie() {
     <Screen tab="rez">
       <Hero top={top} bottom={0} style={{ height: top + 262 }}>
         {BUBBLES.map(([x, y, s]) => (
-          <View key={`${x}-${y}`} style={{ position: 'absolute', left: x, top: y, width: s, height: s, borderRadius: s / 2, borderWidth: 1, borderColor: 'rgba(46,196,182,0.45)' }} />
+          <View key={`${x}-${y}`} style={{ position: 'absolute', left: x, top: y, width: s, height: s, borderRadius: s / 2, borderWidth: 1, borderColor: 'rgba(43,181,142,0.45)' }} />
         ))}
         <View style={{ alignItems: 'center' }}>
           <View style={{ width: 150, height: 150, alignItems: 'center', justifyContent: 'center', marginTop: -32, marginBottom: -32 }}>
-            <View style={{ position: 'absolute', width: 150, height: 150, borderRadius: 75, backgroundColor: t.seaTint }} />
-            <View style={{ position: 'absolute', width: 118, height: 118, borderRadius: 59, backgroundColor: t.seaTint }} />
+            <View style={{ position: 'absolute', width: 150, height: 150, borderRadius: 75, backgroundColor: t.mintTint }} />
+            <View style={{ position: 'absolute', width: 118, height: 118, borderRadius: 59, backgroundColor: t.mintTint }} />
             <View style={{ width: 86, height: 86, borderRadius: 43, backgroundColor: t.surface, alignItems: 'center', justifyContent: 'center', boxShadow: t.shadow.float }}>
-              <LinearGradient colors={[t.primary, C.sea]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={{ width: 60, height: 60, borderRadius: 30, alignItems: 'center', justifyContent: 'center' }}>
+              <LinearGradient colors={[t.primary, t.primary]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={{ width: 60, height: 60, borderRadius: 30, alignItems: 'center', justifyContent: 'center' }}>
                 <Check size={32} color={C.white} strokeWidth={3} />
               </LinearGradient>
             </View>
@@ -86,8 +86,8 @@ export default function Potwierdzenie() {
                 Trening personalny · 60 min
               </T>
             </View>
-            <View style={{ backgroundColor: t.seaTint, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 4 }}>
-              <T w={800} size={10.5} color={t.seaInk} style={{ letterSpacing: 0.8 }}>
+            <View style={{ backgroundColor: t.mintTint, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 4 }}>
+              <T w={800} size={10.5} color={t.mintInk} style={{ letterSpacing: 0.8 }}>
                 OPŁACONE
               </T>
             </View>
@@ -100,7 +100,7 @@ export default function Potwierdzenie() {
           <View style={{ padding: 16, paddingBottom: 0, flexDirection: 'row', flexWrap: 'wrap' }}>
             <Info icon={Calendar} label="DATA" value="Czw, 5 listopada" />
             <Info icon={Clock3} label="GODZINA" value="18:00 – 19:00" />
-            <Info icon={MapPin} label="MIEJSCE" value="Fit Harbour" sub="ul. Świętojańska 32" />
+            <Info icon={MapPin} label="MIEJSCE" value="Fit Studio" sub="ul. Marszałkowska 32" />
             <Info icon={Wallet} label="PŁATNOŚĆ" value="180 zł · BLIK" />
           </View>
           <Row gap={12} style={{ marginHorizontal: 16, marginBottom: 16, borderRadius: 16, backgroundColor: t.bg, borderWidth: 1, borderColor: t.textA(0.06), padding: 12 }}>
@@ -123,8 +123,8 @@ export default function Potwierdzenie() {
           <SoftBtn icon={CalendarPlus} label="Do kalendarza" style={{ flex: 1, height: 48, backgroundColor: t.surface, boxShadow: t.shadow.card }} />
           <SoftBtn icon={Navigation} label="Nawiguj" style={{ flex: 1, height: 48, backgroundColor: t.surface, boxShadow: t.shadow.card }} />
         </Row>
-        <Row gap={10} style={{ marginTop: 12, borderRadius: 16, backgroundColor: t.sand, paddingHorizontal: 14, paddingVertical: 12 }}>
-          <ShieldCheck size={18} color={t.seaInk} />
+        <Row gap={10} style={{ marginTop: 12, borderRadius: 16, backgroundColor: t.soft, paddingHorizontal: 14, paddingVertical: 12 }}>
+          <ShieldCheck size={18} color={t.mintInk} />
           <T size={12} color={t.textA(0.7)} style={{ flex: 1, lineHeight: 17 }}>
             Bezpłatne odwołanie do{' '}
             <T w={800} size={12}>

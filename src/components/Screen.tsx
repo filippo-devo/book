@@ -1,32 +1,30 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { router, type Href } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { Anchor, CalendarCheck2, CircleUserRound, ConciergeBell, Search, type LucideIcon } from 'lucide-react-native';
+import { CalendarCheck2, CircleUserRound, ConciergeBell, House, Search, type LucideIcon } from 'lucide-react-native';
 import type { ReactNode } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { whiteA } from '../theme';
 import { useTheme } from './ThemeProvider';
 import { T } from './ui';
 
 export type TabKey = 'klub' | 'znajdz' | 'hosp' | 'rez' | 'konto';
 
 const TABS: { key: TabKey; href: Href; label: string; icon: LucideIcon }[] = [
-  { key: 'klub', href: '/', label: 'Mój klub', icon: Anchor },
+  { key: 'klub', href: '/', label: 'Mój klub', icon: House },
   { key: 'znajdz', href: '/znajdz', label: 'Znajdź', icon: Search },
   { key: 'hosp', href: '/hospitality', label: 'Hospitality', icon: ConciergeBell },
   { key: 'rez', href: '/rezerwacje', label: 'Rezerwacje', icon: CalendarCheck2 },
   { key: 'konto', href: '/konto', label: 'Konto', icon: CircleUserRound },
 ];
 
-const TAB_BAR_BASE = 64;
-const TAB_BAR_GAP = 10;
+const TAB_BAR_BASE = 60;
 
-/** Space the floating tab bar takes at the bottom of the screen, including its gap. */
+/** Height of the tab bar docked at the bottom, including the home-indicator area. */
 export function useTabBarHeight() {
   const insets = useSafeAreaInsets();
-  return TAB_BAR_BASE + Math.max(insets.bottom - 4, TAB_BAR_GAP) + TAB_BAR_GAP;
+  return TAB_BAR_BASE + Math.max(insets.bottom, 12);
 }
 
 /** Top padding for content that starts under the status bar. */
@@ -35,39 +33,37 @@ export function useTopInset(extra = 8) {
   return Math.max(insets.top, 24) + extra;
 }
 
-/** Floating deep-sea pill; Hospitality sits in the middle as a raised sea-green button. */
+/** Classic docked tab bar; Hospitality sits in the middle as a raised round button. */
 function TabBar({ active }: { active: TabKey }) {
   const t = useTheme();
-  const insets = useSafeAreaInsets();
+  const height = useTabBarHeight();
   const bar = t.tabBar;
   return (
     <View
       style={{
         position: 'absolute',
-        left: 12,
-        right: 12,
-        bottom: Math.max(insets.bottom - 4, TAB_BAR_GAP),
-        height: TAB_BAR_BASE,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        height,
         backgroundColor: bar.bg,
-        borderRadius: TAB_BAR_BASE / 2,
-        borderWidth: 1,
-        borderColor: t.scheme === 'dark' ? whiteA(0.08) : 'transparent',
-        boxShadow: t.shadow.tabBar,
+        borderTopWidth: 1,
+        borderColor: bar.edge,
         flexDirection: 'row',
-        alignItems: 'center',
-        paddingHorizontal: 6,
+        paddingTop: 8,
+        paddingHorizontal: 4,
       }}>
       {TABS.map(({ key, href, label, icon: Icon }) => {
         const isActive = key === active;
         if (key === 'hosp') {
           return (
             <Pressable key={key} onPress={() => router.navigate(href)} accessibilityLabel={label} style={{ flex: 1, alignItems: 'center' }}>
-              <View style={{ marginTop: -26, borderRadius: 26, borderWidth: 5, borderColor: t.bg, boxShadow: isActive ? `0px 0px 0px 2px ${bar.centerFrom}` : undefined }}>
+              <View style={{ marginTop: -24, borderRadius: 30, borderWidth: 4, borderColor: bar.bg, boxShadow: t.shadow.cta }}>
                 <LinearGradient
                   colors={[bar.centerFrom, bar.centerTo]}
                   start={{ x: 0, y: 0 }}
                   end={{ x: 1, y: 1 }}
-                  style={{ width: 54, height: 54, borderRadius: 21, alignItems: 'center', justifyContent: 'center' }}>
+                  style={{ width: 52, height: 52, borderRadius: 26, alignItems: 'center', justifyContent: 'center' }}>
                   <Icon size={25} color={bar.centerIcon} strokeWidth={2} />
                 </LinearGradient>
               </View>
@@ -132,12 +128,12 @@ export function Screen({
       ) : (
         children
       )}
-      {bg ? null : (
+      {bg || !floating ? null : (
         <LinearGradient
           pointerEvents="none"
           colors={[t.bgA(0), t.bgA(0.9), t.bg]}
           locations={[0, 0.45, 1]}
-          style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: tabH + (floating ? 90 : 26) }}
+          style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: tabH + 90 }}
         />
       )}
       {floating ? <View style={{ position: 'absolute', left: 12, right: 12, bottom: tabH + 10 }}>{floating}</View> : null}

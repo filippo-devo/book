@@ -1,9 +1,8 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import { Anchor, ChevronRight, Pencil, Plus, QrCode, Settings, Waves } from 'lucide-react-native';
+import { ChevronRight, Crown, Pencil, Plus, QrCode, Settings, Waves } from 'lucide-react-native';
 import type { ReactNode } from 'react';
 import { View } from 'react-native';
-import Svg, { Path } from 'react-native-svg';
 
 import { Hero, SportIcon } from '../components/art';
 import { Screen, useTopInset } from '../components/Screen';
@@ -27,8 +26,8 @@ function Stat({ value, label, border }: { value: string; label: string; border?:
 
 function Tag({ children, tint }: { children: ReactNode; tint?: boolean }) {
   return (
-    <View style={{ backgroundColor: tint ? 'rgba(46,196,182,0.25)' : whiteA(0.1), borderRadius: 999, paddingHorizontal: 10, paddingVertical: 4 }}>
-      <T w={700} size={11} color={tint ? '#BFF5EE' : C.white}>
+    <View style={{ backgroundColor: tint ? 'rgba(43,181,142,0.25)' : whiteA(0.1), borderRadius: 999, paddingHorizontal: 10, paddingVertical: 4 }}>
+      <T w={700} size={11} color={tint ? '#BBF7D0' : C.white}>
         {children}
       </T>
     </View>
@@ -57,12 +56,12 @@ export default function Konto() {
               Katarzyna Nowicka
             </T>
             <T size={12.5} color={t.textA(0.6)} style={{ marginTop: 2 }}>
-              Gdynia · w Przystani od 2024
+              Warszawa · w Przystani od 2024
             </T>
-            <Row gap={6} style={{ marginTop: 8, alignSelf: 'flex-start', backgroundColor: t.sand, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 4 }}>
-              <Anchor size={14} color={t.sandInk} />
+            <Row gap={6} style={{ marginTop: 8, alignSelf: 'flex-start', backgroundColor: t.soft, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 4 }}>
+              <Crown size={14} color={C.goldDark} />
               <T w={800} size={11.5}>
-                Poziom Kapitan · 1 240 pkt
+                Status Gold · 1 240 pkt
               </T>
             </Row>
           </View>
@@ -81,14 +80,10 @@ export default function Konto() {
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           style={{ marginTop: 12, borderRadius: 24, padding: 16, overflow: 'hidden', borderWidth: 1, borderColor: t.surfaceEdge }}>
-          <Svg pointerEvents="none" width={200} height={90} viewBox="0 0 200 90" style={{ position: 'absolute', right: 0, bottom: 0, opacity: 0.25 }} fill="none">
-            <Path d="M0 60 C 40 30, 80 90, 120 60 S 180 30, 200 50" stroke={C.sea} strokeWidth={1.5} />
-            <Path d="M0 75 C 40 45, 80 105, 120 75 S 180 45, 200 65" stroke={C.sea} strokeWidth={1.5} />
-          </Svg>
           <Row style={{ justifyContent: 'space-between' }}>
             <View>
               <T w={700} size={11.5} color={whiteA(0.6)} style={{ letterSpacing: 1 }}>
-                PORTFEL PRZYSTANI
+                PORTFEL
               </T>
               <T display size={28} color={C.white} style={{ marginTop: 2 }}>
                 120,00 zł

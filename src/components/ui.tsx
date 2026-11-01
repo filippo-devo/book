@@ -50,7 +50,7 @@ export function Row({ children, gap = 0, style }: { children: ReactNode; gap?: n
 
 export function Card({ children, style, onPress }: { children: ReactNode; style?: StyleProp<ViewStyle>; onPress?: () => void }) {
   const t = useTheme();
-  const base: ViewStyle = { backgroundColor: t.surface, borderRadius: 22, boxShadow: t.shadow.card, borderWidth: 1, borderColor: t.surfaceEdge };
+  const base: ViewStyle = { backgroundColor: t.surface, borderRadius: 18, boxShadow: t.shadow.card, borderWidth: 1, borderColor: t.surfaceEdge };
   if (onPress) {
     return (
       <Pressable onPress={onPress} style={[base, style]}>
@@ -97,7 +97,7 @@ export function Avatar({
 
 const STAR = 'M12 2.6l2.85 5.95 6.55.85-4.8 4.55 1.2 6.5L12 17.3l-5.8 3.15 1.2-6.5L2.6 9.4l6.55-.85z';
 
-export function StarIcon({ size = 14, color = C.sea, empty }: { size?: number; color?: string; empty?: boolean }) {
+export function StarIcon({ size = 14, color = C.gold, empty }: { size?: number; color?: string; empty?: boolean }) {
   const t = useTheme();
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24">
@@ -142,7 +142,7 @@ export function RatingTag({ value, style }: { value: string; style?: StyleProp<V
 }
 
 export function Verified({ size = 16 }: { size?: number }) {
-  return <BadgeCheck size={size} color={C.sea} strokeWidth={2.2} />;
+  return <BadgeCheck size={size} color={C.mint} strokeWidth={2.2} />;
 }
 
 /** Round icon button for headers; adapts to the backdrop via the current Ink. */
@@ -190,18 +190,18 @@ export function WhiteBtn({ icon: Icon, onPress, tint, size = 44 }: { icon: Lucid
   );
 }
 
-export function CoralBtn({ label, onPress, height = 50, full, size = 15 }: { label: string; onPress?: () => void; height?: number; full?: boolean; size?: number }) {
+export function CtaBtn({ label, onPress, height = 50, full, size = 15 }: { label: string; onPress?: () => void; height?: number; full?: boolean; size?: number }) {
   const t = useTheme();
   return (
-    <Pressable onPress={onPress} style={[{ borderRadius: height / 2, boxShadow: t.shadow.coral }, full && { alignSelf: 'stretch' }]}>
-      <LinearGradient
-        colors={['#FF7A6B', '#FF6B5B', '#F45E4E']}
-        locations={[0, 0.6, 1]}
-        style={{ height, borderRadius: height / 2, paddingHorizontal: height > 40 ? 24 : 16, alignItems: 'center', justifyContent: 'center' }}>
-        <T w={800} size={size} color={C.white}>
-          {label}
-        </T>
-      </LinearGradient>
+    <Pressable
+      onPress={onPress}
+      style={[
+        { height, borderRadius: 14, paddingHorizontal: height > 40 ? 24 : 16, alignItems: 'center', justifyContent: 'center', backgroundColor: t.primary },
+        full && { alignSelf: 'stretch' },
+      ]}>
+      <T w={800} size={size} color={t.onPrimary}>
+        {label}
+      </T>
     </Pressable>
   );
 }
@@ -310,7 +310,7 @@ export function Eyebrow({ children, style, color }: { children: ReactNode; style
   );
 }
 
-/** Small rounded label (e.g. „#2 w Trójmieście”, „ZA 2 DNI”). Defaults to the sand tone. */
+/** Small rounded label (e.g. „#2 w Warszawie”, „ZA 2 DNI”). Defaults to the sand tone. */
 export function Pill({
   children,
   bg,
@@ -329,7 +329,7 @@ export function Pill({
   const t = useTheme();
   const ink = color ?? t.text;
   return (
-    <View style={[{ flexDirection: 'row', alignItems: 'center', gap: 5, backgroundColor: bg ?? t.sand, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 4, alignSelf: 'flex-start' }, style]}>
+    <View style={[{ flexDirection: 'row', alignItems: 'center', gap: 5, backgroundColor: bg ?? t.soft, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 4, alignSelf: 'flex-start' }, style]}>
       {Icon ? <Icon size={13} color={ink} strokeWidth={2} /> : null}
       <T w={800} size={size} color={ink}>
         {children}

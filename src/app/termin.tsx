@@ -4,7 +4,7 @@ import { View } from 'react-native';
 
 import { CtaBar, Screen, useTopInset } from '../components/Screen';
 import { useTheme } from '../components/ThemeProvider';
-import { Avatar, Card, CoralBtn, Row, T, WhiteBtn } from '../components/ui';
+import { Avatar, Card, CtaBtn, Row, T, WhiteBtn } from '../components/ui';
 import { C } from '../theme';
 
 // Listopad 2026 zaczyna się w niedzielę; kalendarz od poniedziałku.
@@ -30,7 +30,7 @@ function Day({ d }: { d: number | null }) {
           {d}
         </T>
         {available && !selected ? (
-          <View style={{ position: 'absolute', bottom: 3, width: 4, height: 4, borderRadius: 2, backgroundColor: LAST_SPOTS.has(d) ? C.coral : C.sea }} />
+          <View style={{ position: 'absolute', bottom: 3, width: 4, height: 4, borderRadius: 2, backgroundColor: LAST_SPOTS.has(d) ? C.red : C.mint }} />
         ) : null}
       </View>
     </View>
@@ -69,7 +69,7 @@ export default function Termin() {
     <Screen
       tab="hosp"
       floating={
-        <CtaBar action={<CoralBtn label="Zarezerwuj" onPress={() => router.push('/potwierdzenie')} />}>
+        <CtaBar action={<CtaBtn label="Zarezerwuj" onPress={() => router.push('/potwierdzenie')} />}>
           <T w={600} size={11.5} color={t.textA(0.5)}>
             Czw, 5 lis · 18:00–19:00
           </T>
@@ -99,7 +99,7 @@ export default function Termin() {
               Trening personalny · 60 min
             </T>
             <T size={12} color={t.textA(0.5)}>
-              Michał Kowalczyk · Fit Harbour Gdynia
+              Michał Kowalczyk · Fit Studio
             </T>
           </View>
           <T w={700} size={12} color={t.primaryInk}>
@@ -118,13 +118,13 @@ export default function Termin() {
               </T>
               <Row gap={12} style={{ marginTop: 6 }}>
                 <Row gap={4}>
-                  <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: C.sea }} />
+                  <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: C.mint }} />
                   <T w={600} size={10.5} color={t.textA(0.45)}>
                     wolne
                   </T>
                 </Row>
                 <Row gap={4}>
-                  <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: C.coral }} />
+                  <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: C.red }} />
                   <T w={600} size={10.5} color={t.textA(0.45)}>
                     ostatnie miejsca
                   </T>

@@ -73,8 +73,8 @@ function RankRow({ pos, trend, initials, g, name, spec, score, rating, count, la
           <Minus size={14} color={t.textA(0.3)} />
         ) : (
           <Row>
-            {dir === 'up' ? <ChevronUp size={14} color={t.seaInk} /> : <ChevronDown size={14} color={C.coral} />}
-            <T w={800} size={10} color={dir === 'up' ? t.seaInk : C.coral}>
+            {dir === 'up' ? <ChevronUp size={14} color={t.mintInk} /> : <ChevronDown size={14} color={C.red} />}
+            <T w={800} size={10} color={dir === 'up' ? t.mintInk : C.red}>
               {delta}
             </T>
           </Row>
@@ -122,11 +122,11 @@ export default function Ranking() {
             <GlassBtn icon={Info} />
           </Row>
           <T display size={29} style={{ textAlign: 'center', marginTop: 12 }}>
-            Top trenerzy w Gdyni
+            Top trenerzy
           </T>
           <Row gap={8} style={{ justifyContent: 'center', marginTop: 12 }}>
             <Chip height={32} label="Trenerzy personalni" icon={<Dumbbell size={14} color={t.text} />} />
-            <Chip height={32} label="Gdynia" icon={<ChevronDown size={14} color={t.text} />} />
+            <Chip height={32} label="Warszawa" icon={<ChevronDown size={14} color={t.text} />} />
           </Row>
           <Row gap={4} style={{ justifyContent: 'center', alignItems: 'flex-end', marginTop: 34 }}>
             <Podium initials="JM" g={1} name="Julia Mazur" score="4.96" place={2} height={64} />
@@ -137,17 +137,17 @@ export default function Ranking() {
       </Hero>
 
       <View style={{ paddingHorizontal: 20, paddingTop: 16 }}>
-        <Row gap={8} style={{ backgroundColor: t.seaTint, borderRadius: 16, paddingHorizontal: 12, paddingVertical: 8, marginBottom: 4 }}>
-          <ShieldCheck size={16} color={t.seaInk} />
+        <Row gap={8} style={{ backgroundColor: t.mintTint, borderRadius: 16, paddingHorizontal: 12, paddingVertical: 8, marginBottom: 4 }}>
+          <ShieldCheck size={16} color={t.mintInk} />
           <T w={600} size={11.5} color={t.textA(0.6)} style={{ flex: 1 }}>
             Liczymy tylko zweryfikowane wizyty z ostatnich 90 dni
           </T>
         </Row>
-        <RankRow pos={4} trend={['up', '2']} initials="OL" g={5} name="Oliwia Lewandowska" spec="Crossfit · Obłuże" score="93,8" rating="4.93" count="167" />
-        <RankRow pos={5} trend={['eq', '']} initials="BN" g={2} name="Bartosz Nowak" spec="Kalistenika · Orłowo" score="92,4" rating="4.91" count="142" />
-        <RankRow pos={6} trend={['down', '1']} initials="ZK" g={4} name="Zuzanna Kamińska" spec="Biegi · Redłowo" score="91,9" rating="4.92" count="98" />
-        <RankRow pos={7} trend={['up', '4']} initials="TW" g={0} name="Tomasz Wójcik" spec="Boks · Chylonia" score="90,7" rating="4.89" count="121" />
-        <RankRow pos={8} trend={['down', '2']} initials="NS" g={1} name="Natalia Szymańska" spec="Joga · Sopot" score="89,5" rating="4.9" count="77" last />
+        <RankRow pos={4} trend={['up', '2']} initials="OL" g={5} name="Oliwia Lewandowska" spec="Crossfit · Wola" score="93,8" rating="4.93" count="167" />
+        <RankRow pos={5} trend={['eq', '']} initials="BN" g={2} name="Bartosz Nowak" spec="Kalistenika · Mokotów" score="92,4" rating="4.91" count="142" />
+        <RankRow pos={6} trend={['down', '1']} initials="ZK" g={4} name="Zuzanna Kamińska" spec="Biegi · Ursynów" score="91,9" rating="4.92" count="98" />
+        <RankRow pos={7} trend={['up', '4']} initials="TW" g={0} name="Tomasz Wójcik" spec="Boks · Praga" score="90,7" rating="4.89" count="121" />
+        <RankRow pos={8} trend={['down', '2']} initials="NS" g={1} name="Natalia Szymańska" spec="Joga · Żoliborz" score="89,5" rating="4.9" count="77" last />
       </View>
     </Screen>
   );

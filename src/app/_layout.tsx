@@ -1,4 +1,3 @@
-import { Fraunces_500Medium_Italic, Fraunces_600SemiBold } from '@expo-google-fonts/fraunces';
 import {
   PlusJakartaSans_400Regular,
   PlusJakartaSans_500Medium,
@@ -16,8 +15,6 @@ const TAB_ROOTS = ['index', 'znajdz', 'hospitality', 'rezerwacje', 'konto'];
 
 export default function RootLayout() {
   const [loaded] = useFonts({
-    Fraunces_600SemiBold,
-    Fraunces_500Medium_Italic,
     PlusJakartaSans_400Regular,
     PlusJakartaSans_500Medium,
     PlusJakartaSans_600SemiBold,

@@ -49,7 +49,7 @@ export function Segmented({ items, active }: { items: { label: string; icon?: Lu
               {label}
             </T>
             {badge ? (
-              <View style={{ backgroundColor: C.coral, borderRadius: 999, paddingHorizontal: 6, paddingVertical: 1 }}>
+              <View style={{ backgroundColor: C.red, borderRadius: 999, paddingHorizontal: 6, paddingVertical: 1 }}>
                 <T w={800} size={11} color={C.white}>
                   {badge}
                 </T>

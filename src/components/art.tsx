@@ -44,7 +44,7 @@ function PhotoArt({ kind }: { kind: PhotoKind }) {
           <Defs>
             <Grad
               id={`g-${kind}`}
-              stops={kind === 'clay' ? [[0, '#E59166'], [0.55, '#CC6640'], [1, '#A94E30']] : [[0, '#4FA3B2'], [0.55, '#2A7D8F'], [1, '#1B5E6E']]}
+              stops={kind === 'clay' ? [[0, '#E59166'], [0.55, '#CC6640'], [1, '#A94E30']] : [[0, '#8C9BF0'], [0.55, '#6576DB'], [1, '#4A57B8']]}
             />
           </Defs>
           <Rect width={400} height={240} fill={`url(#g-${kind})`} />
@@ -70,7 +70,7 @@ function PhotoArt({ kind }: { kind: PhotoKind }) {
             <Line key={x} x1={x} y1={0} x2={x} y2={240} stroke="#fff" strokeOpacity={0.75} strokeWidth={4} strokeDasharray="10 7" />
           ))}
           {lanes.map((x) => (
-            <Line key={`c${x}`} x1={x} y1={5} x2={x} y2={240} stroke={C.coral} strokeOpacity={0.8} strokeWidth={4} strokeDasharray="3 14" />
+            <Line key={`c${x}`} x1={x} y1={5} x2={x} y2={240} stroke={C.red} strokeOpacity={0.8} strokeWidth={4} strokeDasharray="3 14" />
           ))}
         </>
       );
@@ -123,10 +123,10 @@ function PhotoArt({ kind }: { kind: PhotoKind }) {
       return (
         <>
           <Defs>
-            <Grad id="g-stu" stops={[[0, '#1B4F5B'], [1, C.ink]]} />
+            <Grad id="g-stu" stops={[[0, '#2C3445'], [1, C.ink]]} />
           </Defs>
           <Rect width={400} height={240} fill="url(#g-stu)" />
-          <Circle cx={330} cy={40} r={70} fill={C.sea} fillOpacity={0.25} />
+          <Circle cx={330} cy={40} r={70} fill={C.sky} fillOpacity={0.3} />
           <G fill="#fff" fillOpacity={0.9}>
             <Rect x={110} y={114} width={180} height={10} rx={5} />
             <Rect x={92} y={88} width={20} height={62} rx={6} />
@@ -161,7 +161,7 @@ export function Photo({
       {gloss ? (
         <LinearGradient
           pointerEvents="none"
-          colors={['rgba(255,255,255,0.16)', 'rgba(255,255,255,0)', 'rgba(15,42,51,0.28)']}
+          colors={['rgba(255,255,255,0.16)', 'rgba(255,255,255,0)', 'rgba(37,26,44,0.28)']}
           locations={[0, 0.38, 1]}
           style={StyleSheet.absoluteFill}
         />
@@ -173,64 +173,9 @@ export function Photo({
 
 // ---------------------------------------------------------------- header backdrop
 
-export function WaveLines({ opacity = 0.14, color = '#fff', rows = [40, 78, 116, 154, 192] }: { opacity?: number; color?: string; rows?: number[] }) {
-  return (
-    <Svg pointerEvents="none" style={StyleSheet.absoluteFill} width="100%" height="100%" viewBox="0 0 390 240" preserveAspectRatio="xMidYMid slice">
-      <G fill="none" stroke={color} strokeOpacity={opacity} strokeWidth={1.2}>
-        {rows.map((y) => (
-          <Path key={y} d={`M-20 ${y} C 60 ${y - 26}, 130 ${y + 26}, 210 ${y} S 360 ${y - 26}, 420 ${y}`} />
-        ))}
-      </G>
-    </Svg>
-  );
-}
-
-function Glow({ cx, cy, r, color, opacity }: { cx: number; cy: number; r: number; color: string; opacity: number }) {
-  const id = `glow-${cx}-${cy}`;
-  return (
-    <>
-      <Defs>
-        <RadialGradient id={id} cx="50%" cy="50%" r="50%">
-          <Stop offset="0" stopColor={color} stopOpacity={opacity} />
-          <Stop offset="1" stopColor={color} stopOpacity={0} />
-        </RadialGradient>
-      </Defs>
-      <Circle cx={cx} cy={cy} r={r} fill={`url(#${id})`} />
-    </>
-  );
-}
-
-/**
- * Bathymetric contour lines, like on a sea chart: evenly spaced arcs around the top-right corner.
- * Drawn at a fixed pixel size so they look the same on every screen, whatever the header height.
- */
-function Contours({ color, opacity }: { color: string; opacity: number }) {
-  return (
-    <Svg pointerEvents="none" width={390} height={320} style={{ position: 'absolute', top: 0, right: 0 }}>
-      <G fill="none" stroke={color} strokeOpacity={opacity} strokeWidth={1.2}>
-        {[70, 120, 170, 220, 270, 320].map((r) => (
-          <Circle key={r} cx={390} cy={0} r={r} />
-        ))}
-      </G>
-    </Svg>
-  );
-}
-
-/**
- * Backdrop for the top of a screen: the plain page background with a warm glow and faint sea-chart contours,
- * so every screen shares one calm surface. `top` is the safe-area padding.
- */
+/** Top of a screen: plain page background with safe-area padding, so content stays calm and readable. */
 export function Hero({ top, bottom = 40, children, style }: { top: number; bottom?: number; children?: ReactNode; style?: StyleProp<ViewStyle> }) {
-  const t = useTheme();
-  return (
-    <View style={[{ overflow: 'hidden', paddingTop: top, paddingBottom: bottom }, style]}>
-      <Svg pointerEvents="none" width={390} height={320} style={{ position: 'absolute', top: 0, right: 0 }}>
-        <Glow cx={390} cy={0} r={300} color={t.hero.glow} opacity={t.hero.glowOpacity} />
-      </Svg>
-      <Contours color={t.hero.lines} opacity={t.hero.linesOpacity} />
-      {children}
-    </View>
-  );
+  return <View style={[{ paddingTop: top, paddingBottom: bottom }, style]}>{children}</View>;
 }
 
 // ---------------------------------------------------------------- AI orb & waveform
@@ -241,9 +186,9 @@ export function Orb({ size }: { size: number }) {
       <Defs>
         <RadialGradient id="orb" cx="34%" cy="28%" r="78%">
           <Stop offset="0" stopColor="#FFFFFF" />
-          <Stop offset="0.12" stopColor="#BFF7EF" />
-          <Stop offset="0.38" stopColor={C.sea} />
-          <Stop offset="0.72" stopColor="#1F6F7C" />
+          <Stop offset="0.12" stopColor="#DCE6FF" />
+          <Stop offset="0.38" stopColor="#7FA1FF" />
+          <Stop offset="0.72" stopColor={C.blue} />
           <Stop offset="1" stopColor={C.ink} />
         </RadialGradient>
         <SvgLinear id="orb-hl" x1="0" y1="0" x2="0" y2="1">
@@ -262,9 +207,9 @@ export function OrbGlow({ size }: { size: number }) {
     <Svg pointerEvents="none" width={size} height={size} viewBox="0 0 100 100" style={{ position: 'absolute' }}>
       <Defs>
         <RadialGradient id="halo" cx="50%" cy="50%" r="50%">
-          <Stop offset="0.35" stopColor={C.sea} stopOpacity={0.55} />
-          <Stop offset="0.65" stopColor="#1F6F7C" stopOpacity={0.25} />
-          <Stop offset="1" stopColor="#1F6F7C" stopOpacity={0} />
+          <Stop offset="0.35" stopColor={C.blue} stopOpacity={0.5} />
+          <Stop offset="0.65" stopColor={C.sky} stopOpacity={0.25} />
+          <Stop offset="1" stopColor={C.sky} stopOpacity={0} />
         </RadialGradient>
       </Defs>
       <Circle cx={50} cy={50} r={50} fill="url(#halo)" />
@@ -272,7 +217,7 @@ export function OrbGlow({ size }: { size: number }) {
   );
 }
 
-export function Waveform({ bars = 30, height = 26, color = C.sea }: { bars?: number; height?: number; color?: string }) {
+export function Waveform({ bars = 30, height = 26, color = C.sky }: { bars?: number; height?: number; color?: string }) {
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 3, height }}>
       {Array.from({ length: bars }, (_, i) => {
@@ -287,7 +232,7 @@ export function Waveform({ bars = 30, height = 26, color = C.sea }: { bars?: num
 
 // ---------------------------------------------------------------- laurel (ranking badge)
 
-export function Laurel({ size = 58, color = C.seaDark, mirror }: { size?: number; color?: string; mirror?: boolean }) {
+export function Laurel({ size = 58, color = C.goldDark, mirror }: { size?: number; color?: string; mirror?: boolean }) {
   const cx = 50;
   const cy = 50;
   const r = 34;

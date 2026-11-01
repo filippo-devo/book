@@ -12,7 +12,7 @@ import { C, whiteA } from '../theme';
 function MiniFilter({ icon: Icon, label }: { icon: LucideIcon; label: string }) {
   const t = useTheme();
   return (
-    <Row gap={5} style={{ height: 30, paddingHorizontal: 11, borderRadius: 999, backgroundColor: t.sand }}>
+    <Row gap={5} style={{ height: 30, paddingHorizontal: 11, borderRadius: 999, backgroundColor: t.soft }}>
       <Icon size={14} color={t.text} />
       <T w={600} size={12.5}>
         {label}
@@ -30,11 +30,11 @@ function Slot({ time, on }: { time: string; on?: boolean }) {
         paddingHorizontal: 10,
         borderRadius: 10,
         justifyContent: 'center',
-        backgroundColor: on ? t.seaTint : t.surface,
+        backgroundColor: on ? t.mintTint : t.surface,
         borderWidth: on ? 1.5 : 1,
-        borderColor: on ? 'rgba(46,196,182,0.6)' : t.textA(0.1),
+        borderColor: on ? 'rgba(43,181,142,0.6)' : t.textA(0.1),
       }}>
-      <T w={800} size={12.5} color={on ? t.seaInk : t.text}>
+      <T w={800} size={12.5} color={on ? t.mintInk : t.text}>
         {time}
       </T>
     </View>
@@ -47,7 +47,7 @@ function VenueCard({ kind, name, meta, rating, count, price, badge, isNew }: { k
     <Card style={{ overflow: 'hidden' }} onPress={() => router.push('/obiekt')}>
       <Photo kind={kind} style={{ height: 148 }}>
         {badge ? (
-          <Pill icon={Trophy} bg={C.sand} color={C.ink} style={{ position: 'absolute', top: 12, left: 12 }}>
+          <Pill icon={Trophy} bg={C.amberSoft} color={C.ink} style={{ position: 'absolute', top: 12, left: 12 }}>
             {badge}
           </Pill>
         ) : null}
@@ -57,7 +57,7 @@ function VenueCard({ kind, name, meta, rating, count, price, badge, isNew }: { k
           </Pill>
         ) : null}
         <View style={{ position: 'absolute', top: 12, right: 12, width: 36, height: 36, borderRadius: 18, backgroundColor: whiteA(0.9), alignItems: 'center', justifyContent: 'center' }}>
-          <Heart size={18} color={C.coral} fill={badge ? C.coral : 'transparent'} />
+          <Heart size={18} color={C.red} fill={badge ? C.red : 'transparent'} />
         </View>
         <Row gap={4} style={{ position: 'absolute', bottom: 12, right: 12 }}>
           <View style={{ width: 16, height: 6, borderRadius: 3, backgroundColor: C.white }} />
@@ -124,9 +124,9 @@ export default function Znajdz() {
             Znajdź
           </T>
           <Row gap={5} style={{ height: 34, paddingHorizontal: 12, borderRadius: 999, backgroundColor: t.surface, borderWidth: 1, borderColor: t.textA(0.08) }}>
-            <MapPin size={14} color={C.coral} />
+            <MapPin size={14} color={C.red} />
             <T w={700} size={12.5}>
-              Gdynia, Redłowo
+              Warszawa, Mokotów
             </T>
             <ChevronDown size={14} color={t.textA(0.4)} />
           </Row>
@@ -171,9 +171,9 @@ export default function Znajdz() {
           </Row>
         </Row>
         <View style={{ gap: 12 }}>
-          <VenueCard kind="clay" name="Arena Tenis Redłowo" meta="Tenis · padel · ul. Legionów 130 · 1,2 km" rating="4.9" count="312" price="80 zł" badge="#2 w Trójmieście" />
-          <VenueCard kind="hard" name="Padel Bałtyk Gdynia" meta="Padel · tenis · Mały Kack · 2,1 km" rating="4.8" count="96" price="120 zł" isNew />
-          <VenueCard kind="squash" name="Squash Point Sopot" meta="Squash · 4 korty · Sopot · 4,6 km" rating="4.7" count="204" price="60 zł" />
+          <VenueCard kind="clay" name="Arena Tenis Mokotów" meta="Tenis · padel · ul. Puławska 130 · 1,2 km" rating="4.9" count="312" price="80 zł" badge="#2 w Warszawie" />
+          <VenueCard kind="hard" name="Padel Club Wola" meta="Padel · tenis · Wola · 2,1 km" rating="4.8" count="96" price="120 zł" isNew />
+          <VenueCard kind="squash" name="Squash Point Ursynów" meta="Squash · 4 korty · Ursynów · 4,6 km" rating="4.7" count="204" price="60 zł" />
         </View>
       </View>
     </Screen>

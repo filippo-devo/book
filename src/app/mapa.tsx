@@ -9,13 +9,17 @@ import { Photo, SportIcon } from '../components/art';
 import { SportChips } from '../components/blocks';
 import { Screen, useTabBarHeight, useTopInset } from '../components/Screen';
 import { useTheme } from '../components/ThemeProvider';
-import { Card, CoralBtn, Rating, Row, T, WhiteBtn } from '../components/ui';
+import { Card, CtaBtn, Rating, Row, T, WhiteBtn } from '../components/ui';
 import { C, F } from '../theme';
 
 const MAP_W = 390;
 const MAP_H = 844;
+/** Near bank of the Vistula, top to bottom. */
 const COAST =
   'M272 0 C 262 120, 302 180, 294 262 C 288 330, 330 362, 320 432 C 308 520, 264 560, 272 640 C 278 720, 242 780, 238 844';
+/** Far bank of the river, drawn bottom to top so it closes the river shape with COAST. */
+const FAR_BANK =
+  'M330 844 C 334 780, 370 720, 364 640 C 356 560, 400 520, 412 432 C 422 362, 380 330, 386 262 C 394 180, 354 120, 364 0';
 const AVENUE = 'M152 0 C 162 150, 204 262, 198 384 C 192 502, 158 602, 168 844';
 
 function MapArt() {
@@ -38,8 +42,9 @@ function MapArt() {
       <Path d="M0 500 C 74 480, 124 548, 104 630 C 86 694, 34 716, 0 704 Z" fill={m.park} />
       <Path d="M232 268 C 262 254, 292 280, 288 318 C 284 352, 246 360, 232 336 C 222 316, 220 280, 232 268 Z" fill={m.parkAlt} />
       <Path d={COAST} fill="none" stroke={m.beach} strokeWidth={12} />
-      <Path d={`${COAST} L 390 844 L 390 0 Z`} fill="url(#sea)" />
-      <Path d="M318 418 L 360 410" stroke={m.road} strokeWidth={5} strokeLinecap="round" />
+      <Path d={FAR_BANK} fill="none" stroke={m.beach} strokeWidth={12} />
+      <Path d={`${COAST} L ${FAR_BANK.slice(1)} Z`} fill="url(#sea)" />
+      <Path d="M300 418 L 420 404" stroke={m.road} strokeWidth={6} strokeLinecap="round" />
       <Path d="M244 770 L 300 780" stroke={m.road} strokeWidth={5} strokeLinecap="round" />
       <G fill="none" stroke={m.road} strokeLinecap="round">
         <Path d="M0 196 L 280 232" strokeWidth={7} />
@@ -50,16 +55,16 @@ function MapArt() {
       <Path d={AVENUE} fill="none" stroke={m.avenueEdge} strokeWidth={13} strokeLinecap="round" />
       <Path d={AVENUE} fill="none" stroke={m.avenue} strokeWidth={9} strokeLinecap="round" />
       <Path d="M118 0 C 128 300, 138 500, 120 844" fill="none" stroke={m.rail} strokeWidth={2.5} strokeDasharray="7 5" />
-      <SvgText x={176} y={182} {...label}>KAMIENNA GÓRA</SvgText>
-      <SvgText x={20} y={300} {...label}>REDŁOWO</SvgText>
-      <SvgText x={210} y={470} {...label}>ORŁOWO</SvgText>
-      <SvgText x={18} y={520} {...label}>MAŁY KACK</SvgText>
-      <SvgText x={186} y={742} {...label}>SOPOT</SvgText>
+      <SvgText x={176} y={182} {...label}>MOKOTÓW</SvgText>
+      <SvgText x={20} y={300} {...label}>OCHOTA</SvgText>
+      <SvgText x={210} y={470} {...label}>SADYBA</SvgText>
+      <SvgText x={18} y={520} {...label}>SŁUŻEWIEC</SvgText>
+      <SvgText x={186} y={742} {...label}>WILANÓW</SvgText>
       <SvgText x={300} y={250} fontFamily={F[600]} fontSize={9} fill={m.label}>
-        Kępa Redłowska
+        Pole Mokotowskie
       </SvgText>
       <SvgText x={372} y={330} fontFamily={F.displayItalic} fontSize={17} fill={m.water} fillOpacity={0.75} transform="rotate(-80 372 330)">
-        Zatoka Gdańska
+        Wisła
       </SvgText>
     </>
   );
@@ -83,15 +88,15 @@ export default function Mapa() {
           height: selected ? 40 : 32,
           paddingHorizontal: selected ? 15 : 11,
           borderRadius: 999,
-          backgroundColor: selected ? C.coral : t.surface,
-          boxShadow: selected ? `0px 14px 26px -8px rgba(255,107,91,0.8), 0px 0px 0px 4px ${t.bgA(0.9)}` : t.shadow.soft,
+          backgroundColor: selected ? t.primary : t.surface,
+          boxShadow: selected ? `0px 14px 26px -8px rgba(37,87,232,0.6), 0px 0px 0px 4px ${t.bgA(0.9)}` : t.shadow.soft,
         }}>
         {icon}
         <T w={800} size={selected ? 15 : 13} color={selected ? C.white : t.text}>
           {price}
         </T>
       </Row>
-      <View style={{ width: 10, height: 10, marginTop: -6, borderRadius: 2, backgroundColor: selected ? C.coral : t.surface, transform: [{ rotate: '45deg' }] }} />
+      <View style={{ width: 10, height: 10, marginTop: -6, borderRadius: 2, backgroundColor: selected ? t.primary : t.surface, transform: [{ rotate: '45deg' }] }} />
     </View>
   );
 
@@ -125,7 +130,7 @@ export default function Mapa() {
             <Search size={18} color={t.primaryInk} />
             <View style={{ flex: 1 }}>
               <T w={800} size={13.5}>
-                Tenis w Gdyni
+                Tenis w Warszawie
               </T>
               <T w={600} size={11} color={t.textA(0.5)}>
                 Jutro · 18:00–21:00 · 2 os.
@@ -163,18 +168,18 @@ export default function Mapa() {
         </Row>
         <ScrollView horizontal pagingEnabled={false} showsHorizontalScrollIndicator={false} snapToInterval={width - 24} decelerationRate="fast" contentContainerStyle={{ gap: 8 }} style={{ marginHorizontal: -16 }}>
           {[
-            { kind: 'clay' as const, tag: 'KRYTY · ZIEMNY', name: 'Arena Tenis Redłowo', meta: '1,2 km · 312 zweryfikowanych opinii', price: '90 zł', rating: '4.9' },
-            { kind: 'hard' as const, tag: 'KRYTY · TWARDY', name: 'Kort Kamienna Góra', meta: '2,8 km · 141 zweryfikowanych opinii', price: '75 zł', rating: '4.7' },
+            { kind: 'clay' as const, tag: 'KRYTY · ZIEMNY', name: 'Arena Tenis Mokotów', meta: '1,2 km · 312 zweryfikowanych opinii', price: '90 zł', rating: '4.9' },
+            { kind: 'hard' as const, tag: 'KRYTY · TWARDY', name: 'Kort Służewiec', meta: '2,8 km · 141 zweryfikowanych opinii', price: '75 zł', rating: '4.7' },
           ].map((v, i) => (
             <Card key={v.name} onPress={() => router.push('/obiekt')} style={{ width: width - 32, marginLeft: i === 0 ? 16 : 0, padding: 12, borderRadius: 26, flexDirection: 'row', gap: 14, boxShadow: t.shadow.float }}>
               <Photo kind={v.kind} radius={18} style={{ width: 104, height: 112 }}>
                 <View style={{ position: 'absolute', top: 8, right: 8, width: 28, height: 28, borderRadius: 14, backgroundColor: 'rgba(255,255,255,0.9)', alignItems: 'center', justifyContent: 'center' }}>
-                  <Heart size={14} color={C.coral} fill={i === 0 ? C.coral : 'transparent'} />
+                  <Heart size={14} color={C.red} fill={i === 0 ? C.red : 'transparent'} />
                 </View>
               </Photo>
               <View style={{ flex: 1, paddingVertical: 2 }}>
                 <Row style={{ justifyContent: 'space-between' }}>
-                  <T w={800} size={10.5} color={t.seaInk} style={{ letterSpacing: 0.8 }}>
+                  <T w={800} size={10.5} color={t.mintInk} style={{ letterSpacing: 0.8 }}>
                     {v.tag}
                   </T>
                   <Rating value={v.rating} size={12} />
@@ -192,7 +197,7 @@ export default function Mapa() {
                     </T>{' '}
                     / h
                   </T>
-                  <CoralBtn label="Zarezerwuj" height={36} size={13} onPress={() => router.push('/termin')} />
+                  <CtaBtn label="Zarezerwuj" height={36} size={13} onPress={() => router.push('/termin')} />
                 </Row>
               </View>
             </Card>

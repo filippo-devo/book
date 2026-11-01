@@ -1,6 +1,6 @@
 # Przystań
 
-Prototyp aplikacji mobilnej (Expo / React Native) do rezerwacji obiektów sportowych — korty, orliki, squash, baseny, pilates — oraz specjalistów: trenerów, fizjoterapeutów, dietetyków i lekarzy sportowych. Z rankingami i zweryfikowanymi opiniami. Treści przykładowe z Trójmiasta.
+Prototyp aplikacji mobilnej (Expo / React Native) do rezerwacji obiektów sportowych — korty, orliki, squash, baseny, pilates — oraz specjalistów: trenerów, fizjoterapeutów, dietetyków i lekarzy sportowych. Z rankingami i zweryfikowanymi opiniami. Treści przykładowe z Warszawy; aplikacja jest pomyślana dla całej Polski.
 
 To statyczny prototyp UI: bez backendu i stanu, z prostą nawigacją między ekranami.
 
@@ -11,11 +11,11 @@ To statyczny prototyp UI: bez backendu i stanu, z prostą nawigacją między ekr
 | `/` | Mój klub — powitanie, przycisk Mój asystent, najbliższa rezerwacja, ulubione, polecane |
 | `/my-ai` | Mój asystent — asystent głosowy w stanie „słucham”, transkrypcja, wyniki |
 | `/znajdz` | Znajdź — wyszukiwarka, chipy sportów, karty obiektów |
-| `/mapa` | Znajdź — mapa Gdyni z pinezkami i kartą obiektu |
+| `/mapa` | Znajdź — mapa Warszawy z pinezkami i kartą obiektu |
 | `/obiekt` | Profil obiektu — galeria, opinie, udogodnienia, cennik |
 | `/hospitality` | Hospitality — kategorie specjalistów i lista |
 | `/specjalista` | Profil specjalisty — pozycja w rankingu, usługi, ceny, opinie |
-| `/ranking` | Ranking — top trenerzy w Gdyni |
+| `/ranking` | Ranking — top trenerzy w mieście |
 | `/termin` | Wybór terminu — kalendarz i sloty |
 | `/potwierdzenie` | Potwierdzenie rezerwacji |
 | `/opinia` | Wystaw opinię — oceny w kategoriach, zweryfikowana wizyta |
@@ -46,8 +46,8 @@ Wymaga sekretu repozytorium `EXPO_TOKEN` (expo.dev → Account settings → Acce
 
 ## Stos
 
-Expo SDK 58 · Expo Router · react-native-svg · expo-linear-gradient · lucide-react-native · Fraunces + Plus Jakarta Sans (`@expo-google-fonts`).
+Expo SDK 58 · Expo Router · react-native-svg · expo-linear-gradient · lucide-react-native · Plus Jakarta Sans (`@expo-google-fonts`).
 
-Paleta „Głębia”: ciepłe tło `#F5F1EA`, atrament `#0F2A33`, głębina `#0F4C5C` / `#134652` (bloki marki i tab bar), morska zieleń `#2EC4B6` (oceny, Hospitality), piasek `#EDE5D7`, koral `#FF6B5B` (tylko „Zarezerwuj”) — w [`src/theme.ts`](src/theme.ts).
+Paleta: prosta i unisex, w stylu aplikacji rezerwacyjnych. Jasnoszare tło `#F6F7F9`, białe karty z cienką ramką, grafitowy tekst `#14171F`, jeden sportowy akcent — niebieski `#2557E8` (przyciski, zaznaczenia, linki), grafitowe bloki dla karty asystenta, portfela i rankingu, zieleń `#16A34A` dla potwierdzonych i zweryfikowanych, złoto `#F5A524` dla ocen. Jeden krój pisma: Plus Jakarta Sans. Wszystko w [`src/theme.ts`](src/theme.ts).
 
 Motyw jasny i ciemny: kolory semantyczne (`LIGHT` / `DARK`) są w [`src/theme.ts`](src/theme.ts), a wybór użytkownika (systemowy / jasny / ciemny) zapisuje [`ThemeProvider`](src/components/ThemeProvider.tsx) w AsyncStorage. Ekrany pobierają kolory przez `useTheme()`.

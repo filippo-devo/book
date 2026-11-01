@@ -68,7 +68,7 @@ function SpecialistCard({
               {name}
             </T>
             {rank ? (
-              <View style={{ backgroundColor: t.sand, borderRadius: 8, paddingHorizontal: 7, paddingVertical: 2 }}>
+              <View style={{ backgroundColor: t.soft, borderRadius: 8, paddingHorizontal: 7, paddingVertical: 2 }}>
                 <T w={800} size={11}>
                   #{rank}
                 </T>
@@ -90,9 +90,9 @@ function SpecialistCard({
         </View>
       </Row>
       <Row style={{ justifyContent: 'space-between', marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderStyle: 'dashed', borderTopColor: t.textA(0.1) }}>
-        <Row gap={6} style={{ backgroundColor: t.seaTint, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 4 }}>
-          <Zap size={14} color={t.seaInk} />
-          <T w={700} size={12} color={t.seaInk}>
+        <Row gap={6} style={{ backgroundColor: t.mintTint, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 4 }}>
+          <Zap size={14} color={t.mintInk} />
+          <T w={700} size={12} color={t.mintInk}>
             {next}
           </T>
         </Row>
@@ -145,21 +145,21 @@ export default function Hospitality() {
           <Svg pointerEvents="none" width={150} height={150} style={{ position: 'absolute', right: -24, top: -40 }}>
             <Defs>
               <RadialGradient id="rk" cx="50%" cy="50%" r="50%">
-                <Stop offset="0" stopColor={C.sea} stopOpacity={0.4} />
-                <Stop offset="1" stopColor={C.sea} stopOpacity={0} />
+                <Stop offset="0" stopColor={C.blue} stopOpacity={0.5} />
+                <Stop offset="1" stopColor={C.blue} stopOpacity={0} />
               </RadialGradient>
             </Defs>
             <Circle cx={75} cy={75} r={75} fill="url(#rk)" />
           </Svg>
           <View style={{ width: 44, height: 44, borderRadius: 16, backgroundColor: whiteA(0.1), alignItems: 'center', justifyContent: 'center' }}>
-            <Trophy size={22} color={C.sand} />
+            <Trophy size={22} color={C.amberSoft} />
           </View>
           <View style={{ flex: 1 }}>
             <T w={800} size={14} color={C.white}>
               Ranking października
             </T>
             <T size={11.5} color={whiteA(0.55)}>
-              Top trenerzy w Gdyni · 1 240 wizyt
+              Top trenerzy w Warszawie · 1 240 wizyt
             </T>
           </View>
           <Row>
@@ -187,15 +187,15 @@ export default function Hospitality() {
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 20, gap: 8, marginBottom: 12 }}>
         <Chip label="Dostępni dziś" active height={32} />
-        <Chip label="Gdynia" height={32} />
+        <Chip label="Warszawa" height={32} />
         <Chip label="do 200 zł" height={32} />
         <Chip label="Online" height={32} />
       </ScrollView>
       <View style={{ paddingHorizontal: 20, gap: 12 }}>
         <SpecialistCard initials="MK" g={0} name="Michał Kowalczyk" role="Trener personalny · motoryka" rating="4.97" count="214" place="Śródmieście" next="Dziś 17:30" price="180 zł" rank={1} />
-        <SpecialistCard initials="AW" g={1} name="mgr Anna Wiśniewska" role="Fizjoterapeutka · urazy sportowe" rating="4.95" count="188" place="Sopot" next="Jutro 9:00" price="200 zł" />
-        <SpecialistCard initials="PZ" g={4} name="Paweł Zieliński" role="Dietetyk sportowy · biegacze" rating="4.92" count="96" place="Gdańsk Oliwa" next="Pt 12:00" price="160 zł" />
-        <SpecialistCard initials="TL" g={2} name="lek. Tomasz Lewandowski" role="Ortopeda · medycyna sportowa" rating="4.9" count="131" place="Gdynia Redłowo" next="Pn 15:20" price="250 zł" />
+        <SpecialistCard initials="AW" g={1} name="mgr Anna Wiśniewska" role="Fizjoterapeutka · urazy sportowe" rating="4.95" count="188" place="Żoliborz" next="Jutro 9:00" price="200 zł" />
+        <SpecialistCard initials="PZ" g={4} name="Paweł Zieliński" role="Dietetyk sportowy · biegacze" rating="4.92" count="96" place="Wilanów" next="Pt 12:00" price="160 zł" />
+        <SpecialistCard initials="TL" g={2} name="lek. Tomasz Lewandowski" role="Ortopeda · medycyna sportowa" rating="4.9" count="131" place="Ochota" next="Pn 15:20" price="250 zł" />
       </View>
     </Screen>
   );

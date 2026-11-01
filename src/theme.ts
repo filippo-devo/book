@@ -1,18 +1,23 @@
 /** Brand colours — identical in both colour schemes (accents, fills, text on accents). */
 export const C = {
-  ink: '#0F2A33',
-  sea: '#2EC4B6',
-  seaDark: '#0E8C80',
-  sand: '#EDE5D7',
-  coral: '#FF6B5B',
+  ink: '#14171F',
+  night: '#14171F',
+  blue: '#2557E8',
+  sky: '#8FB0FF',
+  red: '#EF4444',
+  mint: '#16A34A',
+  gold: '#F5A524',
+  goldDark: '#C98512',
+  amberSoft: '#FDEFD3',
   white: '#FFFFFF',
 };
 
 export const whiteA = (a: number) => `rgba(255,255,255,${a})`;
 
+/** One sans family everywhere; "display" is the heavy weight used for screen titles and big numbers. */
 export const F = {
-  display: 'Fraunces_600SemiBold',
-  displayItalic: 'Fraunces_500Medium_Italic',
+  display: 'PlusJakartaSans_800ExtraBold',
+  displayItalic: 'PlusJakartaSans_800ExtraBold',
   400: 'PlusJakartaSans_400Regular',
   500: 'PlusJakartaSans_500Medium',
   600: 'PlusJakartaSans_600SemiBold',
@@ -32,7 +37,7 @@ export type Theme = {
   /** Page background with alpha, for fades over content. */
   bgA: (a: number) => string;
   surface: string;
-  /** Hairline that separates a surface from the background (only visible in dark mode). */
+  /** Hairline around cards and bars. */
   surfaceEdge: string;
   text: string;
   /** Text colour with alpha, e.g. textA(0.5) for secondary text and hairlines. */
@@ -41,158 +46,152 @@ export type Theme = {
   /** High-contrast fill for selected chips, highlighted tiles etc. */
   inverse: string;
   onInverse: string;
-  /** Brand colour for selected states (slots, dates, price cards) and its text colour. */
+  /** The one accent: buttons, selected slots and dates, links. */
   primary: string;
   onPrimary: string;
-  /** Brand colour for links and icons on the page background. */
+  /** Accent for links and icons on the page background. */
   primaryInk: string;
   primaryTint: string;
-  /** The one deep colour block of a screen (My AI card, wallet, ranking banner, tab bar). */
+  /** Dark block for the few feature cards (assistant, wallet, ranking banner, podium). */
   deep: Pair;
-  /** Accent for icons and highlights placed on `deep`. */
-  onDeepAccent: string;
-  sand: string;
-  sandInk: string;
-  seaInk: string;
-  seaTint: string;
-  coralTint: string;
+  /** Light grey secondary surface (pills, date tiles, info boxes). */
+  soft: string;
+  softInk: string;
+  /** Positive states: confirmed, verified, available. */
+  mintInk: string;
+  mintTint: string;
+  redTint: string;
   segment: string;
   segmentOn: string;
   emptyStar: string;
-  /** Sea-chart contours drawn behind the top of a screen. */
-  hero: { lines: string; linesOpacity: number; glow: string; glowOpacity: number };
-  tabBar: { bg: string; icon: string; active: string; activeBg: string; centerFrom: string; centerTo: string; centerIcon: string };
+  tabBar: { bg: string; edge: string; icon: string; active: string; activeBg: string; centerFrom: string; centerTo: string; centerIcon: string };
   categories: { bg: string; ink: string }[];
   map: { land: string; grid: string; park: string; parkAlt: string; beach: string; seaFrom: string; seaTo: string; road: string; avenue: string; avenueEdge: string; rail: string; label: string; water: string };
-  shadow: { card: string; soft: string; float: string; coral: string; primary: string; tabBar: string };
+  shadow: { card: string; soft: string; float: string; cta: string; primary: string; tabBar: string };
 };
 
 const rgba = (rgb: string) => (a: number) => `rgba(${rgb},${a})`;
 
 export const LIGHT: Theme = {
   scheme: 'light',
-  bg: '#F5F1EA',
-  bgA: rgba('245,241,234'),
+  bg: '#F6F7F9',
+  bgA: rgba('246,247,249'),
   surface: '#FFFFFF',
-  surfaceEdge: 'transparent',
-  text: '#0F2A33',
-  textA: rgba('15,42,51'),
-  muted: '#8B9497',
-  inverse: '#0F2A33',
+  surfaceEdge: '#E9EBEF',
+  text: '#14171F',
+  textA: rgba('20,23,31'),
+  muted: '#8A909C',
+  inverse: '#14171F',
   onInverse: '#FFFFFF',
-  primary: '#0F4C5C',
+  primary: '#2557E8',
   onPrimary: '#FFFFFF',
-  primaryInk: '#0F5F6E',
-  primaryTint: 'rgba(15,76,92,0.08)',
-  deep: ['#134652', '#0B2D37'],
-  onDeepAccent: '#7FE0D4',
-  sand: '#EDE5D7',
-  sandInk: '#8A6430',
-  seaInk: '#0E8C80',
-  seaTint: 'rgba(46,196,182,0.14)',
-  coralTint: 'rgba(255,107,91,0.12)',
-  segment: '#EBE4D8',
+  primaryInk: '#1F4FD8',
+  primaryTint: 'rgba(37,87,232,0.08)',
+  deep: ['#1C2130', '#14171F'],
+  soft: '#EEF0F3',
+  softInk: '#4B5263',
+  mintInk: '#15803D',
+  mintTint: 'rgba(22,163,74,0.1)',
+  redTint: 'rgba(239,68,68,0.1)',
+  segment: '#ECEEF2',
   segmentOn: '#FFFFFF',
-  emptyStar: '#E3DCD0',
-  hero: { lines: '#0F4C5C', linesOpacity: 0.1, glow: '#E9DCC4', glowOpacity: 0.9 },
-  tabBar: { bg: '#0F3540', icon: 'rgba(255,255,255,0.55)', active: '#FFFFFF', activeBg: 'rgba(255,255,255,0.12)', centerFrom: '#3FD3C4', centerTo: '#22AFA2', centerIcon: '#0B2D37' },
+  emptyStar: '#E3E6EB',
+  tabBar: { bg: '#FFFFFF', edge: '#E9EBEF', icon: '#8A909C', active: '#1F4FD8', activeBg: 'transparent', centerFrom: '#2F63F0', centerTo: '#1F4FD8', centerIcon: '#FFFFFF' },
   categories: [
-    { bg: '#DCEAEA', ink: '#0F5F6E' },
-    { bg: '#D9F1EC', ink: '#0E8C80' },
-    { bg: '#EDE2CF', ink: '#8A6430' },
-    { bg: '#FBE2DC', ink: '#D9503F' },
+    { bg: '#FFFFFF', ink: '#1F4FD8' },
+    { bg: '#FFFFFF', ink: '#1F4FD8' },
+    { bg: '#FFFFFF', ink: '#1F4FD8' },
+    { bg: '#FFFFFF', ink: '#1F4FD8' },
   ],
   map: {
-    land: '#F1ECE2',
+    land: '#F2F3F5',
     grid: '#FFFFFF',
-    park: '#DCE9D6',
-    parkAlt: '#D3E4CD',
-    beach: '#EADCC3',
-    seaFrom: '#CDE8E6',
-    seaTo: '#A3D3D2',
+    park: '#DDEDDD',
+    parkAlt: '#D3E8D3',
+    beach: '#E6E8EC',
+    seaFrom: '#D3E2F7',
+    seaTo: '#B9D0F2',
     road: '#FFFFFF',
-    avenue: '#F6E2BE',
+    avenue: '#FBE7C4',
     avenueEdge: '#FFFFFF',
-    rail: '#C8C9C6',
-    label: 'rgba(15,42,51,0.4)',
-    water: '#2E8C94',
+    rail: '#C9CDD4',
+    label: 'rgba(20,23,31,0.4)',
+    water: '#4A72B8',
   },
   shadow: {
-    card: '0px 1px 2px rgba(15,42,51,0.04), 0px 14px 34px -18px rgba(15,42,51,0.2)',
-    soft: '0px 12px 30px -12px rgba(15,42,51,0.24)',
-    float: '0px 20px 44px -14px rgba(15,42,51,0.32)',
-    coral: '0px 14px 26px -10px rgba(255,107,91,0.7)',
-    primary: '0px 10px 20px -8px rgba(15,76,92,0.55)',
-    tabBar: '0px 18px 36px -12px rgba(11,45,55,0.55)',
+    card: '0px 1px 2px rgba(20,23,31,0.04)',
+    soft: '0px 6px 16px -8px rgba(20,23,31,0.16)',
+    float: '0px 14px 34px -12px rgba(20,23,31,0.22)',
+    cta: '0px 10px 20px -10px rgba(37,87,232,0.6)',
+    primary: '0px 8px 16px -8px rgba(37,87,232,0.5)',
+    tabBar: '0px -1px 0px rgba(20,23,31,0.04)',
   },
 };
 
 export const DARK: Theme = {
   scheme: 'dark',
-  bg: '#0B1517',
-  bgA: rgba('11,21,23'),
-  surface: '#142225',
-  surfaceEdge: 'rgba(255,255,255,0.06)',
-  text: '#EAF1EF',
-  textA: rgba('234,241,239'),
-  muted: '#76898C',
-  inverse: '#EAF1EF',
-  onInverse: '#0F2A33',
-  primary: '#2EC4B6',
-  onPrimary: '#06221F',
-  primaryInk: '#5FD3C6',
-  primaryTint: 'rgba(95,211,198,0.12)',
-  deep: ['#16444E', '#0F2F37'],
-  onDeepAccent: '#7FE0D4',
-  sand: '#1E2B2C',
-  sandInk: '#E3C9A2',
-  seaInk: '#4FD8CB',
-  seaTint: 'rgba(46,196,182,0.15)',
-  coralTint: 'rgba(255,107,91,0.15)',
-  segment: '#142225',
-  segmentOn: '#21363A',
-  emptyStar: '#2A3B3E',
-  hero: { lines: '#5FD3C6', linesOpacity: 0.07, glow: '#16444E', glowOpacity: 0.55 },
-  tabBar: { bg: '#17343B', icon: 'rgba(255,255,255,0.5)', active: '#FFFFFF', activeBg: 'rgba(255,255,255,0.1)', centerFrom: '#3FD3C4', centerTo: '#22AFA2', centerIcon: '#0B2D37' },
+  bg: '#0E1014',
+  bgA: rgba('14,16,20'),
+  surface: '#181B21',
+  surfaceEdge: 'rgba(255,255,255,0.07)',
+  text: '#F2F4F7',
+  textA: rgba('242,244,247'),
+  muted: '#868D99',
+  inverse: '#F2F4F7',
+  onInverse: '#14171F',
+  primary: '#4D7BFF',
+  onPrimary: '#FFFFFF',
+  primaryInk: '#7FA1FF',
+  primaryTint: 'rgba(77,123,255,0.14)',
+  deep: ['#232836', '#1A1E28'],
+  soft: '#20242C',
+  softInk: '#B9BFCB',
+  mintInk: '#4ADE80',
+  mintTint: 'rgba(74,222,128,0.12)',
+  redTint: 'rgba(239,68,68,0.16)',
+  segment: '#181B21',
+  segmentOn: '#2A2F39',
+  emptyStar: '#323742',
+  tabBar: { bg: '#15181E', edge: 'rgba(255,255,255,0.07)', icon: '#868D99', active: '#7FA1FF', activeBg: 'transparent', centerFrom: '#5A86FF', centerTo: '#3D6CF5', centerIcon: '#FFFFFF' },
   categories: [
-    { bg: '#15333A', ink: '#7FC6D0' },
-    { bg: '#11353A', ink: '#4FD8CB' },
-    { bg: '#2B2A25', ink: '#E3C9A2' },
-    { bg: '#3A2427', ink: '#FF8B7E' },
+    { bg: '#181B21', ink: '#7FA1FF' },
+    { bg: '#181B21', ink: '#7FA1FF' },
+    { bg: '#181B21', ink: '#7FA1FF' },
+    { bg: '#181B21', ink: '#7FA1FF' },
   ],
   map: {
-    land: '#0F1C1E',
+    land: '#15181D',
     grid: 'rgba(255,255,255,0.05)',
-    park: '#13302B',
-    parkAlt: '#15362F',
-    beach: '#2A3030',
-    seaFrom: '#0C3036',
-    seaTo: '#0F4148',
+    park: '#18291F',
+    parkAlt: '#1B2E22',
+    beach: '#252930',
+    seaFrom: '#16233A',
+    seaTo: '#1B2C4A',
     road: 'rgba(255,255,255,0.09)',
-    avenue: '#574629',
+    avenue: '#4A3D28',
     avenueEdge: 'rgba(255,255,255,0.12)',
     rail: 'rgba(255,255,255,0.18)',
-    label: 'rgba(234,241,239,0.38)',
-    water: '#5FD3C6',
+    label: 'rgba(242,244,247,0.38)',
+    water: '#8FB0FF',
   },
   shadow: {
-    card: '0px 1px 2px rgba(0,0,0,0.3), 0px 14px 34px -18px rgba(0,0,0,0.7)',
-    soft: '0px 12px 30px -12px rgba(0,0,0,0.6)',
-    float: '0px 20px 44px -14px rgba(0,0,0,0.7)',
-    coral: '0px 14px 26px -10px rgba(255,107,91,0.5)',
-    primary: '0px 10px 20px -8px rgba(46,196,182,0.45)',
-    tabBar: '0px 18px 36px -12px rgba(0,0,0,0.75)',
+    card: '0px 1px 2px rgba(0,0,0,0.3)',
+    soft: '0px 8px 20px -10px rgba(0,0,0,0.6)',
+    float: '0px 16px 36px -12px rgba(0,0,0,0.7)',
+    cta: '0px 10px 20px -10px rgba(77,123,255,0.5)',
+    primary: '0px 8px 16px -8px rgba(77,123,255,0.45)',
+    tabBar: '0px -1px 0px rgba(0,0,0,0.4)',
   },
 };
 
-/** Background of the always-dark My AI screen, top to bottom. */
-export const AI_GRADIENT = ['#17505B', '#0F3640', '#0A242B', '#071A1F'] as const;
+/** Background of the always-dark assistant screen, top to bottom. */
+export const AI_GRADIENT = ['#1E2433', '#171B26', '#12151D', '#0E1014'] as const;
 
 export const AVATAR_GRADIENTS: readonly (readonly [string, string])[] = [
-  ['#0F4C5C', '#2EC4B6'],
-  ['#FF6B5B', '#FFB48F'],
-  ['#0F2A33', '#2A6F7C'],
-  ['#2EC4B6', '#A6EDE3'],
-  ['#D9B48A', '#F1E6D3'],
-  ['#5E9A8E', '#BFDCD2'],
+  ['#2557E8', '#5C86F5'],
+  ['#F08A4B', '#F6B183'],
+  ['#14171F', '#3A4152'],
+  ['#16A34A', '#5CCB86'],
+  ['#C9CED8', '#E6E9EE'],
+  ['#0E9AA7', '#5CC6CF'],
 ];

@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import { Hero, Laurel } from '../components/art';
 import { CtaBar, Screen, useTopInset } from '../components/Screen';
 import { useTheme } from '../components/ThemeProvider';
-import { Avatar, Card, CoralBtn, GlassBtn, Row, StarIcon, Stars, T, Verified } from '../components/ui';
+import { Avatar, Card, CtaBtn, GlassBtn, Row, StarIcon, Stars, T, Verified } from '../components/ui';
 
 
 function Service({ name, meta, price, selected }: { name: string; meta: string; price: string; selected?: boolean }) {
@@ -60,7 +60,7 @@ export default function Specjalista() {
     <Screen
       tab="hosp"
       floating={
-        <CtaBar action={<CoralBtn label="Wybierz termin" onPress={() => router.push('/termin')} />}>
+        <CtaBar action={<CtaBtn label="Wybierz termin" onPress={() => router.push('/termin')} />}>
           <T w={600} size={11.5} color={t.textA(0.5)}>
             Trening personalny · 60 min
           </T>
@@ -88,7 +88,7 @@ export default function Specjalista() {
             </View>
           </View>
           <View style={{ flex: 1, paddingBottom: 6 }}>
-            <T w={800} size={10.5} color={t.seaInk} style={{ letterSpacing: 1 }}>
+            <T w={800} size={10.5} color={t.mintInk} style={{ letterSpacing: 1 }}>
               DOSTĘPNY DZIŚ
             </T>
             <T display size={25}>
@@ -102,11 +102,11 @@ export default function Specjalista() {
         <Row gap={4} style={{ marginTop: 2 }}>
           <MapPin size={14} color={t.textA(0.5)} />
           <T size={12.5} color={t.textA(0.5)}>
-            Fit Harbour, ul. Świętojańska 32, Gdynia
+            Fit Studio, ul. Marszałkowska 32, Warszawa
           </T>
         </Row>
 
-        <Row gap={14} style={{ marginTop: 16, borderRadius: 24, backgroundColor: t.sand, padding: 16 }}>
+        <Row gap={14} style={{ marginTop: 16, borderRadius: 24, backgroundColor: t.soft, padding: 16 }}>
           <Row>
             <Laurel size={58} color={t.primaryInk} />
             <T display size={36} style={{ marginHorizontal: -2 }}>
@@ -116,10 +116,10 @@ export default function Specjalista() {
           </Row>
           <View style={{ flex: 1 }}>
             <T w={800} size={14.5} style={{ lineHeight: 18 }}>
-              Trener personalny w Gdyni
+              Trener miesiąca
             </T>
             <T size={11.5} color={t.textA(0.55)} style={{ marginTop: 2, lineHeight: 15 }}>
-              Ranking październik 2026 · Top 1% na Pomorzu
+              Warszawa · październik 2026 · Top 1% w Polsce
             </T>
           </View>
         </Row>

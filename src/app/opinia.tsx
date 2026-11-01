@@ -6,7 +6,7 @@ import { View } from 'react-native';
 import { Hero } from '../components/art';
 import { Screen, useTopInset } from '../components/Screen';
 import { useTheme } from '../components/ThemeProvider';
-import { Avatar, Card, Chip, CoralBtn, Row, Stars, T, WhiteBtn } from '../components/ui';
+import { Avatar, Card, Chip, CtaBtn, Row, Stars, T, WhiteBtn } from '../components/ui';
 import { C, whiteA } from '../theme';
 
 function Criterion({ icon: Icon, label, n }: { icon: LucideIcon; label: string; n: number }) {
@@ -19,7 +19,7 @@ function Criterion({ icon: Icon, label, n }: { icon: LucideIcon; label: string; 
       </T>
       <Row gap={4} style={{ flex: 1 }}>
         {[0, 1, 2, 3, 4].map((i) => (
-          <View key={i} style={{ flex: 1, height: 8, borderRadius: 4, backgroundColor: i < n ? C.sea : t.textA(0.08) }} />
+          <View key={i} style={{ flex: 1, height: 8, borderRadius: 4, backgroundColor: i < n ? t.primary : t.textA(0.08) }} />
         ))}
       </Row>
       <T w={800} size={12.5} style={{ width: 16, textAlign: 'right' }}>
@@ -33,7 +33,7 @@ export default function Opinia() {
   const t = useTheme();
   const top = useTopInset(4);
   return (
-    <Screen tab="rez" floating={<CoralBtn label="Opublikuj opinię" height={54} size={16} full onPress={() => router.navigate('/rezerwacje')} />}>
+    <Screen tab="rez" floating={<CtaBtn label="Opublikuj opinię" height={54} size={16} full onPress={() => router.navigate('/rezerwacje')} />}>
       <Hero top={top} bottom={28} style={{ paddingHorizontal: 20 }}>
         <Row style={{ justifyContent: 'space-between' }}>
           <WhiteBtn icon={X} onPress={() => router.back()} />
@@ -50,14 +50,14 @@ export default function Opinia() {
           <View style={{ marginTop: 12 }}>
             <Stars n={5} size={36} gap={8} />
           </View>
-          <T w={800} size={13} color={t.seaInk} style={{ marginTop: 6 }}>
+          <T w={800} size={13} color={t.mintInk} style={{ marginTop: 6 }}>
             Rewelacyjnie!
           </T>
         </View>
       </Hero>
 
       <View style={{ paddingHorizontal: 20 }}>
-        <LinearGradient colors={[C.seaDark, C.sea]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={{ borderRadius: 20, padding: 12, paddingHorizontal: 14, flexDirection: 'row', alignItems: 'center', gap: 12, boxShadow: '0px 16px 30px -14px rgba(14,140,128,0.7)' }}>
+        <LinearGradient colors={['#1E9A77', C.mint]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={{ borderRadius: 20, padding: 12, paddingHorizontal: 14, flexDirection: 'row', alignItems: 'center', gap: 12, boxShadow: '0px 16px 30px -14px rgba(30,154,119,0.6)' }}>
           <View style={{ width: 36, height: 36, borderRadius: 18, backgroundColor: whiteA(0.15), alignItems: 'center', justifyContent: 'center' }}>
             <BadgeCheck size={20} color={C.white} />
           </View>

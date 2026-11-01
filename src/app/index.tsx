@@ -2,9 +2,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { ArrowUpRight, Bell, Calendar, Clock3, Ellipsis, Mic, Navigation, Plus, Sparkles, UserPlus } from 'lucide-react-native';
 import type { ReactNode } from 'react';
-import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { Pressable, ScrollView, View } from 'react-native';
 
-import { Hero, Orb, Photo, WaveLines } from '../components/art';
+import { Hero, Orb, Photo } from '../components/art';
 import { Screen, useTopInset } from '../components/Screen';
 import { useTheme } from '../components/ThemeProvider';
 import { Avatar, Card, GlassBtn, Pill, RatingTag, Row, SectionHeader, SoftBtn, T } from '../components/ui';
@@ -14,7 +14,7 @@ function Fav({ children, label }: { children: ReactNode; label: string }) {
   const t = useTheme();
   return (
     <View style={{ width: 62, alignItems: 'center', gap: 6 }}>
-      <View style={{ width: 60, height: 60, borderRadius: 30, padding: 3, backgroundColor: C.sea }}>
+      <View style={{ width: 60, height: 60, borderRadius: 30, padding: 3, backgroundColor: C.sky }}>
         <View style={{ flex: 1, borderRadius: 27, borderWidth: 2.5, borderColor: t.bg, overflow: 'hidden' }}>{children}</View>
       </View>
       <T w={600} size={11} color={t.textA(0.75)} style={{ textAlign: 'center', lineHeight: 13 }}>
@@ -53,9 +53,6 @@ function MyAiCard() {
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={{ flexDirection: 'row', alignItems: 'center', gap: 14, padding: 14, borderRadius: 30, overflow: 'hidden' }}>
-        <View style={StyleSheet.absoluteFill}>
-          <WaveLines opacity={0.1} rows={[70, 130, 190]} />
-        </View>
         <View style={{ width: 66, height: 66, borderRadius: 33, alignItems: 'center', justifyContent: 'center', borderWidth: 6, borderColor: whiteA(0.14) }}>
           <View style={{ position: 'absolute' }}>
             <Orb size={54} />
@@ -63,7 +60,7 @@ function MyAiCard() {
           <Mic size={26} color={C.white} />
         </View>
         <View style={{ flex: 1 }}>
-          <Row gap={4} style={{ alignSelf: 'flex-start', backgroundColor: '#BFF5EE', borderRadius: 999, paddingHorizontal: 7, paddingVertical: 2 }}>
+          <Row gap={4} style={{ alignSelf: 'flex-start', backgroundColor: '#DCE6FF', borderRadius: 999, paddingHorizontal: 7, paddingVertical: 2 }}>
             <Sparkles size={12} color={C.ink} />
             <T w={800} size={10.5} color={C.ink}>
               głosowo
@@ -73,7 +70,7 @@ function MyAiCard() {
             Mój asystent
           </T>
           <T size={13} color={whiteA(0.8)} style={{ marginTop: 2, lineHeight: 17 }}>
-            „Znajdź kort w Orłowie{'\n'}na jutro po 18:00”
+            „Znajdź kort na Mokotowie{'\n'}na jutro po 18:00”
           </T>
         </View>
         <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: C.white, alignItems: 'center', justifyContent: 'center' }}>
@@ -94,7 +91,7 @@ function Greeting() {
       <Row gap={10}>
         <View>
           <GlassBtn icon={Bell} />
-          <View style={{ position: 'absolute', top: 10, right: 11, width: 8, height: 8, borderRadius: 4, backgroundColor: C.coral, borderWidth: 1.5, borderColor: t.surface }} />
+          <View style={{ position: 'absolute', top: 10, right: 11, width: 8, height: 8, borderRadius: 4, backgroundColor: C.red, borderWidth: 1.5, borderColor: t.surface }} />
         </View>
         <Pressable onPress={() => router.navigate('/konto')}>
           <Avatar initials="KN" g={1} size={42} />
@@ -125,13 +122,13 @@ export default function MojKlub() {
             </Photo>
             <View style={{ flex: 1, paddingTop: 2 }}>
               <Row gap={6}>
-                <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: C.sea }} />
-                <T w={800} size={10.5} color={t.seaInk} style={{ letterSpacing: 0.8 }}>
+                <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: C.mint }} />
+                <T w={800} size={10.5} color={t.mintInk} style={{ letterSpacing: 0.8 }}>
                   POTWIERDZONA
                 </T>
               </Row>
               <T w={800} size={16} style={{ marginTop: 4 }}>
-                Arena Tenis Redłowo
+                Arena Tenis Mokotów
               </T>
               <T size={12.5} color={t.textA(0.55)} style={{ marginTop: 2 }}>
                 Kort ziemny nr 3 · hala · 90 min
@@ -167,14 +164,14 @@ export default function MojKlub() {
           <Fav label={'Michał\nKowalczyk'}>
             <Avatar initials="MK" g={0} size={50} />
           </Fav>
-          <Fav label={'Pływalnia\nOrłowo'}>
+          <Fav label={'Pływalnia\nWilanów'}>
             <Photo kind="pool" style={{ flex: 1 }} gloss={false} />
           </Fav>
           <Fav label={'Anna\nWiśniewska'}>
             <Avatar initials="AW" g={1} size={50} />
           </Fav>
           <Fav label="Dodaj">
-            <View style={{ flex: 1, backgroundColor: t.sand, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ flex: 1, backgroundColor: t.soft, alignItems: 'center', justifyContent: 'center' }}>
               <Plus size={20} color={t.text} />
             </View>
           </Fav>
@@ -183,9 +180,9 @@ export default function MojKlub() {
         <SectionHeader title="Polecane w okolicy" link="Mapa" style={{ marginTop: 24 }} onPress={() => router.navigate('/mapa')} />
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 20, gap: 12, paddingBottom: 18 }}>
-        <Recommended kind="pool" name="Morska Pływalnia Orłowo" meta="Basen 25 m · 1,4 km · od 22 zł" rating="4.8" />
-        <Recommended kind="pilates" name="Studio Bryza Pilates" meta="Reformer · Sopot · od 75 zł" rating="4.9" />
-        <Recommended kind="turf" name="Orlik Gdynia Obłuże" meta="Sztuczna trawa · 3,1 km · od 150 zł" rating="4.6" />
+        <Recommended kind="pool" name="Pływalnia Wilanów" meta="Basen 25 m · 1,4 km · od 22 zł" rating="4.8" />
+        <Recommended kind="pilates" name="Studio Flow Pilates" meta="Reformer · Powiśle · od 75 zł" rating="4.9" />
+        <Recommended kind="turf" name="Orlik Bielany" meta="Sztuczna trawa · 3,1 km · od 150 zł" rating="4.6" />
       </ScrollView>
     </Screen>
   );
